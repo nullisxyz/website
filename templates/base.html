@@ -14,7 +14,12 @@
         image="", is_404=false ) }} {% else %} {{ meta::meta_tags(
         title=config.title, description=config.description, url=config.base_url,
         image="", is_404=false ) }} {% endif %}
-        <title>{% block title %}{{ config.title }}{% endblock %}</title>
+        <title>
+            {% block title %} {% if section is defined and section.title %} {{
+            config.title }} | {{ section.title }} {% elif page is defined and
+            page.title %} {{ config.title }} | {{ page.title }} {% else %} {{
+            config.title }} {% endif %} {% endblock %}
+        </title>
         {% block head %}{% endblock %}
     </head>
     <body class="l-default">
