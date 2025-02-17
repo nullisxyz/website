@@ -11,6 +11,10 @@ html {
     @include media-up("md") {
         scroll-padding-top: var(--spacing-2xl);
     }
+
+    &.is-locked {
+        overflow: hidden;
+    }
 }
 
 body {
@@ -25,11 +29,19 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     @include transition(background-color 0.3s ease, color 0.3s ease);
+
+    &.is-loading {
+        cursor: wait;
+    }
+
+    &.has-overlay {
+        overflow: hidden;
+    }
 }
 
 ::selection {
-    background: rgba(var(--color-accent), 0.3);
-    color: var(--color-text);
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
 }
 
 // Scrollbar styling
@@ -44,7 +56,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
     background: var(--color-border);
-    border-radius: 4px;
+    border-radius: var(--site-radius-sm);
 
     &:hover {
         background: var(--color-border-hover);
@@ -55,6 +67,81 @@ body {
 :focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
+}
+
+// Accessibility
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+    padding: var(--spacing-sm) var(--spacing-md);
+    z-index: var(--z-tooltip);
+    @include transition(top);
+
+    &:focus {
+        top: 0;
+    }
+}
+
+// Page overlay
+.page-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(var(--color-primary), 0.5);
+    backdrop-filter: blur(5px);
+    z-index: var(--z-modal);
+    opacity: 0;
+    visibility: hidden;
+    @include transition(opacity, visibility);
+
+    &.is-active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// Loading indicator
+.page-loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: var(--z-fixed);
+    @include transition(transform);
+
+    &.is-loading {
+        animation: page-loading 2s infinite;
+    }
+}
+
+@keyframes page-loading {
+    0% {
+        transform: scaleX(0);
+    }
+    50% {
+        transform: scaleX(0.5);
+    }
+    100% {
+        transform: scaleX(1);
+    }
 }
 
 // Theme transitions
@@ -72,9 +159,33 @@ body {
 [data-theme="light"] {
     --shadow-color-rgb: 0, 0, 0;
     --page-background: var(--color-neutral-white);
+
+    .page-overlay {
+        --overlay-opacity: 0.5;
+    }
 }
 
 [data-theme="dark"] {
     --shadow-color-rgb: 0, 0, 0;
     --page-background: var(--color-primary);
+
+    .page-overlay {
+        --overlay-opacity: 0.8;
+    }
+}
+
+// Print styles
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    @page {
+        margin: 2cm;
+    }
+
+    .no-print {
+        display: none !important;
+    }
 }

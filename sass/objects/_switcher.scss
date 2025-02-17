@@ -12,11 +12,141 @@
         flex-basis: calc((var(--switcher-break, 30rem) - 100%) * 999);
     }
 
-    &--center {
-        justify-content: center;
+    // Threshold variants
+    &--sm {
+        --switcher-break: 20rem;
     }
 
+    &--lg {
+        --switcher-break: 40rem;
+    }
+
+    &--xl {
+        --switcher-break: 50rem;
+    }
+
+    // Alignment variants
+    &--center {
+        justify-content: center;
+        align-items: center;
+    }
+
+    &--start {
+        align-items: flex-start;
+    }
+
+    &--end {
+        align-items: flex-end;
+    }
+
+    &--stretch {
+        align-items: stretch;
+    }
+
+    // Direction variants
     &--reverse {
         flex-direction: row-reverse;
+    }
+
+    // Gap variants
+    &--gap-sm {
+        gap: var(--spacing-sm);
+    }
+
+    &--gap-lg {
+        gap: var(--spacing-lg);
+    }
+
+    // Distribution variants
+    &--distribute {
+        > * {
+            flex: 1;
+        }
+    }
+
+    // Limit variants
+    &--limit-2 > * {
+        flex-grow: 0;
+        flex-basis: calc((50% - var(--spacing-md)) * 999);
+    }
+
+    &--limit-3 > * {
+        flex-grow: 0;
+        flex-basis: calc((33.333% - var(--spacing-md)) * 999);
+    }
+
+    // Responsive variants
+    @include media-down("md") {
+        &--stack-md {
+            flex-direction: column;
+
+            > * {
+                flex-basis: 100% !important;
+            }
+        }
+    }
+
+    // With background
+    &--background {
+        background: var(--color-surface);
+        padding: var(--spacing-lg);
+        border-radius: var(--site-radius);
+
+        [data-theme="light"] & {
+            box-shadow: var(--site-shadow);
+        }
+
+        [data-theme="dark"] & {
+            border: 1px solid var(--color-border);
+        }
+    }
+
+    // With dividers
+    &--divided {
+        > * + * {
+            border-left: 1px solid var(--color-border);
+            padding-left: var(--spacing-md);
+        }
+
+        &.o-switcher--stack-md {
+            @include media-down("md") {
+                > * + * {
+                    border-left: none;
+                    border-top: 1px solid var(--color-border);
+                    padding-left: 0;
+                    padding-top: var(--spacing-md);
+                }
+            }
+        }
+    }
+
+    // With equal height columns
+    &--equal-height {
+        > * {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    // Animation variants
+    &--animate {
+        > * {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: switcher-item-fade-in 0.5s ease forwards;
+
+            @for $i from 1 through 5 {
+                &:nth-child(#{$i}) {
+                    animation-delay: #{$i * 0.1}s;
+                }
+            }
+        }
+    }
+}
+
+@keyframes switcher-item-fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

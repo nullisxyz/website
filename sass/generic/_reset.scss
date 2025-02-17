@@ -95,7 +95,7 @@ select {
 [data-theme="light"] {
     input::placeholder,
     textarea::placeholder {
-        color: var(--color-neutral-gray-400);
+        color: var(--color-text-muted);
     }
 
     // Default focus ring for light theme
@@ -108,7 +108,7 @@ select {
 [data-theme="dark"] {
     input::placeholder,
     textarea::placeholder {
-        color: var(--color-neutral-gray-600);
+        color: var(--color-text-muted);
     }
 
     // Default focus ring for dark theme
@@ -138,11 +138,11 @@ select {
 
 // Base link reset
 a {
-    color: var(--color-accent);
+    color: var(--color-link);
     text-decoration: none;
 
     &:hover {
-        color: var(--color-accent-light);
+        color: var(--color-link-hover);
     }
 }
 
@@ -159,8 +159,8 @@ input,
 select,
 textarea {
     background-color: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--site-radius);
     padding: var(--spacing-sm);
 
     &:focus {

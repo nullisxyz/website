@@ -1,139 +1,213 @@
-// components/_badge.scss
+// components/_alert.scss
 @use "../settings" as *;
 @use "../tools" as *;
 
-.c-badge {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-full, 9999px);
-    @include font-size("sm");
-    font-weight: var(--font-weight-medium);
-    line-height: 1;
-    @include transition(background-color, border-color, color, transform);
+.c-alert {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    border-radius: var(--site-radius);
+    gap: var(--spacing-sm);
+    @include transition(
+        background-color,
+        border-color,
+        color,
+        transform,
+        box-shadow
+    );
 
-    // Color variants
+    // Base variations
     &--primary {
-        background: var(--color-accent);
-        color: var(--color-text-inverse);
+        background: var(--color-button-primary);
+        color: var(--color-button-primary-text);
     }
 
     &--secondary {
-        background: var(--color-surface);
-        color: var(--color-text);
-        border: 1px solid var(--color-border);
+        background: var(--color-button-secondary);
+        color: var(--color-button-secondary-text);
+    }
+
+    // Status variations
+    &--error {
+        background: var(--color-status-error-bg);
+        color: var(--color-status-error);
     }
 
     &--success {
-        background: var(--color-status-success);
-        color: var(--color-text-inverse);
-    }
-
-    &--error {
-        background: var(--color-status-error);
-        color: var(--color-text-inverse);
+        background: var(--color-status-success-bg);
+        color: var(--color-status-success);
     }
 
     &--warning {
-        background: var(--color-status-warning);
-        color: var(--color-text);
+        background: var(--color-status-warning-bg);
+        color: var(--color-status-warning);
     }
 
-    // Size variants
+    &--info {
+        background: var(--color-status-info-bg);
+        color: var(--color-status-info);
+    }
+
+    // Alert icon
+    &__icon {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+    }
+
+    // Alert content
+    &__content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title {
+        font-weight: var(--font-weight-medium);
+        margin-bottom: var(--spacing-xs);
+    }
+
+    &__text {
+        color: inherit;
+        opacity: 0.9;
+    }
+
+    // Dismissible variation
+    &--dismissible {
+        padding-right: var(--spacing-xl);
+        position: relative;
+    }
+
+    &__close {
+        position: absolute;
+        top: var(--spacing-sm);
+        right: var(--spacing-sm);
+        padding: var(--spacing-xs);
+        color: currentColor;
+        opacity: 0.5;
+        cursor: pointer;
+        border: none;
+        background: none;
+        border-radius: var(--site-radius-sm);
+        @include transition(opacity, background-color);
+
+        &:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+        }
+    }
+
+    // Border variations
+    &--bordered {
+        border: 1px solid currentColor;
+        background: transparent;
+    }
+
+    // Size variations
     &--sm {
-        padding: 0.2rem var(--spacing-xs);
-        @include font-size("xs");
+        padding: var(--spacing-sm);
+        font-size: var(--font-size-sm);
+
+        .c-alert__icon {
+            width: 16px;
+            height: 16px;
+        }
     }
 
     &--lg {
-        padding: var(--spacing-sm) var(--spacing-md);
-        @include font-size("base");
-    }
+        padding: var(--spacing-lg);
+        font-size: var(--font-size-lg);
 
-    // With icon
-    &--with-icon {
-        gap: var(--spacing-xs);
-
-        .c-badge__icon {
-            width: 1em;
-            height: 1em;
-
-            svg {
-                width: 100%;
-                height: 100%;
-                fill: currentColor;
-            }
+        .c-alert__icon {
+            width: 24px;
+            height: 24px;
         }
     }
 
-    // Pill shape
-    &--pill {
-        border-radius: var(--border-radius-full);
+    // Animation variations
+    &--animate {
+        animation: alert-slide-in 0.3s ease-out;
     }
 
-    // Outline variant
-    &--outline {
-        background: transparent;
-        border: 1px solid currentColor;
+    &.is-dismissing {
+        animation: alert-slide-out 0.3s ease-out forwards;
+    }
+}
 
-        &.c-badge--primary {
-            color: var(--color-accent);
-        }
+// Animations
+@keyframes alert-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-1rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        &.c-badge--success {
-            color: var(--color-status-success);
-        }
+@keyframes alert-slide-out {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-1rem);
+    }
+}
 
-        &.c-badge--error {
-            color: var(--color-status-error);
-        }
+// Alert container for stacked alerts
+.c-alert-container {
+    position: fixed;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: var(--z-tooltip);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    max-width: 400px;
+    width: calc(100% - var(--spacing-lg) * 2);
 
-        &.c-badge--warning {
-            color: var(--color-status-warning);
-        }
+    .c-alert {
+        box-shadow: var(--site-shadow);
     }
 
-    // Dot indicator
-    &--dot {
-        &::before {
-            content: "";
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: currentColor;
-            margin-right: var(--spacing-xs);
-        }
+    // Position variations
+    &--top-left {
+        top: var(--spacing-lg);
+        left: var(--spacing-lg);
+        right: auto;
     }
 
-    // Interactive
-    &--interactive {
-        cursor: pointer;
-
-        &:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px var(--shadow-color);
-        }
-
-        &:active {
-            transform: translateY(0);
-        }
+    &--bottom-right {
+        top: auto;
+        bottom: var(--spacing-lg);
+        right: var(--spacing-lg);
     }
 
-    // Theme-specific adjustments
-    [data-theme="light"] & {
-        --badge-shadow: 0 1px 2px var(--shadow-color);
-
-        &--secondary {
-            background: var(--color-surface);
-        }
+    &--bottom-left {
+        top: auto;
+        bottom: var(--spacing-lg);
+        left: var(--spacing-lg);
+        right: auto;
     }
 
-    [data-theme="dark"] & {
-        --badge-shadow: 0 1px 2px var(--shadow-color-strong);
-
-        &--secondary {
-            background: var(--color-surface);
-        }
+    &--center {
+        top: var(--spacing-lg);
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
     }
 }

@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block content %}
-<div class="p-blog">
+<div class="p-blog{% if section.extra.animate %} p-blog--animate{% endif %}">
     <div class="o-container">
-        <header class="o-page-header o-page-header--center">
-            <h1 class="o-page-header__title">{{ section.title }}</h1>
+        <header class="p-blog__header">
+            <h1 class="p-blog__header-title">{{ section.title }}</h1>
             {% if section.description %}
-            <div class="o-page-header__text">
+            <div class="p-blog__header-description">
                 {{ section.description | markdown | safe }}
             </div>
             {% endif %}
@@ -16,10 +16,29 @@
                     {% if section.pages %}
                     <div class="o-stack o-stack--lg">
                         {% for page in section.pages %}
-                        <article class="c-card c-card--horizontal">
+                        <article class="c-card c-card--hover">
+                            {% if page.extra.image %}
+                            <div class="c-card__image-wrapper">
+                                <img
+                                    src="{{ page.extra.image }}"
+                                    alt="{{ page.title }}"
+                                    class="c-card__image"
+                                    loading="lazy"
+                                />
+                            </div>
+                            {% endif %}
+
                             <div class="c-card__body">
-                                <div class="o-cluster u-mb-sm">
-                                    {% if page.taxonomies and
+                                <div class="c-card__meta">
+                                    {% if page.date %}
+                                    <time
+                                        datetime="{{ page.date }}"
+                                        class="c-card__date"
+                                    >
+                                        {{ page.date | date(format="%B %d, %Y")
+                                        }}
+                                    </time>
+                                    {% endif %} {% if page.taxonomies and
                                     page.taxonomies.categories %} {% for
                                     category in page.taxonomies.categories %}
                                     <a
@@ -41,42 +60,71 @@
                                 <p class="c-card__text">
                                     {{ page.description }}
                                 </p>
+                                {% endif %} {% if page.taxonomies and
+                                page.taxonomies.tags %}
+                                <div class="c-card__tags">
+                                    {% for tag in page.taxonomies.tags %}
+                                    <a
+                                        href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
+                                        class="c-badge c-badge--secondary c-badge--sm"
+                                    >
+                                        {{ tag }}
+                                    </a>
+                                    {% endfor %}
+                                </div>
                                 {% endif %}
 
-                                <div
-                                    class="o-cluster o-cluster--space-between u-mt-md"
-                                >
-                                    <div class="o-cluster o-cluster--sm">
-                                        {% if page.date %}
-                                        <time
-                                            datetime="{{ page.date }}"
-                                            class="u-text-sm u-text-neutral-gray-300"
-                                        >
-                                            {{ page.date | date(format="%B %d,
-                                            %Y") }}
-                                        </time>
+                                <div class="c-card__footer">
+                                    {% if page.extra.author %}
+                                    <div class="c-card__author">
+                                        {% if page.extra.author.avatar %}
+                                        <img
+                                            src="{{ page.extra.author.avatar }}"
+                                            alt="{{ page.extra.author.name }}"
+                                            class="c-card__author-avatar"
+                                        />
                                         {% endif %}
+                                        <span class="c-card__author-name">
+                                            {{ page.extra.author.name }}
+                                        </span>
                                     </div>
-
-                                    {% if page.taxonomies and
-                                    page.taxonomies.tags %}
-                                    <div class="o-cluster o-cluster--sm">
-                                        {% for tag in page.taxonomies.tags %}
-                                        <a
-                                            href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
-                                            class="c-badge c-badge--secondary c-badge--sm"
-                                        >
-                                            {{ tag }}
-                                        </a>
-                                        {% endfor %}
-                                    </div>
+                                    {% endif %} {% if page.extra.read_time %}
+                                    <span class="c-card__read-time">
+                                        {{ page.extra.read_time }} min read
+                                    </span>
                                     {% endif %}
                                 </div>
                             </div>
                         </article>
                         {% endfor %}
                     </div>
-                    {% else %}
+
+                    {% if paginator %}
+                    <nav class="c-pagination" aria-label="Pagination">
+                        {% if paginator.previous %}
+                        <a
+                            href="{{ paginator.previous }}"
+                            class="c-pagination__item c-pagination__prev"
+                        >
+                            Previous
+                        </a>
+                        {% endif %}
+
+                        <span class="c-pagination__item c-pagination__current">
+                            Page {{ paginator.current_index }} of {{
+                            paginator.number_pagers }}
+                        </span>
+
+                        {% if paginator.next %}
+                        <a
+                            href="{{ paginator.next }}"
+                            class="c-pagination__item c-pagination__next"
+                        >
+                            Next
+                        </a>
+                        {% endif %}
+                    </nav>
+                    {% endif %} {% else %}
                     <div class="c-alert c-alert--info">
                         <div class="c-alert__content">
                             <p class="c-alert__text">
@@ -89,25 +137,78 @@
 
                 <aside class="p-blog__sidebar">
                     {% if config.extra.author %}
-                    <div class="c-card u-mb-lg">
+                    <div class="c-card c-card--glass">
                         <div class="c-card__body">
                             {% if config.extra.author.avatar %}
                             <img
                                 src="{{ config.extra.author.avatar }}"
                                 alt="{{ config.extra.author.name }}"
-                                class="u-rounded-full u-mb-md"
-                                width="80"
-                                height="80"
+                                class="c-card__author-avatar u-mb-md"
                             />
                             {% endif %}
-                            <h2 class="c-card__title u-mb-sm">
+
+                            <h2 class="c-card__title">
                                 {{ config.extra.author.name }}
                             </h2>
+
                             {% if config.extra.author.bio %}
                             <p class="c-card__text">
                                 {{ config.extra.author.bio }}
                             </p>
+                            {% endif %} {% if config.extra.author.social %}
+                            <div class="c-card__social">
+                                {% for platform, url in
+                                config.extra.author.social %}
+                                <a
+                                    href="{{ url }}"
+                                    class="c-button c-button--ghost c-button--sm"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {{ platform }}
+                                </a>
+                                {% endfor %}
+                            </div>
                             {% endif %}
+                        </div>
+                    </div>
+                    {% endif %} {% if config.extra.features.categories %}
+                    <div class="c-card c-card--glass">
+                        <div class="c-card__header">
+                            <h2 class="c-card__title">Categories</h2>
+                        </div>
+                        <div class="c-card__body">
+                            <div class="c-card__categories">
+                                {% for category in terms %}
+                                <a
+                                    href="{{ category.permalink }}"
+                                    class="c-badge {% if category.extra.primary %}c-badge--primary{% else %}c-badge--secondary{% endif %}"
+                                >
+                                    {{ category.name }}
+                                    <span class="c-badge__count"
+                                        >{{ category.pages | length }}</span
+                                    >
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %} {% if config.extra.features.tags %}
+                    <div class="c-card c-card--glass">
+                        <div class="c-card__header">
+                            <h2 class="c-card__title">Tags</h2>
+                        </div>
+                        <div class="c-card__body">
+                            <div class="c-card__tags">
+                                {% for tag in tags %}
+                                <a
+                                    href="{{ tag.permalink }}"
+                                    class="c-badge c-badge--secondary c-badge--sm"
+                                >
+                                    {{ tag.name }}
+                                </a>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
                     {% endif %}

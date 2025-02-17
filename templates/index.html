@@ -1,9 +1,14 @@
 {% extends "base.html" %} {% block content %}
-<div class="p-home">
+<div class="p-home{% if section.extra.animate %} p-home--animate{% endif %}">
     <section class="p-home__hero">
         <div class="o-container">
             <div class="p-home__hero-content">
-                <h1 class="p-home__hero-title">{{ section.title }}</h1>
+                <h1
+                    class="p-home__hero-title{% if config.extra.hero.gradient_title %} p-home__hero-title--gradient{% endif %}"
+                >
+                    {{ section.title }}
+                </h1>
+
                 {% if config.extra.hero.subtitle %}
                 <p class="p-home__hero-subtitle">
                     {{ config.extra.hero.subtitle }}
@@ -13,13 +18,18 @@
                     {{ config.extra.hero.description }}
                 </p>
                 {% endif %}
+
                 <div class="p-home__hero-cta">
                     {% for action in config.extra.hero.actions %}
                     <a
                         href="{{ action.url }}"
-                        class="c-button c-button--{{ action.style }}"
+                        class="c-button c-button--{{ action.style }}{% if action.size %} c-button--{{ action.size }}{% endif %}"
                     >
-                        {{ action.label }}
+                        {% if action.icon %}
+                        <span class="c-button__icon c-button__icon--left">
+                            {{ action.icon | safe }}
+                        </span>
+                        {% endif %} {{ action.label }}
                     </a>
                     {% endfor %}
                 </div>
@@ -27,73 +37,109 @@
         </div>
     </section>
 
-    <section class="p-home__section">
+    {% if config.extra.features.stats %}
+    <section class="p-home__stats">
         <div class="o-container">
-            <header class="p-home__section-header">
-                <h2 class="p-home__section-header-title">Featured Projects</h2>
-            </header>
-
             <div class="o-grid o-grid--3">
-                {% for project in config.extra.projects | slice(end=3) %}
-                <article class="c-card c-card--hover">
-                    {% if project.image %}
-                    <img
-                        src="{{ project.image }}"
-                        alt="{{ project.title }}"
-                        class="c-card__image c-card__image--top"
-                    />
-                    {% endif %}
-
-                    <div class="c-card__body">
-                        <h3 class="c-card__title">{{ project.title }}</h3>
-                        <p class="c-card__text">{{ project.description }}</p>
-                        <div class="o-cluster">
-                            {% for tag in project.tags %}
-                            <span class="c-badge c-badge--secondary"
-                                >{{ tag }}</span
-                            >
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                    <div class="c-card__footer">
-                        <a
-                            href="{{ project.url }}"
-                            class="c-button c-button--ghost"
-                            >View Project</a
-                        >
-                    </div>
-                </article>
+                {% for stat in config.extra.stats %}
+                <div class="c-stat">
+                    <div class="c-stat__value">{{ stat.value }}</div>
+                    <div class="c-stat__label">{{ stat.label }}</div>
+                </div>
                 {% endfor %}
             </div>
         </div>
     </section>
-
-    <section class="p-home__stats">
+    {% endif %} {% if config.extra.projects %}
+    <section class="s-featured-projects">
         <div class="o-container">
-            <div class="o-grid o-grid--3">
-                <div class="c-stat">
-                    <div class="c-stat__value">
-                        {{ config.extra.stats.years_experience }}
+            <header class="s-featured-projects__header">
+                <h2 class="s-featured-projects__header-title">
+                    {{ section.extra.featured_projects.title |
+                    default(value="Featured Projects") }}
+                </h2>
+                <p class="s-featured-projects__header-description">
+                    {{ section.extra.featured_projects.description |
+                    default(value="Check out some of my highlighted work") }}
+                </p>
+            </header>
+
+            <div class="s-featured-projects__grid">
+                {% for project in config.extra.projects %} {% if
+                project.featured and loop.index <= 3 %}
+                <article class="s-featured-projects__card">
+                    {% if project.image %}
+                    <div class="s-featured-projects__card-image-wrapper">
+                        <img
+                            src="{{ project.image }}"
+                            alt="{{ project.title }}"
+                            class="s-featured-projects__card-image"
+                            loading="lazy"
+                        />
                     </div>
-                    <div class="c-stat__label">Years Experience</div>
-                </div>
-                <div class="c-stat">
-                    <div class="c-stat__value">
-                        {{ config.extra.stats.projects_completed }}
+                    {% endif %}
+
+                    <div class="s-featured-projects__card-content">
+                        {% if project.category %}
+                        <div class="s-featured-projects__card-meta">
+                            <span class="s-featured-projects__card-category">
+                                {{ project.category }}
+                            </span>
+                        </div>
+                        {% endif %}
+
+                        <h3 class="s-featured-projects__card-title">
+                            {{ project.title }}
+                        </h3>
+
+                        {% if project.description %}
+                        <p class="s-featured-projects__card-description">
+                            {{ project.description }}
+                        </p>
+                        {% endif %} {% if project.tags %}
+                        <div class="s-featured-projects__card-tags">
+                            {% for tag in project.tags %}
+                            <span
+                                class="c-badge c-badge--secondary c-badge--sm"
+                            >
+                                {{ tag }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                        <div class="s-featured-projects__card-links">
+                            {% if project.url %}
+                            <a
+                                href="{{ project.url }}"
+                                class="c-button c-button--primary"
+                            >
+                                View Project
+                            </a>
+                            {% endif %} {% if project.github %}
+                            <a
+                                href="{{ project.github }}"
+                                class="c-button c-button--ghost"
+                            >
+                                Source Code
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
-                    <div class="c-stat__label">Projects Completed</div>
-                </div>
-                <div class="c-stat">
-                    <div class="c-stat__value">
-                        {{ config.extra.stats.happy_clients }}
-                    </div>
-                    <div class="c-stat__label">Happy Clients</div>
-                </div>
+                </article>
+                {% endif %} {% endfor %}
+            </div>
+
+            <div class="s-featured-projects__cta">
+                <a
+                    href="{{ get_url(path='@/projects.md') }}"
+                    class="c-button c-button--primary"
+                >
+                    View All Projects
+                </a>
             </div>
         </div>
     </section>
-
-    {{ section.content | safe }}
+    {% endif %} {{ section.content | safe }}
 </div>
 {% endblock %}

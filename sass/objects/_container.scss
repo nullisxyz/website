@@ -8,11 +8,9 @@
     margin-right: auto;
     padding-left: var(--spacing-md);
     padding-right: var(--spacing-md);
-    max-width: var(
-        --container-width,
-        var(--breakpoint-xl)
-    ); // Default max-width
+    max-width: var(--container-width, var(--breakpoint-xl));
 
+    // Size variants
     &--sm {
         max-width: var(--breakpoint-sm);
     }
@@ -29,6 +27,11 @@
         max-width: var(--breakpoint-xl);
     }
 
+    &--2xl {
+        max-width: var(--breakpoint-2xl);
+    }
+
+    // Special variants
     &--content {
         max-width: 75ch; // Optimal reading width
     }
@@ -39,5 +42,88 @@
 
     &--fluid {
         max-width: none;
+    }
+
+    // Padding variants
+    &--no-padding {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    &--padding-sm {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+    }
+
+    &--padding-lg {
+        padding-left: var(--spacing-lg);
+        padding-right: var(--spacing-lg);
+    }
+
+    // With vertical padding
+    &--with-vertical-padding {
+        padding-top: var(--spacing-xl);
+        padding-bottom: var(--spacing-xl);
+    }
+
+    // Responsive padding adjustments
+    @include media-down("sm") {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+
+        &--responsive-padding {
+            padding-left: var(--spacing-sm);
+            padding-right: var(--spacing-sm);
+        }
+    }
+
+    @include media-up("lg") {
+        &--responsive-padding {
+            padding-left: var(--spacing-lg);
+            padding-right: var(--spacing-lg);
+        }
+    }
+
+    // Nested containers
+    .o-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    // With background
+    &--with-background {
+        position: relative;
+        background: var(--color-surface);
+        border-radius: var(--site-radius);
+        padding-top: var(--spacing-xl);
+        padding-bottom: var(--spacing-xl);
+
+        [data-theme="light"] & {
+            box-shadow: var(--site-shadow);
+        }
+
+        [data-theme="dark"] & {
+            border: 1px solid var(--color-border);
+        }
+    }
+
+    // With overflow hidden
+    &--overflow-hidden {
+        overflow: hidden;
+    }
+
+    // With relative positioning
+    &--relative {
+        position: relative;
+    }
+
+    // Grid container
+    &--grid {
+        display: grid;
+        gap: var(--spacing-md);
+
+        @include media-up("md") {
+            grid-template-columns: repeat(var(--columns, 12), 1fr);
+        }
     }
 }

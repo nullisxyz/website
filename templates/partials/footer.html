@@ -1,64 +1,59 @@
-<div class="c-footer">
-    <div class="c-footer__container o-container">
+<div class="c-footer__wrapper">
+    <div class="c-footer__container">
         <div class="c-footer__section">
-            <h2 class="c-footer__section-title">{{ config.title }}</h2>
-            <div class="c-footer__section-content">
-                <p>{{ config.description }}</p>
+            <div class="c-footer__brand">
+                {% if config.extra.logo %}
+                <img
+                    src="{{ config.extra.logo }}"
+                    alt="{{ config.title | default(value='Site Title') }}"
+                    class="c-footer__brand-logo"
+                    width="48"
+                    height="48"
+                />
+                {% endif %}
+                <h2 class="c-footer__brand-title">
+                    {{ config.title | default(value='Site Title') }}
+                </h2>
             </div>
+            {% if config.description %}
+            <p class="c-footer__description">{{ config.description }}</p>
+            {% endif %}
         </div>
 
         <div class="c-footer__section">
-            <h2 class="c-footer__section-title">Links</h2>
-            <div class="c-footer__links">
-                {% for item in config.extra.menu %}
-                <a href="{{ item.url }}">{{ item.label }}</a>
+            <h3 class="c-footer__section-title">Links</h3>
+            <ul class="c-footer__links">
+                <li><a href="/blog" class="c-footer__link">Blog</a></li>
+                <li><a href="/projects" class="c-footer__link">Projects</a></li>
+                <li><a href="/about" class="c-footer__link">About</a></li>
+                <li><a href="/contact" class="c-footer__link">Contact</a></li>
+            </ul>
+        </div>
+
+        {% if config.extra.social_links %}
+        <div class="c-footer__section">
+            <h3 class="c-footer__section-title">Connect</h3>
+            <div class="c-footer__social">
+                {% for link in config.extra.social_links %}
+                <a
+                    href="{{ link.url }}"
+                    class="c-footer__social-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="{{ link.name }}"
+                >
+                    {{ link.icon | safe }}
+                </a>
                 {% endfor %}
             </div>
         </div>
-
-        <div class="c-footer__section">
-            <h2 class="c-footer__section-title">Connect</h2>
-            <div class="c-footer__social">
-                {% if config.extra.author.github %}
-                <a
-                    href="{{ config.extra.author.github }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub"
-                >
-                    <svg class="icon"><!-- GitHub icon --></svg>
-                </a>
-                {% endif %} {% if config.extra.author.twitter %}
-                <a
-                    href="https://twitter.com/{{ config.extra.author.twitter }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Twitter"
-                >
-                    <svg class="icon"><!-- Twitter icon --></svg>
-                </a>
-                {% endif %} {% if config.extra.author.linkedin %}
-                <a
-                    href="{{ config.extra.author.linkedin }}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn"
-                >
-                    <svg class="icon"><!-- LinkedIn icon --></svg>
-                </a>
-                {% endif %}
-            </div>
-        </div>
+        {% endif %}
     </div>
 
-    <div class="c-footer__bottom o-container">
-        <p>
-            &copy; {{ now() | date(format="%Y") }} {{ config.title }}. All
-            rights reserved.
-        </p>
-        <div class="c-footer__bottom-links">
-            <a href="{{ get_url(path='privacy') }}">Privacy Policy</a>
-            <a href="{{ get_url(path='terms') }}">Terms of Service</a>
+    <div class="c-footer__bottom">
+        <div class="c-footer__copyright">
+            &copy; {{ now() | date(format="%Y") }} {{ config.title |
+            default(value='Site Title') }}. All rights reserved.
         </div>
     </div>
 </div>

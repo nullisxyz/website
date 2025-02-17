@@ -4,7 +4,7 @@
 
 .o-grid {
     display: grid;
-    gap: var(--spacing-md);
+    gap: var(--grid-gap, var(--spacing-md));
 
     // Column variants
     &--2 {
@@ -37,6 +37,14 @@
         );
     }
 
+    // Auto-fill grid
+    &--auto-fill {
+        grid-template-columns: repeat(
+            auto-fill,
+            minmax(var(--min-column, 250px), 1fr)
+        );
+    }
+
     // Gap variants
     &--gap-sm {
         gap: var(--spacing-sm);
@@ -44,5 +52,111 @@
 
     &--gap-lg {
         gap: var(--spacing-lg);
+    }
+
+    &--gap-xl {
+        gap: var(--spacing-xl);
+    }
+
+    // Row gap variants
+    &--row-gap-sm {
+        row-gap: var(--spacing-sm);
+    }
+
+    &--row-gap-lg {
+        row-gap: var(--spacing-lg);
+    }
+
+    // Column gap variants
+    &--col-gap-sm {
+        column-gap: var(--spacing-sm);
+    }
+
+    &--col-gap-lg {
+        column-gap: var(--spacing-lg);
+    }
+
+    // Alignment variants
+    &--center {
+        place-items: center;
+    }
+
+    &--start {
+        place-items: start;
+    }
+
+    &--end {
+        place-items: end;
+    }
+
+    // Dense packing
+    &--dense {
+        grid-auto-flow: dense;
+    }
+
+    // Responsive variants
+    @include media-down("sm") {
+        &--stack-sm {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @include media-down("md") {
+        &--stack-md {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    // Custom columns at different breakpoints
+    @for $i from 1 through 12 {
+        &--cols-#{$i} {
+            grid-template-columns: repeat($i, 1fr);
+        }
+
+        @include media-up("md") {
+            &--md-cols-#{$i} {
+                grid-template-columns: repeat($i, 1fr);
+            }
+        }
+
+        @include media-up("lg") {
+            &--lg-cols-#{$i} {
+                grid-template-columns: repeat($i, 1fr);
+            }
+        }
+    }
+
+    // Masonry-like grid
+    &--masonry {
+        @include media-up("md") {
+            grid-template-rows: masonry;
+            align-tracks: stretch;
+        }
+    }
+
+    // Grid areas
+    &--areas {
+        grid-template-areas: var(--grid-areas);
+    }
+
+    // Equal height items
+    &--equal-height {
+        > * {
+            height: 100%;
+        }
+    }
+
+    // With sidebar
+    &--with-sidebar {
+        @include media-up("md") {
+            grid-template-columns: var(--sidebar-width, 250px) 1fr;
+        }
+    }
+
+    // Reversed sidebar
+    &--sidebar-right {
+        @include media-up("md") {
+            grid-template-columns: 1fr var(--sidebar-width, 250px);
+        }
     }
 }

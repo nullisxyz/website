@@ -5,64 +5,167 @@
 :root {
     // Site-specific gradients and backgrounds
     --site-gradient-primary: linear-gradient(
-        45deg,
-        var(--color-accent),
-        var(--color-secondary)
+        135deg,
+        var(--color-accent) 0%,
+        var(--color-accent-light) 100%
     );
 
     --site-gradient-surface: linear-gradient(
-        135deg,
-        var(--color-primary),
-        var(--color-tertiary)
+        157.5deg,
+        var(--color-primary-light) 0%,
+        var(--color-primary) 100%
     );
+
+    --site-gradient-dark: linear-gradient(
+        135deg,
+        var(--color-primary-dark) 0%,
+        var(--color-primary) 100%
+    );
+
+    // Site-specific shadows
+    --site-shadow-sm: 0 2px 4px rgba(var(--shadow-color-rgb), 0.08);
+    --site-shadow: 0 4px 6px rgba(var(--shadow-color-rgb), 0.12);
+    --site-shadow-lg: 0 10px 15px rgba(var(--shadow-color-rgb), 0.15);
+    --site-shadow-xl: 0 20px 25px rgba(var(--shadow-color-rgb), 0.18);
 
     // Site-specific dimensions
     --site-header-height: 6rem;
     --site-footer-height: 4rem;
-    --site-content-min-height: calc(
-        100vh - var(--site-header-height) - var(--site-footer-height)
-    );
+    --site-sidebar-width: 280px;
+    --site-content-width: 800px;
+    --site-max-width: 1400px;
 
-    // Site-specific animations
-    --site-transition-slow: 0.5s;
-    --site-transition-medium: 0.3s;
-    --site-transition-fast: 0.2s;
+    // Site-specific transitions
+    --site-transition-slow: 500ms var(--ease-out);
+    --site-transition-medium: 300ms var(--ease-out);
+    --site-transition-fast: 150ms var(--ease-out);
+
+    // Site-specific border radius
+    --site-radius-sm: 0.25rem;
+    --site-radius: 0.5rem;
+    --site-radius-lg: 1rem;
+    --site-radius-xl: 1.5rem;
+    --site-radius-full: 9999px;
+
+    // Site-specific background patterns
+    --site-pattern-grid: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    --site-pattern-dots: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-// Light theme overrides
+// Light theme
 [data-theme="light"] {
+    // Base colors
+    --color-background: var(--color-neutral-white);
+    --color-background-alt: var(--color-neutral-gray-100);
+    --color-surface: var(--color-neutral-gray-100);
+    --color-surface-hover: var(--color-neutral-gray-200);
+
+    // Text colors
+    --color-text: var(--color-primary);
+    --color-text-muted: var(--color-tertiary);
+    --color-text-inverse: var(--color-neutral-white);
+
+    // Link colors
+    --color-link: var(--color-accent);
+    --color-link-hover: var(--color-accent-light);
+
+    // Border colors
+    --color-border: var(--color-neutral-gray-200);
+    --color-border-hover: var(--color-neutral-gray-300);
+
+    // Component specific
+    --color-header-background: rgba(255, 255, 255, 0.98);
+    --color-header-border: var(--color-border);
+
+    --color-footer-background: var(--color-background-alt);
+    --color-footer-border: var(--color-border);
+
+    --color-card-background: var(--color-neutral-white);
+    --color-card-border: var(--color-border);
+
+    // Code colors
+    --color-code-background: var(--color-surface);
+    --color-code-text: var(--color-primary);
+    --color-code-border: var(--color-border);
+
+    // Form colors
+    --color-input-background: var(--color-neutral-white);
+    --color-input-border: var(--color-border);
+    --color-input-text: var(--color-text);
+    --color-input-placeholder: var(--color-text-muted);
+
+    // Shadow colors
+    --shadow-color-rgb: 8, 10, 13;
+    --shadow-color: rgba(var(--shadow-color-rgb), 0.1);
+    --shadow-color-strong: rgba(var(--shadow-color-rgb), 0.2);
+
+    // Site-specific backgrounds
     --site-background: radial-gradient(
         circle at top right,
-        rgba(var(--color-accent), 0.1),
+        rgba(43, 149, 184, 0.08),
         transparent 50%
     );
 
-    --site-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --site-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-
-    --site-card-background: rgba(255, 255, 255, 0.8);
-    --site-card-border: var(--color-neutral-gray-200);
-
-    --site-header-background: rgba(255, 255, 255, 0.9);
-    --site-footer-background: var(--color-neutral-gray-100);
+    // Blur effects
+    --blur-background: rgba(255, 255, 255, 0.8);
 }
 
-// Dark theme overrides
+// Dark theme
 [data-theme="dark"] {
+    // Base colors
+    --color-background: var(--color-primary);
+    --color-background-alt: var(--color-primary-light);
+    --color-surface: rgba(255, 255, 255, 0.05);
+    --color-surface-hover: rgba(255, 255, 255, 0.1);
+
+    // Text colors
+    --color-text: var(--color-neutral-gray-100);
+    --color-text-muted: var(--color-neutral-gray-300);
+    --color-text-inverse: var(--color-primary);
+
+    // Link colors
+    --color-link: var(--color-accent-light);
+    --color-link-hover: var(--color-accent);
+
+    // Border colors
+    --color-border: var(--color-neutral-gray-700);
+    --color-border-hover: var(--color-neutral-gray-600);
+
+    // Component specific
+    --color-header-background: rgba(8, 10, 13, 0.98);
+    --color-header-border: var(--color-border);
+
+    --color-footer-background: var(--color-background-alt);
+    --color-footer-border: var(--color-border);
+
+    --color-card-background: rgba(13, 75, 132, 0.15);
+    --color-card-border: var(--color-border);
+
+    // Code colors
+    --color-code-background: rgba(255, 255, 255, 0.05);
+    --color-code-text: var(--color-text);
+    --color-code-border: var(--color-border);
+
+    // Form colors
+    --color-input-background: rgba(255, 255, 255, 0.05);
+    --color-input-border: var(--color-border);
+    --color-input-text: var(--color-text);
+    --color-input-placeholder: var(--color-text-muted);
+
+    // Shadow colors
+    --shadow-color-rgb: 0, 0, 0;
+    --shadow-color: rgba(var(--shadow-color-rgb), 0.3);
+    --shadow-color-strong: rgba(var(--shadow-color-rgb), 0.4);
+
+    // Site-specific backgrounds
     --site-background: radial-gradient(
         circle at top right,
-        rgba(var(--color-accent), 0.05),
+        rgba(43, 149, 184, 0.05),
         transparent 50%
     );
 
-    --site-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --site-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
-
-    --site-card-background: rgba(var(--color-primary-light), 0.5);
-    --site-card-border: var(--color-neutral-gray-800);
-
-    --site-header-background: rgba(var(--color-primary), 0.9);
-    --site-footer-background: var(--color-primary-dark);
+    // Blur effects
+    --blur-background: rgba(8, 10, 13, 0.8);
 }
 
 // Base theme styles
@@ -74,73 +177,45 @@ body {
     @include transition(background-color, color);
 }
 
-// Global blur effect for overlays
-.site-blur {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-// Theme transitions
-.theme-transition {
-    transition:
-        background-color var(--site-transition-medium) ease,
-        border-color var(--site-transition-medium) ease,
-        color var(--site-transition-medium) ease,
-        box-shadow var(--site-transition-medium) ease;
-}
-
 // Content width constraints
 .site-content {
-    max-width: var(--breakpoint-xl);
+    max-width: var(--site-max-width);
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 
     &--narrow {
-        max-width: var(--breakpoint-md);
-    }
-
-    &--wide {
-        max-width: var(--breakpoint-2xl);
+        max-width: var(--site-content-width);
     }
 }
 
 // Theme-specific images
 [data-theme="light"] {
-    .theme-image {
-        &--light {
-            display: block;
-        }
-        &--dark {
-            display: none;
-        }
+    img:not(.preserve-color) {
+        filter: none;
     }
 }
 
 [data-theme="dark"] {
-    .theme-image {
-        &--light {
-            display: none;
-        }
-        &--dark {
-            display: block;
-        }
+    img:not(.preserve-color) {
+        filter: brightness(0.8) contrast(1.2);
     }
 }
 
-// Theme-specific background patterns
-.site-pattern {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    opacity: 0.5;
+// Selection styles
+::selection {
+    background: var(--color-accent);
+    color: var(--color-text-inverse);
+}
 
-    [data-theme="light"] & {
-        background-image: url("data:image/svg+xml,%3Csvg...%3E"); // Light pattern
-        opacity: 0.3;
-    }
+// Focus styles
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
 
-    [data-theme="dark"] & {
-        background-image: url("data:image/svg+xml,%3Csvg...%3E"); // Dark pattern
-        opacity: 0.1;
-    }
+// Global blur effect
+.site-blur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: var(--blur-background);
 }

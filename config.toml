@@ -3,16 +3,40 @@ compile_sass = true
 build_search_index = true
 generate_feeds = true
 title = "Nullis"
-description = "Nullis development studio"
+description = "Nullis development studio - Building robust, scalable solutions with a focus on security and efficiency"
+
+taxonomies = [
+    {name = "categories", feed = true, paginate_by = 10},
+    {name = "tags", feed = true, paginate_by = 10}
+]
 
 [markdown]
 highlight_code = true
 highlight_theme = "nord"
+external_links_target_blank = true
+external_links_no_follow = true
+external_links_no_referrer = true
 
 [extra]
-# Site Configuration
-# logo = "/images/logo.svg"
-copyright = "All rights reserved"
+
+# Site-wide Features
+[extra.features]
+dark_mode = true
+search = false
+comments = false
+newsletter = true
+table_of_contents = true
+related_pages = true
+cta = true
+grid_layout = true
+
+# Theme Configuration
+theme_color = "#2b95b8"
+site_pattern = "grid" # options: grid, dots
+
+# Header Configuration
+logo = "/images/logo.svg"
+logo_dark = "/images/logo-dark.svg"
 
 # Navigation Menu
 [[extra.menu]]
@@ -26,6 +50,7 @@ url = "/blog"
 [[extra.menu]]
 label = "Projects"
 url = "/projects"
+style = "primary" # This will make it stand out
 
 [[extra.menu]]
 label = "Contact"
@@ -35,119 +60,130 @@ url = "/contact"
 label = "Manifesto"
 url = "/manifesto"
 
-# Author information
+# Author Information
 [extra.author]
 name = "John Doe"
-bio = "Software engineer focused on systems programming and distributed architecture"
+title = "Software Engineer & Systems Architect"
+bio = "Software engineer focused on systems programming and distributed architecture. Building robust, scalable solutions with a focus on security and efficiency."
 email = "john.doe@example.com"
-twitter = "@johndoe"
-github = "https://github.com/johndoe"
-linkedin = "https://linkedin.com/in/johndoe"
+twitter = "johndoe"
+github = "johndoe"
+linkedin = "johndoe"
 avatar = "/images/avatar.jpg"
 
 # Hero Section
 [extra.hero]
+title = "Building the Future of Distributed Systems"
 subtitle = "Software Engineer & Systems Architect"
-description = "Building robust, scalable solutions with a focus on security and efficiency"
+description = "Specializing in high-performance distributed systems, security infrastructure, and scalable architecture design."
+gradient_title = true
+pattern_background = true
 
 [[extra.hero.actions]]
 label = "View Projects"
 url = "/projects"
 style = "primary"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>"""
 
 [[extra.hero.actions]]
 label = "Read Blog"
 url = "/blog"
 style = "ghost"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H14"/></svg>"""
 
-# Site Statistics
+# Statistics
 [extra.stats]
 years_experience = "10+"
 projects_completed = "50+"
 happy_clients = "30+"
+open_source = "15+"
 
 # Featured Projects
 [[extra.projects]]
-title = "Project Alpha"
-description = "A cutting-edge distributed system built with Rust and WebAssembly"
-image = "/images/projects/alpha.jpg"
-tags = ["Rust", "WebAssembly", "Distributed Systems"]
-url = "https://github.com/username/project-alpha"
+title = "Distributed System Framework"
+description = "High-performance distributed computing framework designed for scalability and fault tolerance."
+image = "/images/projects/distributed-framework.jpg"
 category = "Backend Development"
+tags = ["Rust", "WebAssembly", "Kubernetes"]
+github = "https://github.com/username/distributed-framework"
+url = "https://framework.example.com"
 featured = true
 
 [[extra.projects]]
-title = "Project Beta"
-description = "High-performance data processing pipeline using Python and Kafka"
-image = "/images/projects/beta.jpg"
-tags = ["Python", "Kafka", "Data Processing"]
-url = "https://github.com/username/project-beta"
-category = "Data Engineering"
-featured = true
-
-[[extra.projects]]
-title = "Project Gamma"
-description = "Modern web application built with Next.js and GraphQL"
-image = "/images/projects/gamma.jpg"
-tags = ["Next.js", "GraphQL", "TypeScript"]
-url = "https://github.com/username/project-gamma"
-category = "Frontend Development"
+title = "Security Infrastructure Platform"
+description = "Enterprise-grade security infrastructure platform with advanced threat detection."
+image = "/images/projects/security-platform.jpg"
+category = "Security"
+tags = ["Go", "Terraform", "AWS"]
+github = "https://github.com/username/security-platform"
+url = "https://security.example.com"
 featured = true
 
 # Skills Categories
 [[extra.skills]]
-name = "Backend Development"
-icon = "server"
-items = ["Rust", "Go", "Python", "Node.js", "Distributed Systems"]
+name = "Systems Programming"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>"""
+description = "Building high-performance, low-level software systems"
+items = [
+    { name = "Rust", level = "Expert" },
+    { name = "C++", level = "Advanced" },
+    { name = "Systems Architecture", level = "Expert" }
+]
 
 [[extra.skills]]
-name = "Frontend Development"
-icon = "code"
-items = ["React", "TypeScript", "Next.js", "Tailwind CSS"]
-
-[[extra.skills]]
-name = "Infrastructure"
-icon = "cloud"
-items = ["Kubernetes", "Docker", "AWS", "Terraform"]
+name = "Distributed Systems"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"/></svg>"""
+description = "Designing and implementing scalable distributed systems"
+items = [
+    { name = "Kubernetes", level = "Expert" },
+    { name = "Docker", level = "Expert" },
+    { name = "Microservices", level = "Advanced" }
+]
 
 # Contact Methods
 [[extra.contact_methods]]
 name = "Email"
 type = "email"
 value = "john.doe@example.com"
-description = "Best for professional inquiries"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>"""
+description = "Best for professional inquiries and collaborations"
 
 [[extra.contact_methods]]
 name = "GitHub"
 type = "social"
 value = "https://github.com/johndoe"
-description = "For code-related discussions"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>"""
+description = "For code collaboration and open source projects"
 
-[[extra.contact_methods]]
-name = "LinkedIn"
-type = "social"
-value = "https://linkedin.com/in/johndoe"
-description = "For professional networking"
-
-# Social Links
-[extra.social]
-github = "https://github.com/johndoe"
-twitter = "https://twitter.com/johndoe"
-linkedin = "https://linkedin.com/in/johndoe"
-rss = "/atom.xml"
-
-# Footer Links
-[[extra.footer_links]]
-label = "Privacy Policy"
-url = "/privacy"
+# Footer Configuration
+[extra.footer]
+description = "Building robust, scalable solutions with a focus on security and efficiency"
 
 [[extra.footer_links]]
-label = "Terms of Service"
-url = "/terms"
+title = "Quick Links"
+links = [
+    { label = "About", url = "/about" },
+    { label = "Blog", url = "/blog" },
+    { label = "Projects", url = "/projects" },
+    { label = "Contact", url = "/contact" }
+]
 
-# Site Features
-[extra.features]
-dark_mode = true
-newsletter_signup = true
-comments = false
-search = true
+[[extra.footer_links]]
+title = "Legal"
+links = [
+    { label = "Privacy Policy", url = "/privacy" },
+    { label = "Terms of Service", url = "/terms" }
+]
+
+# Newsletter Configuration
+[extra.newsletter]
+title = "Stay Updated"
+description = "Get notified about new articles and project updates."
+endpoint = "https://api.example.com/newsletter"
+
+# Call-to-Action Configuration
+[extra.cta]
+title = "Let's Work Together"
+description = "Interested in collaborating on a project? Get in touch to discuss how we can work together."
+button_text = "Contact Me"
+button_url = "/contact"

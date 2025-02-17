@@ -1,0 +1,30 @@
+{% macro generate(html) %}
+    {% if html is containing("<h2>") or html is containing("<h3>") %}
+        <ul class="c-toc__list">
+            {% for h2 in html | split(pat="<h2") %}
+                {% if loop.index > 1 %}
+                    {% set h2_content = h2 | split(pat="</h2>") | first %}
+                    {% set h2_title = h2_content | split(pat=">") | last %}
+                    {% set h2_id = h2_title | slugify %}
+                    <li class="c-toc__item">
+                        <a href="#{{ h2_id }}" class="c-toc__link">{{ h2_title }}</a>
+                        {% if h2 is containing("<h3") %}
+                            <ul class="c-toc__sublist">
+                                {% for h3 in h2 | split(pat="<h3") %}
+                                    {% if loop.index > 1 %}
+                                        {% set h3_content = h3 | split(pat="</h3>") | first %}
+                                        {% set h3_title = h3_content | split(pat=">") | last %}
+                                        {% set h3_id = h3_title | slugify %}
+                                        <li class="c-toc__subitem">
+                                            <a href="#{{ h3_id }}" class="c-toc__link">{{ h3_title }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}

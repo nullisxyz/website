@@ -9,22 +9,60 @@
     margin-top: auto;
     @include transition(background-color, border-color);
 
+    &__wrapper {
+        max-width: var(--site-max-width, 1400px);
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+
+        @include media-up("md") {
+            padding: 0 var(--spacing-lg);
+        }
+    }
+
     &__container {
         display: grid;
         gap: var(--spacing-xl);
 
         @include media-up("md") {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: minmax(300px, 400px) 150px 150px;
+            gap: var(--spacing-xl);
+            align-items: start;
+            justify-content: flex-start;
+            // Remove any margin/padding that might affect alignment
+            margin: 0;
+            padding: 0;
         }
     }
 
+    &__bottom {
+        margin-top: var(--spacing-xl);
+        padding-top: var(--spacing-md);
+        border-top: 1px solid var(--color-footer-border);
+        text-align: center;
+        color: var(--color-text-muted);
+        @include font-size("sm");
+        @include transition(color, border-color);
+    }
+
     &__section {
+        // First section (brand section)
+        &:nth-child(1) {
+            margin-right: 0;
+        }
+
+        // Links section
+        &:nth-child(2),
+        &:nth-child(3) {
+            min-width: auto;
+        }
+
         &-title {
             @include font-size("lg");
             font-weight: var(--font-weight-bold);
             color: var(--color-text);
             margin-bottom: var(--spacing-md);
             @include transition(color);
+            line-height: 1; // Reduce line height for better alignment
         }
 
         &-content {
@@ -33,10 +71,44 @@
         }
     }
 
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
+        height: 48px; // Set explicit height to match logo
+
+        &-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        &-title {
+            @include font-size("lg");
+            font-weight: var(--font-weight-bold);
+            color: var(--color-text);
+            line-height: 1; // Reduce line height for better alignment
+        }
+    }
+
+    &__description {
+        color: var(--color-text-muted);
+        margin-bottom: var(--spacing-lg);
+        max-width: 45ch; // Limit text width for better readability
+    }
+
     &__links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
         display: flex;
         flex-direction: column;
         gap: var(--spacing-sm);
+
+        li {
+            padding: 0;
+            margin: 0;
+        }
 
         a {
             @include font-family("mono");
@@ -54,6 +126,7 @@
     &__social {
         display: flex;
         gap: var(--spacing-md);
+        flex-wrap: wrap;
 
         a {
             color: var(--color-text-muted);
@@ -72,16 +145,6 @@
         }
     }
 
-    &__bottom {
-        margin-top: var(--spacing-xl);
-        padding-top: var(--spacing-md);
-        border-top: 1px solid var(--color-footer-border);
-        text-align: center;
-        color: var(--color-text-muted);
-        @include font-size("sm");
-        @include transition(color, border-color);
-    }
-
     // Responsive adjustments
     @include media-down("md") {
         padding: var(--spacing-lg) 0;
@@ -92,10 +155,21 @@
 
         &__section {
             text-align: center;
+            padding-top: 0; // Remove padding on mobile
 
             &-title {
                 @include font-size("md");
             }
+        }
+
+        &__brand {
+            justify-content: center;
+        }
+
+        &__description {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         &__social {
@@ -106,6 +180,6 @@
     // Theme-specific adjustments
     [data-theme="light"] &,
     [data-theme="dark"] & {
-        --footer-shadow: 0 -1px 3px var(--shadow-color);
+        --footer-shadow: var(--site-shadow-sm);
     }
 }

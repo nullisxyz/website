@@ -7,7 +7,7 @@ table {
     margin-bottom: var(--spacing-lg);
     border-collapse: collapse;
     background: var(--color-surface);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--site-radius);
     overflow: hidden;
     @include transition(background-color, box-shadow);
 }
@@ -54,10 +54,28 @@ tr {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     margin-bottom: var(--spacing-lg);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--site-radius);
 
     table {
         margin-bottom: 0;
+    }
+
+    // Scrollbar styling
+    &::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--color-surface);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-border);
+        border-radius: var(--site-radius-sm);
+
+        &:hover {
+            background: var(--color-border-hover);
+        }
     }
 }
 
@@ -66,6 +84,7 @@ tr {
     th,
     td {
         padding: var(--spacing-xs);
+        @include font-size("sm");
     }
 }
 
@@ -86,10 +105,75 @@ tr {
     }
 }
 
+// Table with hover effect
+.table-hover {
+    tr {
+        @include transition(transform, box-shadow);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--site-shadow-sm);
+            position: relative;
+            z-index: 1;
+        }
+    }
+}
+
+// Table with sticky header
+.table-sticky-header {
+    thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background: var(--color-surface-hover);
+        box-shadow: var(--site-shadow-sm);
+    }
+}
+
+// Table with cards on mobile
+.table-cards {
+    @include media-down("md") {
+        thead {
+            display: none;
+        }
+
+        tbody {
+            tr {
+                display: block;
+                padding: var(--spacing-md);
+                margin-bottom: var(--spacing-md);
+                background: var(--color-surface);
+                border: 1px solid var(--color-border);
+                border-radius: var(--site-radius);
+                box-shadow: var(--site-shadow-sm);
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: var(--site-shadow);
+                }
+            }
+
+            td {
+                display: block;
+                padding: var(--spacing-xs) 0;
+                border: none;
+
+                &::before {
+                    content: attr(data-label);
+                    display: block;
+                    font-weight: var(--font-weight-bold);
+                    color: var(--color-text);
+                    margin-bottom: var(--spacing-xxs);
+                }
+            }
+        }
+    }
+}
+
 // Theme-specific adjustments
 [data-theme="light"] {
     table {
-        --table-shadow: 0 1px 3px var(--shadow-color);
+        --table-shadow: var(--site-shadow-sm);
         box-shadow: var(--table-shadow);
     }
 
@@ -100,12 +184,40 @@ tr {
 
 [data-theme="dark"] {
     table {
-        --table-shadow: 0 1px 3px var(--shadow-color-strong);
+        --table-shadow: var(--site-shadow-sm);
         box-shadow: var(--table-shadow);
     }
 
     .table-responsive {
         --table-scroll-shadow: inset -10px 0 10px -10px
             var(--shadow-color-strong);
+    }
+}
+
+// Table loading state
+.table-loading {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            var(--color-surface-hover),
+            transparent
+        );
+        animation: table-loading 1.5s infinite;
+    }
+}
+
+@keyframes table-loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
     }
 }

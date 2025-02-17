@@ -9,6 +9,7 @@
     justify-content: flex-start;
     align-items: center;
 
+    // Alignment variants
     &--start {
         align-items: flex-start;
     }
@@ -17,11 +18,119 @@
         align-items: flex-end;
     }
 
+    &--stretch {
+        align-items: stretch;
+    }
+
     &--center {
         justify-content: center;
     }
 
     &--space-between {
         justify-content: space-between;
+    }
+
+    &--space-around {
+        justify-content: space-around;
+    }
+
+    &--space-evenly {
+        justify-content: space-evenly;
+    }
+
+    // Gap variants
+    &--gap-sm {
+        gap: var(--spacing-sm);
+    }
+
+    &--gap-lg {
+        gap: var(--spacing-lg);
+    }
+
+    &--gap-xl {
+        gap: var(--spacing-xl);
+    }
+
+    // Direction variants
+    &--column {
+        flex-direction: column;
+    }
+
+    &--row-reverse {
+        flex-direction: row-reverse;
+    }
+
+    &--column-reverse {
+        flex-direction: column-reverse;
+    }
+
+    // Wrap variants
+    &--nowrap {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    &--wrap-reverse {
+        flex-wrap: wrap-reverse;
+    }
+
+    // Responsive variants
+    @include media-down("sm") {
+        &--stack-sm {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    @include media-down("md") {
+        &--stack-md {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    // Growth variants
+    &--grow {
+        > * {
+            flex-grow: 1;
+        }
+    }
+
+    &--shrink {
+        > * {
+            flex-shrink: 1;
+        }
+    }
+
+    // Distribute items
+    &--distribute {
+        > * {
+            flex: 1;
+        }
+    }
+
+    // Scrollable on mobile
+    &--scrollable {
+        @include media-down("md") {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: var(--spacing-sm); // For scrollbar
+            margin-bottom: calc(var(--spacing-sm) * -1);
+
+            &::-webkit-scrollbar {
+                height: 4px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--color-surface);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--color-border);
+                border-radius: var(--site-radius-full);
+            }
+        }
     }
 }

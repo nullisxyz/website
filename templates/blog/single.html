@@ -1,33 +1,62 @@
 {% extends "base.html" %} {% block content %}
-<article class="l-post">
-    <div class="o-container">
-        <header class="o-page-header o-page-header--center">
-            <h1 class="o-page-header__title">{{ page.title }}</h1>
-
-            <div class="o-page-header__meta">
-                {% if page.date %}
-                <time
-                    datetime="{{ page.date }}"
-                    class="u-text-sm u-text-neutral-gray-300"
-                >
-                    {{ page.date | date(format="%B %d, %Y") }}
-                </time>
-                {% endif %} {% if page.taxonomies and page.taxonomies.categories
-                %} {% for category in page.taxonomies.categories %}
+<article class="l-post{% if page.extra.animate %} l-post--animate{% endif %}">
+    <div class="o-container o-container--narrow">
+        <header class="l-post__header">
+            {% if page.taxonomies and page.taxonomies.categories %}
+            <div class="l-post__categories">
+                {% for category in page.taxonomies.categories %}
                 <a
                     href="{{ get_taxonomy_url(kind='categories', name=category) }}"
                     class="c-badge c-badge--primary"
                 >
                     {{ category }}
                 </a>
-                {% endfor %} {% endif %}
+                {% endfor %}
             </div>
+            {% endif %}
+
+            <h1 class="l-post__header-title">{{ page.title }}</h1>
+
+            <div class="l-post__meta">
+                {% if page.date %}
+                <time datetime="{{ page.date }}" class="l-post__date">
+                    {{ page.date | date(format="%B %d, %Y") }}
+                </time>
+                {% endif %} {% if page.extra.read_time %}
+                <span class="l-post__read-time">
+                    {{ page.extra.read_time }} min read
+                </span>
+                {% endif %} {% if page.extra.author %}
+                <div class="l-post__author">
+                    {% if page.extra.author.avatar %}
+                    <img
+                        src="{{ page.extra.author.avatar }}"
+                        alt="{{ page.extra.author.name }}"
+                        class="l-post__author-avatar"
+                    />
+                    {% endif %}
+                    <span class="l-post__author-name">
+                        {{ page.extra.author.name }}
+                    </span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if page.extra.image %}
+            <div class="l-post__image-wrapper">
+                <img
+                    src="{{ page.extra.image }}"
+                    alt="{{ page.title }}"
+                    class="l-post__image"
+                />
+            </div>
+            {% endif %}
         </header>
 
-        <div class="l-post__content">
+        <div class="l-post__content c-content">
             {{ page.content | safe }} {% if page.taxonomies and
             page.taxonomies.tags %}
-            <div class="o-cluster o-cluster--sm u-mt-xl">
+            <div class="l-post__tags">
                 {% for tag in page.taxonomies.tags %}
                 <a
                     href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
@@ -42,11 +71,11 @@
 
         <footer class="l-post__footer">
             {% if config.extra.author %}
-            <div class="c-card c-card--horizontal u-mb-xl">
+            <div class="c-card c-card--horizontal c-card--glass">
                 {% if config.extra.author.avatar %}
                 <img
                     src="{{ config.extra.author.avatar }}"
-                    alt="Author avatar"
+                    alt="{{ config.extra.author.name }}"
                     class="c-card__image"
                     width="120"
                     height="120"
@@ -59,32 +88,124 @@
                     </h2>
                     {% if config.extra.author.bio %}
                     <p class="c-card__text">{{ config.extra.author.bio }}</p>
-                    {% endif %}
-                    <div class="o-cluster o-cluster--sm u-mt-md">
-                        {% if config.extra.author.twitter %}
+                    {% endif %} {% if config.extra.author.social %}
+                    <div class="c-card__social">
+                        {% for platform, url in config.extra.author.social %}
                         <a
-                            href="https://twitter.com/{{ config.extra.author.twitter }}"
+                            href="{{ url }}"
                             class="c-button c-button--ghost c-button--sm"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Twitter
+                            {{ platform }}
                         </a>
-                        {% endif %} {% if config.extra.author.github %}
-                        <a
-                            href="{{ config.extra.author.github }}"
-                            class="c-button c-button--ghost c-button--sm"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            GitHub
-                        </a>
-                        {% endif %}
+                        {% endfor %}
                     </div>
+                    {% endif %}
                 </div>
             </div>
+            {% endif %} {% if config.extra.features.related_posts %}
+            <div class="l-post__related">
+                <h3 class="l-post__related-title">Related Posts</h3>
+                <div class="o-grid o-grid--2">
+                    {% for related in page.extra.related_posts %}
+                    <a
+                        href="{{ related.permalink }}"
+                        class="c-card c-card--hover"
+                    >
+                        <div class="c-card__body">
+                            {% if related.date %}
+                            <time
+                                datetime="{{ related.date }}"
+                                class="c-card__date"
+                            >
+                                {{ related.date | date(format="%B %d, %Y") }}
+                            </time>
+                            {% endif %}
+                            <h4 class="c-card__title">{{ related.title }}</h4>
+                            {% if related.description %}
+                            <p class="c-card__text">
+                                {{ related.description }}
+                            </p>
+                            {% endif %}
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %} {% if config.extra.features.comments and not
+            page.extra.disable_comments %}
+            <div class="l-post__comments">
+                <!-- Add your commenting system here -->
+            </div>
             {% endif %}
+
+            <nav class="l-post__navigation">
+                <div class="o-switcher o-switcher--between">
+                    {% if page.lighter %}
+                    <a
+                        href="{{ page.lighter.permalink }}"
+                        class="c-card c-card--interactive"
+                    >
+                        <div class="c-card__body">
+                            <span class="u-text-sm u-text-muted">Previous</span>
+                            <h4 class="c-card__title">
+                                {{ page.lighter.title }}
+                            </h4>
+                        </div>
+                    </a>
+                    {% endif %} {% if page.heavier %}
+                    <a
+                        href="{{ page.heavier.permalink }}"
+                        class="c-card c-card--interactive"
+                    >
+                        <div class="c-card__body">
+                            <span class="u-text-sm u-text-muted">Next</span>
+                            <h4 class="c-card__title">
+                                {{ page.heavier.title }}
+                            </h4>
+                        </div>
+                    </a>
+                    {% endif %}
+                </div>
+            </nav>
         </footer>
     </div>
 </article>
-{% endblock %}
+
+{% if config.extra.features.newsletter %}
+<section class="s-newsletter">
+    <div class="o-container o-container--narrow">
+        <div class="c-card c-card--glass">
+            <div class="c-card__body">
+                <h3 class="c-card__title">Subscribe to the Newsletter</h3>
+                <p class="c-card__text">
+                    Get notified about new posts and updates.
+                </p>
+
+                <form
+                    class="c-form"
+                    action="{{ config.extra.newsletter_endpoint }}"
+                    method="POST"
+                >
+                    <div class="c-form__group">
+                        <input
+                            type="email"
+                            name="email"
+                            class="c-form__input"
+                            placeholder="Enter your email"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        class="c-button c-button--primary c-button--full"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %} {% endblock %}

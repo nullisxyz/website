@@ -6,7 +6,7 @@
     background: var(--color-card-background);
     backdrop-filter: blur(10px);
     border: 1px solid var(--color-card-border);
-    border-radius: var(--border-radius-md);
+    border-radius: var(--site-radius-lg);
     overflow: hidden;
     @include transition(transform, box-shadow);
     position: relative;
@@ -58,11 +58,11 @@
         @include transition(transform);
 
         &--top {
-            border-radius: var(--border-radius-md) var(--border-radius-md) 0 0;
+            border-radius: var(--site-radius-lg) var(--site-radius-lg) 0 0;
         }
 
         &--bottom {
-            border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+            border-radius: 0 0 var(--site-radius-lg) var(--site-radius-lg);
         }
     }
 
@@ -106,7 +106,7 @@
     &--hover {
         &:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 24px var(--shadow-color);
+            box-shadow: var(--site-shadow-lg);
 
             .c-card__image {
                 transform: scale(1.05);
@@ -188,7 +188,7 @@
             background: var(--color-accent);
             color: var(--color-text-inverse);
             padding: 0.25rem 0.75rem;
-            border-radius: var(--border-radius-full);
+            border-radius: var(--site-radius-full);
             font-size: var(--font-size-sm);
             font-weight: var(--font-weight-medium);
             z-index: 1;

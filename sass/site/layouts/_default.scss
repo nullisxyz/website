@@ -16,16 +16,34 @@
         right: 0;
         z-index: var(--z-fixed);
         height: var(--site-header-height);
-        background: var(--site-header-background);
-        border-bottom: 1px solid var(--color-border);
+        background: var(--color-header-background);
+        border-bottom: 1px solid var(--color-header-border);
         backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
         @include transition(background-color, border-color);
+
+        [data-theme="light"] & {
+            box-shadow: var(--site-shadow-sm);
+        }
+
+        [data-theme="dark"] & {
+            box-shadow: var(--site-shadow);
+        }
     }
 
     &__main {
         flex: 1;
         margin-top: var(--site-header-height);
         padding: var(--spacing-xl) 0;
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--site-background);
+            z-index: -1;
+        }
 
         @include media-up("md") {
             padding: var(--spacing-2xl) 0;
@@ -33,16 +51,72 @@
     }
 
     &__content {
-        max-width: var(--content-width);
+        max-width: var(--site-content-width);
         margin-left: auto;
         margin-right: auto;
         padding: 0 var(--spacing-md);
+
+        &--wide {
+            max-width: var(--site-max-width);
+        }
+
+        &--narrow {
+            max-width: calc(var(--site-content-width) * 0.8);
+        }
     }
 
     &__footer {
         margin-top: auto;
-        background: var(--site-footer-background);
-        border-top: 1px solid var(--color-border);
+        background: var(--color-footer-background);
+        border-top: 1px solid var(--color-footer-border);
         @include transition(background-color, border-color);
+
+        [data-theme="light"] & {
+            box-shadow: var(--site-shadow-sm);
+        }
+    }
+
+    // Animation variants
+    &--animate {
+        .l-default__main {
+            animation: fade-in 0.5s ease-out;
+        }
+    }
+
+    // With sidebar
+    &--with-sidebar {
+        .l-default__content {
+            display: grid;
+            gap: var(--spacing-xl);
+
+            @include media-up("lg") {
+                grid-template-columns: var(--site-sidebar-width) 1fr;
+            }
+        }
+    }
+
+    // With overlay
+    &--with-overlay {
+        .l-default__main {
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: var(--color-background);
+                opacity: 0.7;
+                z-index: -1;
+            }
+        }
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

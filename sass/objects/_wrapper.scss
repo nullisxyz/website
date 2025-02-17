@@ -5,6 +5,7 @@
 .o-wrapper {
     padding: var(--spacing-xl) 0;
 
+    // Size variants
     &--sm {
         padding: var(--spacing-md) 0;
     }
@@ -13,11 +14,156 @@
         padding: var(--spacing-2xl) 0;
     }
 
+    // Padding removal
     &--no-top {
         padding-top: 0;
     }
 
     &--no-bottom {
         padding-bottom: 0;
+    }
+
+    // With background
+    &--background {
+        background: var(--color-surface);
+
+        [data-theme="light"] & {
+            box-shadow: var(--site-shadow);
+        }
+
+        [data-theme="dark"] & {
+            border-top: 1px solid var(--color-border);
+            border-bottom: 1px solid var(--color-border);
+        }
+    }
+
+    // With gradient background
+    &--gradient {
+        background: var(--site-gradient-surface);
+        color: var(--color-text-inverse);
+    }
+
+    // With pattern background
+    &--pattern {
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--pattern-image, none);
+            opacity: 0.05;
+            z-index: 0;
+        }
+
+        > * {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    // With overlay
+    &--overlay {
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--color-background);
+            opacity: 0.8;
+        }
+
+        > * {
+            position: relative;
+        }
+    }
+
+    // Full height
+    &--full-height {
+        min-height: calc(100vh - var(--site-header-height));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    // With sticky elements
+    &--sticky-top {
+        position: sticky;
+        top: var(--site-header-height);
+        z-index: var(--z-sticky);
+        background: var(--color-background);
+    }
+
+    // Responsive padding
+    @include media-down("sm") {
+        padding: var(--spacing-lg) 0;
+
+        &--sm {
+            padding: var(--spacing-md) 0;
+        }
+
+        &--lg {
+            padding: var(--spacing-xl) 0;
+        }
+    }
+
+    // With animations
+    &--animate-in {
+        animation: wrapper-fade-in 0.5s ease-out;
+    }
+
+    &--animate-bg {
+        position: relative;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--site-gradient-primary);
+            opacity: 0.05;
+            animation: wrapper-bg-pulse 3s ease-in-out infinite;
+        }
+    }
+}
+
+// Animation keyframes
+@keyframes wrapper-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes wrapper-bg-pulse {
+    0%,
+    100% {
+        opacity: 0.05;
+    }
+    50% {
+        opacity: 0.1;
+    }
+}
+
+// Theme-specific adjustments
+[data-theme="light"] {
+    .o-wrapper {
+        &--background {
+            --wrapper-shadow: var(--site-shadow);
+        }
+    }
+}
+
+[data-theme="dark"] {
+    .o-wrapper {
+        &--background {
+            --wrapper-shadow: var(--site-shadow);
+        }
     }
 }

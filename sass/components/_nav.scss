@@ -30,7 +30,7 @@
         padding: var(--spacing-xs) var(--spacing-sm);
         color: var(--color-text-muted);
         text-decoration: none;
-        border-radius: var(--border-radius-sm);
+        border-radius: var(--site-radius);
         @include transition(color, background-color);
 
         @include media-down("md") {
@@ -51,14 +51,14 @@
         }
 
         &--button {
-            background: var(--color-accent);
-            color: var(--color-text-inverse);
+            background: var(--color-button-primary);
+            color: var(--color-button-primary-text);
             padding: var(--spacing-sm) var(--spacing-md);
             font-weight: var(--font-weight-medium);
 
             &:hover {
-                background: var(--color-accent-light);
-                color: var(--color-text-inverse);
+                background: var(--color-button-primary-hover);
+                color: var(--color-button-primary-text);
             }
         }
     }
@@ -96,7 +96,7 @@
             min-width: 200px;
             background: var(--color-card-background);
             border: 1px solid var(--color-border);
-            border-radius: var(--border-radius-md);
+            border-radius: var(--site-radius);
             padding: var(--spacing-xs);
             margin-top: var(--spacing-xs);
             opacity: 0;
@@ -104,7 +104,7 @@
             transform: translateY(-10px);
             @include transition(opacity, visibility, transform);
             z-index: var(--z-dropdown);
-            box-shadow: 0 4px 6px var(--shadow-color);
+            box-shadow: var(--site-shadow);
 
             @include media-down("md") {
                 position: static;
@@ -114,6 +114,7 @@
                 box-shadow: none;
                 border: none;
                 background: var(--color-surface);
+                z-index: auto;
             }
 
             &.is-active {
@@ -128,7 +129,7 @@
             padding: var(--spacing-xs) var(--spacing-sm);
             color: var(--color-text-muted);
             text-decoration: none;
-            border-radius: var(--border-radius-sm);
+            border-radius: var(--site-radius-sm);
             @include transition(color, background-color);
 
             &:hover {
@@ -151,7 +152,7 @@
 
         .c-nav__link {
             font-size: var(--font-size-lg);
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: var(--spacing-sm) var(--spacing-lg);
             justify-content: center;
         }
 
@@ -169,7 +170,7 @@
 
     // Theme-specific adjustments
     [data-theme="light"] & {
-        --nav-shadow: 0 2px 4px var(--shadow-color);
+        --nav-shadow: var(--site-shadow-sm);
 
         .c-nav__dropdown-menu {
             background: var(--color-background);
@@ -177,7 +178,7 @@
     }
 
     [data-theme="dark"] & {
-        --nav-shadow: 0 2px 4px var(--shadow-color-strong);
+        --nav-shadow: var(--site-shadow-sm);
 
         .c-nav__dropdown-menu {
             background: var(--color-background-alt);

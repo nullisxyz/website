@@ -1,7 +1,10 @@
 {% import "partials/meta.html" as meta %}
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         {% if is_404 is defined and is_404 %} {{ meta::meta_tags( title="404 -
         Page Not Found | " ~ config.title, description="The page you're looking
         for doesn't exist or has been moved.", url=config.base_url ~
@@ -14,27 +17,52 @@
         image="", is_404=false ) }} {% else %} {{ meta::meta_tags(
         title=config.title, description=config.description, url=config.base_url,
         image="", is_404=false ) }} {% endif %}
+
         <title>
             {% block title %} {% if section is defined and section.title %} {{
             config.title }} | {{ section.title }} {% elif page is defined and
             page.title %} {{ config.title }} | {{ page.title }} {% else %} {{
             config.title }} {% endif %} {% endblock %}
         </title>
+
+        <!-- Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ get_url(path='style.css') }}" />
+
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{ get_url(path='favicon.png') }}"
+        />
+
         {% block head %}{% endblock %}
     </head>
-    <body class="l-default">
-        <header class="l-default__header">
+    <body
+        class="l-default{% if page and page.extra.animate %} l-default--animate{% endif %}"
+    >
+        <!-- Skip to main content link for accessibility -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="l-default__header c-header">
             {% include "partials/header.html" %}
         </header>
 
-        <main class="l-default__main">{% block content %}{% endblock %}</main>
+        <main id="main-content" class="l-default__main">
+            {% block content %}{% endblock %}
+        </main>
 
-        <footer class="l-default__footer">
+        <footer class="l-default__footer c-footer">
             {% include "partials/footer.html" %}
         </footer>
 
         {% block js %}{% endblock %}
         <script src="{{ get_url(path='js/theme.js') }}" defer></script>
-        <script src="{{ get_url(path='js/main.js') }}"></script>
+        <script src="{{ get_url(path='js/main.js') }}" defer></script>
     </body>
 </html>

@@ -1,8 +1,16 @@
 {% extends "base.html" %} {% block content %}
-<div class="p-section">
+<div
+    class="p-section{% if section.extra.animate %} p-section--animate{% endif %}"
+>
     <div class="o-container">
-        <header class="p-section__header">
-            <h1 class="p-section__header-title">{{ section.title }}</h1>
+        <header
+            class="p-section__header{% if section.extra.header_class %} {{ section.extra.header_class }}{% endif %}"
+        >
+            <h1
+                class="p-section__header-title{% if section.extra.gradient_title %} p-section__header-title--gradient{% endif %}"
+            >
+                {{ section.title }}
+            </h1>
 
             {% if section.description %}
             <div class="p-section__header-intro">
@@ -23,11 +31,22 @@
                 <div class="o-stack o-stack--lg">
                     {% endif %} {% for page in section.pages %}
                     <article class="c-card c-card--hover">
+                        {% if page.extra.image %}
+                        <div class="c-card__image-wrapper">
+                            <img
+                                src="{{ page.extra.image }}"
+                                alt="{{ page.title }}"
+                                class="c-card__image"
+                                loading="lazy"
+                            />
+                        </div>
+                        {% endif %}
+
                         <div class="c-card__body">
                             {% if page.date %}
                             <time
                                 datetime="{{ page.date }}"
-                                class="u-text-sm u-text-neutral-gray-300"
+                                class="c-card__meta"
                             >
                                 {{ page.date | date(format="%B %d, %Y") }}
                             </time>
@@ -42,7 +61,7 @@
                             {% if page.description %}
                             <p class="c-card__text">{{ page.description }}</p>
                             {% endif %} {% if page.taxonomies %}
-                            <div class="o-cluster o-cluster--sm">
+                            <div class="c-card__tags">
                                 {% for taxonomy, terms in page.taxonomies %} {%
                                 for term in terms %}
                                 <span
@@ -60,7 +79,7 @@
             </div>
 
             {% if paginator %}
-            <nav class="c-pagination u-mt-xl" aria-label="Pagination">
+            <nav class="c-pagination" aria-label="Pagination">
                 {% if paginator.previous %}
                 <a
                     href="{{ paginator.previous }}"
@@ -86,7 +105,7 @@
             </nav>
             {% endif %} {% endif %} {% if section.subsections %}
             <div class="p-section__subsections">
-                <h2>Subsections</h2>
+                <h2 class="p-section__subsections-title">Subsections</h2>
                 <div class="o-grid o-grid--2">
                     {% for subsection in section.subsections %}
                     <a
@@ -110,5 +129,27 @@
             {% endif %}
         </div>
     </div>
-    {% endblock %}
+
+    {% if config.extra.features.cta and not section.extra.disable_cta %}
+    <section class="p-section__cta">
+        <div class="o-container o-container--narrow">
+            <div class="c-card c-card--glass">
+                <div class="c-card__body">
+                    <h2 class="c-card__title">{{ config.extra.cta.title }}</h2>
+                    <p class="c-card__text">
+                        {{ config.extra.cta.description }}
+                    </p>
+                    <div class="c-card__actions">
+                        <a
+                            href="{{ config.extra.cta.button_url }}"
+                            class="c-button c-button--primary"
+                        >
+                            {{ config.extra.cta.button_text }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %} {% endblock %}
 </div>

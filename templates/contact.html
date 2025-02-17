@@ -1,41 +1,119 @@
 {% extends "base.html" %} {% block content %}
-<div class="p-contact">
-    <div class="o-container o-container--content">
-        <header class="o-page-header o-page-header--center">
-            <h1 class="o-page-header__title">{{ page.title }}</h1>
+<div class="p-contact{% if page.extra.animate %} p-contact--animate{% endif %}">
+    <div class="o-container o-container--narrow">
+        <header class="p-contact__header">
+            <h1 class="p-contact__header-title">{{ page.title }}</h1>
             {% if page.description %}
-            <div class="o-page-header__text">
+            <div class="p-contact__header-description">
                 {{ page.description | markdown | safe }}
             </div>
             {% endif %}
         </header>
 
-        <div class="p-contact__methods">
-            {% for method in config.extra.contact_methods %}
-            <div class="p-contact__methods-item">
-                <h2>{{ method.name }}</h2>
+        <div class="p-contact__grid">
+            <aside class="p-contact__info">
+                {% if config.extra.contact_info %} {% for item in
+                config.extra.contact_info %}
+                <div class="p-contact__info-card">
+                    {% if item.icon %}
+                    <div class="p-contact__info-card-icon">
+                        {{ item.icon | safe }}
+                    </div>
+                    {% endif %}
 
-                {% if method.type == "email" %}
-                <a href="mailto:{{ method.value }}" class="contact-link">
-                    {{ method.value }}
-                </a>
-                {% elif method.type == "social" %}
-                <a
-                    href="{{ method.value }}"
-                    class="contact-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {{ method.display_value | default(value=method.value) }}
-                </a>
-                {% endif %} {% if method.description %}
-                <p>{{ method.description }}</p>
+                    <h3 class="p-contact__info-card-title">{{ item.title }}</h3>
+
+                    <p class="p-contact__info-card-text">{{ item.text }}</p>
+
+                    {% if item.link %}
+                    <a
+                        href="{{ item.link.url }}"
+                        class="p-contact__info-card-link"
+                        {%
+                        if
+                        item.link.external
+                        %}target="_blank"
+                        rel="noopener noreferrer"
+                        {%
+                        endif
+                        %}
+                    >
+                        {{ item.link.text }} {% if item.link.external %}
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                        >
+                            <path
+                                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+                            ></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %} {% endif %} {% if config.extra.social_links %}
+                <div class="p-contact__social">
+                    <h3 class="p-contact__social-title">Connect With Me</h3>
+                    <div class="p-contact__social-links">
+                        {% for link in config.extra.social_links %}
+                        <a
+                            href="{{ link.url }}"
+                            class="p-contact__social-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="{{ link.name }}"
+                        >
+                            {{ link.icon | safe }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
                 {% endif %}
-            </div>
-            {% endfor %}
+            </aside>
         </div>
 
-        {{ page.content | safe }}
+        {% if config.extra.features.map and config.extra.map_embed_url %}
+        <div class="p-contact__map">
+            <iframe
+                src="{{ config.extra.map_embed_url }}"
+                width="100%"
+                height="450"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+        </div>
+        {% endif %} {% if page.content %}
+        <div class="p-contact__content c-content">
+            {{ page.content | safe }}
+        </div>
+        {% endif %}
     </div>
 </div>
-{% endblock %}
+
+{% if config.extra.features.cta %}
+<section class="p-contact__cta">
+    <div class="o-container o-container--narrow">
+        <div class="c-card c-card--glass">
+            <div class="c-card__body">
+                <h2 class="c-card__title">{{ config.extra.cta.title }}</h2>
+                <p class="c-card__text">{{ config.extra.cta.description }}</p>
+                <div class="c-card__actions">
+                    <a
+                        href="{{ config.extra.cta.button_url }}"
+                        class="c-button c-button--primary"
+                    >
+                        {{ config.extra.cta.button_text }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %} {% endblock %}

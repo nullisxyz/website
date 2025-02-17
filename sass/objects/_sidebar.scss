@@ -18,7 +18,144 @@
         min-width: var(--sidebar-content-min, 50%);
     }
 
+    // Direction variants
     &--reverse {
         flex-direction: row-reverse;
+    }
+
+    // Width variants
+    &--narrow {
+        --sidebar-width: 200px;
+    }
+
+    &--wide {
+        --sidebar-width: 400px;
+    }
+
+    // Spacing variants
+    &--gap-sm {
+        gap: var(--spacing-sm);
+    }
+
+    &--gap-xl {
+        gap: var(--spacing-xl);
+    }
+
+    // Alignment variants
+    &--start {
+        align-items: flex-start;
+    }
+
+    &--center {
+        align-items: center;
+    }
+
+    &--end {
+        align-items: flex-end;
+    }
+
+    &--stretch {
+        align-items: stretch;
+    }
+
+    // Responsive variants
+    @include media-down("md") {
+        &--stack-md {
+            flex-direction: column;
+
+            > :first-child,
+            > :last-child {
+                flex-basis: 100%;
+                min-width: 100%;
+            }
+        }
+    }
+
+    // Sticky sidebar
+    &--sticky {
+        > :first-child {
+            position: sticky;
+            top: var(--sticky-top, var(--spacing-lg));
+            max-height: calc(100vh - var(--sticky-top, var(--spacing-lg)));
+            overflow-y: auto;
+
+            // Scrollbar styling
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--color-surface);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--color-border);
+                border-radius: var(--site-radius-sm);
+
+                &:hover {
+                    background: var(--color-border-hover);
+                }
+            }
+        }
+    }
+
+    // With borders
+    &--bordered {
+        > :first-child {
+            border-right: 1px solid var(--color-border);
+            padding-right: var(--spacing-lg);
+        }
+
+        &.o-sidebar--reverse {
+            > :first-child {
+                border-right: none;
+                border-left: 1px solid var(--color-border);
+                padding-right: 0;
+                padding-left: var(--spacing-lg);
+            }
+        }
+
+        @include media-down("md") {
+            &--stack-md {
+                > :first-child {
+                    border-right: none;
+                    border-bottom: 1px solid var(--color-border);
+                    padding-right: 0;
+                    padding-bottom: var(--spacing-lg);
+                }
+            }
+        }
+    }
+
+    // With background
+    &--background {
+        > :first-child {
+            background: var(--color-surface);
+            padding: var(--spacing-lg);
+            border-radius: var(--site-radius);
+
+            [data-theme="light"] & {
+                box-shadow: var(--site-shadow);
+            }
+
+            [data-theme="dark"] & {
+                border: 1px solid var(--color-border);
+            }
+        }
+    }
+
+    // With collapsible sidebar
+    &--collapsible {
+        @include media-down("md") {
+            > :first-child {
+                display: none;
+            }
+
+            &.is-open {
+                > :first-child {
+                    display: block;
+                }
+            }
+        }
     }
 }

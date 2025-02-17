@@ -1,4 +1,7 @@
 // components/_theme-toggle.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
 .c-theme-toggle {
     padding: var(--spacing-sm);
     background: none;
@@ -7,45 +10,151 @@
     cursor: pointer;
     width: 40px;
     height: 40px;
-    border-radius: var(--border-radius-full);
+    border-radius: var(--site-radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    @include transition(
+        background-color,
+        border-color,
+        color,
+        transform,
+        box-shadow
+    );
     position: relative;
 
     &:hover {
         background: var(--color-surface);
-        border-color: var(--color-text);
+        border-color: var(--color-border-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--site-shadow-sm);
+    }
+
+    &:active {
+        transform: translateY(0);
     }
 
     &__icon {
         width: 20px;
         height: 20px;
         position: absolute;
-        transition:
-            opacity 0.2s ease,
-            transform 0.2s ease;
+        @include transition(opacity, transform);
         color: var(--color-text);
 
         &--sun {
             opacity: 0;
-            transform: scale(0.5);
+            transform: scale(0.5) rotate(-180deg);
 
             [data-theme="dark"] & {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) rotate(0);
             }
         }
 
         &--moon {
             opacity: 0;
-            transform: scale(0.5);
+            transform: scale(0.5) rotate(180deg);
 
             [data-theme="light"] & {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) rotate(0);
             }
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+    }
+
+    // Focus state
+    &:focus-visible {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 2px var(--color-accent-bg);
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        --toggle-shadow: var(--site-shadow-sm);
+    }
+
+    [data-theme="dark"] & {
+        --toggle-shadow: var(--site-shadow-sm);
+    }
+
+    // Disabled state
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // Animation duration
+    --toggle-duration: var(--site-transition-medium);
+
+    // Size variants
+    &--sm {
+        width: 32px;
+        height: 32px;
+        padding: var(--spacing-xs);
+
+        .c-theme-toggle__icon {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &--lg {
+        width: 48px;
+        height: 48px;
+        padding: var(--spacing-md);
+
+        .c-theme-toggle__icon {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    // Position variants
+    &--fixed {
+        position: fixed;
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        z-index: var(--z-fixed);
+        background: var(--color-card-background);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--color-border);
+        box-shadow: var(--site-shadow);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--site-shadow-lg);
+        }
+    }
+
+    // With label
+    &--with-label {
+        width: auto;
+        padding: var(--spacing-sm) var(--spacing-md);
+        gap: var(--spacing-sm);
+
+        .c-theme-toggle__label {
+            @include font-family("mono");
+            @include font-size("sm");
+            font-weight: var(--font-weight-medium);
+            color: var(--color-text);
+        }
+
+        .c-theme-toggle__icon {
+            position: relative;
+            opacity: 1;
+            transform: none;
         }
     }
 }

@@ -15,12 +15,157 @@
         margin-block-start: var(--stack-space, var(--spacing-md));
     }
 
-    // Variants
+    // Spacing variants
+    &--xs {
+        --stack-space: var(--spacing-xs);
+    }
+
     &--sm {
         --stack-space: var(--spacing-sm);
     }
 
     &--lg {
         --stack-space: var(--spacing-lg);
+    }
+
+    &--xl {
+        --stack-space: var(--spacing-xl);
+    }
+
+    // Alignment variants
+    &--center {
+        align-items: center;
+        text-align: center;
+    }
+
+    &--start {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    &--end {
+        align-items: flex-end;
+        text-align: right;
+    }
+
+    // Justify variants
+    &--justify-start {
+        justify-content: flex-start;
+    }
+
+    &--justify-center {
+        justify-content: center;
+    }
+
+    &--justify-end {
+        justify-content: flex-end;
+    }
+
+    &--justify-between {
+        justify-content: space-between;
+    }
+
+    // With dividers
+    &--divided {
+        > * + * {
+            border-top: 1px solid var(--color-border);
+            padding-top: var(--stack-space, var(--spacing-md));
+        }
+    }
+
+    // Recursive stacking
+    &--recursive {
+        * {
+            margin-block: 0;
+        }
+
+        * + * {
+            margin-block-start: var(--stack-space, var(--spacing-md));
+        }
+    }
+
+    // With background
+    &--background {
+        background: var(--color-surface);
+        padding: var(--spacing-lg);
+        border-radius: var(--site-radius);
+
+        [data-theme="light"] & {
+            box-shadow: var(--site-shadow);
+        }
+
+        [data-theme="dark"] & {
+            border: 1px solid var(--color-border);
+        }
+    }
+
+    // Split after specific child
+    &--split-after-2 > :nth-child(2),
+    &--split-after-3 > :nth-child(3),
+    &--split-after-4 > :nth-child(4),
+    &--split-after-5 > :nth-child(5) {
+        margin-bottom: auto;
+    }
+
+    // Responsive variants
+    @include media-down("md") {
+        &--responsive {
+            --stack-space: var(--spacing-sm);
+        }
+    }
+
+    @include media-up("lg") {
+        &--responsive {
+            --stack-space: var(--spacing-lg);
+        }
+    }
+
+    // Animation variants
+    &--animate {
+        > * {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: stack-item-fade-in 0.5s ease forwards;
+
+            @for $i from 1 through 10 {
+                &:nth-child(#{$i}) {
+                    animation-delay: #{$i * 0.1}s;
+                }
+            }
+        }
+    }
+}
+
+@keyframes stack-item-fade-in {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// With snap scroll
+.o-stack--snap-scroll {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+
+    > * {
+        scroll-snap-align: start;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+// For forms and fieldsets
+.o-stack--form {
+    > * + * {
+        margin-block-start: var(--spacing-md);
+    }
+
+    // Field groups might need less spacing
+    .field-group + .field-group {
+        margin-block-start: var(--spacing-sm);
     }
 }

@@ -1,18 +1,129 @@
 {% extends "base.html" %} {% block content %}
-<article class="p-about">
-    <div class="o-container o-container--content">
-        <header class="o-page-header o-page-header--center">
-            <h1 class="o-page-header__title">{{ page.title }}</h1>
-            {% if page.description %}
-            <div class="o-page-header__text">
+<article class="p-about{% if page.extra.animate %} p-about--animate{% endif %}">
+    <div class="o-container o-container--narrow">
+        <header class="p-about__header">
+            <h1 class="p-about__header-title">{{ page.title }}</h1>
+            {% if page.extra.subtitle %}
+            <p class="p-about__header-subtitle">{{ page.extra.subtitle }}</p>
+            {% endif %} {% if page.description %}
+            <div class="p-about__header-description">
                 {{ page.description | markdown | safe }}
             </div>
             {% endif %}
         </header>
 
-        <div class="p-about__content">{{ page.content | safe }}</div>
+        <div class="p-about__content c-content">{{ page.content | safe }}</div>
 
-        {% if page.extra.social_links %}
+        {% if page.extra.skills %}
+        <section class="p-about__skills">
+            <header class="p-about__skills-header">
+                <h2 class="p-about__skills-header-title">Skills & Expertise</h2>
+                {% if page.extra.skills_description %}
+                <p class="p-about__skills-header-description">
+                    {{ page.extra.skills_description }}
+                </p>
+                {% endif %}
+            </header>
+
+            <div class="p-about__skills-grid">
+                {% for category in page.extra.skills %}
+                <div class="p-about__skills-card">
+                    {% if category.icon %}
+                    <div class="p-about__skills-card-icon">
+                        {{ category.icon | safe }}
+                    </div>
+                    {% endif %}
+
+                    <h3 class="p-about__skills-card-title">
+                        {{ category.name }}
+                    </h3>
+
+                    {% if category.description %}
+                    <p class="p-about__skills-card-description">
+                        {{ category.description }}
+                    </p>
+                    {% endif %} {% if category.items %}
+                    <ul class="p-about__skills-card-list">
+                        {% for item in category.items %}
+                        <li class="p-about__skills-card-list-item">
+                            {% if item.icon %}
+                            <span class="p-about__skills-card-list-item-icon">
+                                {{ item.icon | safe }}
+                            </span>
+                            {% endif %}
+                            <div class="p-about__skills-card-list-item-content">
+                                <span
+                                    class="p-about__skills-card-list-item-name"
+                                >
+                                    {{ item.name }}
+                                </span>
+                                {% if item.level %}
+                                <span
+                                    class="p-about__skills-card-list-item-level"
+                                >
+                                    {{ item.level }}
+                                </span>
+                                {% endif %}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %} {% if page.extra.experience %}
+        <section class="p-about__experience">
+            <header class="p-about__experience-header">
+                <h2 class="p-about__experience-header-title">
+                    Professional Experience
+                </h2>
+            </header>
+
+            <div class="p-about__experience-timeline">
+                {% for job in page.extra.experience %}
+                <div class="p-about__experience-timeline-item">
+                    <div class="p-about__experience-timeline-item-date">
+                        {{ job.start_date }} - {{ job.end_date |
+                        default(value="Present") }}
+                    </div>
+                    <h3 class="p-about__experience-timeline-item-title">
+                        {{ job.title }}
+                    </h3>
+                    <div class="p-about__experience-timeline-item-company">
+                        {{ job.company }}
+                    </div>
+                    <div class="p-about__experience-timeline-item-description">
+                        {{ job.description | markdown | safe }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %} {% if page.extra.education %}
+        <section class="p-about__education">
+            <header class="p-about__education-header">
+                <h2 class="p-about__education-header-title">Education</h2>
+            </header>
+
+            <div class="p-about__education-grid">
+                {% for edu in page.extra.education %}
+                <div class="p-about__education-card">
+                    <h3 class="p-about__education-card-title">
+                        {{ edu.degree }}
+                    </h3>
+                    <div class="p-about__education-card-school">
+                        {{ edu.school }}
+                    </div>
+                    <div class="p-about__education-card-date">
+                        {{ edu.year }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %} {% if page.extra.social_links %}
         <footer class="p-about__footer">
             <div class="o-cluster o-cluster--center">
                 {% for link in page.extra.social_links %}
@@ -22,7 +133,11 @@
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    {{ link.name }}
+                    {% if link.icon %}
+                    <span class="c-button__icon c-button__icon--left">
+                        {{ link.icon | safe }}
+                    </span>
+                    {% endif %} {{ link.name }}
                 </a>
                 {% endfor %}
             </div>
@@ -30,4 +145,24 @@
         {% endif %}
     </div>
 </article>
-{% endblock %}
+
+{% if config.extra.features.cta %}
+<section class="p-about__cta">
+    <div class="o-container o-container--narrow">
+        <div class="c-card c-card--glass">
+            <div class="c-card__body">
+                <h2 class="c-card__title">{{ config.extra.cta.title }}</h2>
+                <p class="c-card__text">{{ config.extra.cta.description }}</p>
+                <div class="c-card__actions">
+                    <a
+                        href="{{ config.extra.cta.button_url }}"
+                        class="c-button c-button--primary"
+                    >
+                        {{ config.extra.cta.button_text }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %} {% endblock %}

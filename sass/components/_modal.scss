@@ -30,8 +30,8 @@
 
     &__dialog {
         background: var(--color-card-background);
-        border-radius: var(--border-radius-lg);
-        border: 1px solid var(--color-border);
+        border-radius: var(--site-radius-lg);
+        border: 1px solid var(--color-card-border);
         width: 100%;
         max-width: 500px;
         max-height: calc(100vh - var(--spacing-xl));
@@ -48,7 +48,7 @@
         align-items: center;
         justify-content: space-between;
         background: var(--color-card-background);
-        border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
+        border-radius: var(--site-radius-lg) var(--site-radius-lg) 0 0;
     }
 
     &__title {
@@ -64,7 +64,7 @@
         color: var(--color-text-muted);
         padding: var(--spacing-xs);
         cursor: pointer;
-        border-radius: var(--border-radius-sm);
+        border-radius: var(--site-radius-sm);
         @include transition(color, background-color);
 
         &:hover {
@@ -101,7 +101,7 @@
         justify-content: flex-end;
         gap: var(--spacing-sm);
         background: var(--color-card-background);
-        border-radius: 0 0 var(--border-radius-lg) var(--border-radius-lg);
+        border-radius: 0 0 var(--site-radius-lg) var(--site-radius-lg);
     }
 
     // Size variants
@@ -147,21 +147,19 @@
     // Theme-specific adjustments
     [data-theme="light"] & {
         --modal-backdrop: rgba(0, 0, 0, 0.5);
-        --modal-shadow: 0 4px 6px var(--shadow-color);
         background: var(--modal-backdrop);
 
         .c-modal__dialog {
-            box-shadow: var(--modal-shadow);
+            box-shadow: var(--site-shadow-lg);
         }
     }
 
     [data-theme="dark"] & {
         --modal-backdrop: rgba(0, 0, 0, 0.7);
-        --modal-shadow: 0 4px 6px var(--shadow-color-strong);
         background: var(--modal-backdrop);
 
         .c-modal__dialog {
-            box-shadow: var(--modal-shadow);
+            box-shadow: var(--site-shadow-lg);
         }
     }
 

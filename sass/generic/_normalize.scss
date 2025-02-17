@@ -42,35 +42,6 @@ textarea {
     }
 }
 
-// Proper display for embedded content
-embed,
-iframe,
-img,
-object,
-video {
-    vertical-align: middle;
-}
-
-// Table normalization
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
-    color: var(--color-text);
-}
-
-// Form element normalization
-button,
-input,
-optgroup,
-select,
-textarea {
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-    color: var(--color-text);
-}
-
 // Remove text decorations
 a {
     text-decoration: none;
@@ -80,6 +51,138 @@ a {
     &:hover {
         color: var(--color-accent-light);
     }
+}
+
+// Proper display for embedded content
+embed,
+iframe,
+img,
+object,
+video {
+    vertical-align: middle;
+    max-width: 100%;
+}
+
+// Table normalization
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+// Typography normalization
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+}
+
+// List normalization
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+// Form normalization
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+// Remove inner border and padding from Firefox buttons
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+
+// Restore focus styles unset by previous rule
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText;
+}
+
+// Correct padding in Firefox
+fieldset {
+    padding: 0.35em 0.75em 0.625em;
+}
+
+// Show overflow in Edge
+input {
+    overflow: visible;
+}
+
+// Remove inheritance of text transform in Edge, Firefox, and IE
+button,
+select {
+    text-transform: none;
+}
+
+// Correct inability to style clickable types in iOS and Safari
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+// Remove default vertical scrollbar in IE 10+
+textarea {
+    overflow: auto;
+}
+
+// Add correct box sizing in IE 10
+[type="checkbox"],
+[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+// Correct cursor style of increment and decrement buttons in Chrome
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+// Correct odd appearance in Chrome and Safari
+[type="search"] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+}
+
+// Remove inner padding in Chrome and Safari on macOS
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+// Correct impossible to style clickable types in iOS and Safari
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
 }
 
 // Theme-specific focus styles

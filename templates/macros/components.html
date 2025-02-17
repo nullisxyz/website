@@ -1,115 +1,162 @@
-{% macro button(text, url="", type="", class="") %}
-<{% if url %}a href="{{ url }}"{% else %}button type="{{ type }}"{% endif %} class="button {{ class }}">
-    {{ text }}
-</{% if url %}a{% else %}button{% endif %}>
-{% endmacro button %}
-
-{% macro card(title, description="", image="", url="", tags="") %}
-<article class="card">
-    {% if image %}
-    <div class="card-image">
-        <img src="{{ image }}" alt="{{ title }}" />
-    </div>
-    {% endif %}
-
-    <div class="card-content">
-        <h2>
-            {% if url %}
-            <a href="{{ url }}">{{ title }}</a>
-            {% else %}
-            {{ title }}
-            {% endif %}
-        </h2>
-
-        {% if description %}
-        <p>{{ description }}</p>
+{% macro button(text, url="", type="", class="", icon="", icon_position="left", size="", disabled=false, loading=false) %}
+    <{% if url %}a href="{{ url }}"{% else %}button type="{{ type }}"{% endif %}
+        class="c-button{% if class %} {{ class }}{% endif %}{% if size %} c-button--{{ size }}{% endif %}{% if disabled %} c-button--disabled{% endif %}{% if loading %} c-button--loading{% endif %}"
+        {% if disabled %}disabled{% endif %}
+        {% if url %}{% if url is starting_with("http") %}target="_blank" rel="noopener noreferrer"{% endif %}{% endif %}
+    >
+        {% if icon and icon_position == "left" %}
+            <span class="c-button__icon c-button__icon--left">
+                {{ icon | safe }}
+            </span>
         {% endif %}
 
-        {% if tags %}
-        <div class="card-tags">
-            {% for tag in tags %}
-            <span class="tag">{{ tag }}</span>
-            {% endfor %}
+        {{ text }}
+
+        {% if icon and icon_position == "right" %}
+            <span class="c-button__icon c-button__icon--right">
+                {{ icon | safe }}
+            </span>
+        {% endif %}
+    </{% if url %}a{% else %}button{% endif %}>
+{% endmacro %}
+
+{% macro card(title, content="", image="", url="", tags="", class="", hover=false) %}
+    <article class="c-card{% if class %} {{ class }}{% endif %}{% if hover %} c-card--hover{% endif %}">
+        {% if image %}
+            <div class="c-card__image-wrapper">
+                <img src="{{ image }}" alt="{{ title }}" class="c-card__image" loading="lazy">
+            </div>
+        {% endif %}
+
+        <div class="c-card__body">
+            <h3 class="c-card__title">
+                {% if url %}
+                    <a href="{{ url }}">{{ title }}</a>
+                {% else %}
+                    {{ title }}
+                {% endif %}
+            </h3>
+
+            {% if content %}
+                <div class="c-card__text">
+                    {{ content | markdown | safe }}
+                </div>
+            {% endif %}
+
+            {% if tags %}
+                <div class="c-card__tags">
+                    {% for tag in tags | split(pat=",") %}
+                        <span class="c-badge c-badge--secondary c-badge--sm">{{ tag | trim }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
+    </article>
+{% endmacro %}
+
+{% macro alert(type="info", title="", message="", dismissible=false) %}
+    <div class="c-alert c-alert--{{ type }}{% if dismissible %} c-alert--dismissible{% endif %}" role="alert">
+        {% if title or message %}
+            <div class="c-alert__icon">
+                {% if type == "success" %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 6L9 17l-5-5"/></svg>
+                {% elif type == "error" %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                {% elif type == "warning" %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                {% else %}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="c-alert__content">
+            {% if title %}
+                <h4 class="c-alert__title">{{ title }}</h4>
+            {% endif %}
+            {% if message %}
+                <p class="c-alert__text">{{ message }}</p>
+            {% endif %}
+            {{ caller() }}
+        </div>
+
+        {% if dismissible %}
+            <button class="c-alert__close" aria-label="Close alert">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
         {% endif %}
     </div>
-</article>
-{% endmacro card %}
+{% endmacro %}
 
-{% macro social_links(links) %}
-<div class="social-links">
-    {% for link in links %}
-    <a href="{{ link.url }}" class="social-link" target="_blank" rel="noopener noreferrer">
-        {{ link.name }}
-    </a>
-    {% endfor %}
-</div>
-{% endmacro social_links %}
+{% macro badge(text, type="", size="", icon="") %}
+    <span class="c-badge{% if type %} c-badge--{{ type }}{% endif %}{% if size %} c-badge--{{ size }}{% endif %}{% if icon %} c-badge--with-icon{% endif %}">
+        {% if icon %}
+            <span class="c-badge__icon">
+                {{ icon | safe }}
+            </span>
+        {% endif %}
+        {{ text }}
+    </span>
+{% endmacro %}
 
-{% macro form_field(type, name, label="", required=false) %}
-<div class="form-group">
-    {% if label %}
-    <label for="{{ name }}">{{ label }}</label>
-    {% endif %}
-
-    {% if type == "textarea" %}
-    <textarea id="{{ name }}" name="{{ name }}" {% if required %}required{% endif %}></textarea>
-    {% else %}
-    <input type="{{ type }}" id="{{ name }}" name="{{ name }}" {% if required %}required{% endif %}>
-    {% endif %}
-</div>
-{% endmacro form_field %}
-
-{% macro icon(name) %}
-<span class="icon icon-{{ name }}" aria-hidden="true"></span>
-{% endmacro icon %}
-
-{% macro alert(message, type="info") %}
-<div class="alert alert-{{ type }}" role="alert">
-    {{ message }}
-</div>
-{% endmacro alert %}
-
-{% macro breadcrumbs(items) %}
-<nav class="breadcrumbs" aria-label="Breadcrumbs">
-    <ol>
-        {% for item in items %}
-        <li>
-            {% if not loop.last %}
-            <a href="{{ item.url }}">{{ item.title }}</a>
-            {% else %}
-            <span aria-current="page">{{ item.title }}</span>
-            {% endif %}
-        </li>
-        {% endfor %}
-    </ol>
-</nav>
-{% endmacro breadcrumbs %}
+{% macro tooltip(text, content, position="top") %}
+    <div class="c-tooltip">
+        {{ text }}
+        <div class="c-tooltip__content c-tooltip__content--{{ position }}">
+            {{ content }}
+        </div>
+    </div>
+{% endmacro %}
 
 {% macro pagination(current_page, total_pages, base_url) %}
-<nav class="pagination" aria-label="Pagination">
-    {% if current_page > 1 %}
-    <a href="{{ base_url }}{{ current_page - 1 }}" class="prev-page">Previous</a>
-    {% endif %}
+    <nav class="c-pagination" aria-label="Pagination">
+        {% if current_page > 1 %}
+            <a href="{{ base_url }}{{ current_page - 1 }}" class="c-pagination__item c-pagination__prev">
+                Previous
+            </a>
+        {% endif %}
 
-    <span class="current-page">Page {{ current_page }} of {{ total_pages }}</span>
+        {% for i in range(start=1, end=total_pages + 1) %}
+            {% if i == current_page %}
+                <span class="c-pagination__item c-pagination__item--active">{{ i }}</span>
+            {% else %}
+                <a href="{{ base_url }}{{ i }}" class="c-pagination__item">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
 
-    {% if current_page < total_pages %}
-    <a href="{{ base_url }}{{ current_page + 1 }}" class="next-page">Next</a>
-    {% endif %}
-</nav>
-{% endmacro pagination %}
+        {% if current_page < total_pages %}
+            <a href="{{ base_url }}{{ current_page + 1 }}" class="c-pagination__item c-pagination__next">
+                Next
+            </a>
+        {% endif %}
+    </nav>
+{% endmacro %}
 
-{% macro tag_list(tags) %}
-<div class="tag-list">
-    {% for tag in tags %}
-    <span class="tag">{{ tag }}</span>
-    {% endfor %}
-</div>
-{% endmacro tag_list %}
+{% macro loader(type="spinner", size="", text="") %}
+    <div class="c-loader c-loader--{{ type }}{% if size %} c-loader--{{ size }}{% endif %}{% if text %} c-loader--with-text{% endif %}">
+        {% if type == "dots" %}
+            <span></span>
+            <span></span>
+            <span></span>
+        {% endif %}
+        {% if text %}
+            <span class="c-loader__text">{{ text }}</span>
+        {% endif %}
+    </div>
+{% endmacro %}
 
-{% macro loading_spinner() %}
-<div class="loading-spinner" aria-label="Loading">
-    <div class="spinner"></div>
-</div>
-{% endmacro loading_spinner %}
+{% macro modal(title, id, size="", class="") %}
+    <div class="c-modal{% if class %} {{ class }}{% endif %}{% if size %} c-modal--{{ size }}{% endif %}" id="{{ id }}" aria-hidden="true">
+        <div class="c-modal__dialog">
+            <div class="c-modal__header">
+                <h3 class="c-modal__title">{{ title }}</h3>
+                <button class="c-modal__close" aria-label="Close modal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div class="c-modal__body">
+                {{ caller() }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}

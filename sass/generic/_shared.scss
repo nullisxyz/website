@@ -52,7 +52,7 @@ hr {
 
 ::-webkit-scrollbar-thumb {
     background: var(--color-border);
-    border-radius: 4px;
+    border-radius: var(--site-radius-sm);
 
     &:hover {
         background: var(--color-border-hover);
@@ -62,28 +62,28 @@ hr {
 // Theme-specific scrollbar styles
 [data-theme="light"] {
     ::-webkit-scrollbar-track {
-        background: var(--color-neutral-gray-100);
+        background: var(--color-surface);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--color-neutral-gray-300);
+        background: var(--color-border);
 
         &:hover {
-            background: var(--color-neutral-gray-400);
+            background: var(--color-border-hover);
         }
     }
 }
 
 [data-theme="dark"] {
     ::-webkit-scrollbar-track {
-        background: var(--color-primary-light);
+        background: var(--color-surface);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: var(--color-neutral-gray-700);
+        background: var(--color-border);
 
         &:hover {
-            background: var(--color-neutral-gray-600);
+            background: var(--color-border-hover);
         }
     }
 }
@@ -119,5 +119,74 @@ hr {
 
     &:focus {
         top: 0;
+    }
+}
+
+// Print styles
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    abbr[title]::after {
+        content: " (" attr(title) ")";
+    }
+
+    pre {
+        white-space: pre-wrap !important;
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    // Hide elements for print
+    .no-print {
+        display: none !important;
+    }
+}
+
+// Content flow
+.flow > * + * {
+    margin-top: var(--flow-space, var(--spacing-md));
+}
+
+// Container query support
+@supports (container-type: inline-size) {
+    .has-container-queries {
+        container-type: inline-size;
     }
 }

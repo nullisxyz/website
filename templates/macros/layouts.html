@@ -1,109 +1,177 @@
 {% macro page_wrapper(title="", description="") %}
-<main class="container page-wrapper">
-    {{ self::page_header(title=title, description=description) }} {{ caller() }}
+<main class="o-container page-wrapper">
+    {% if title %} {{ self::page_header(title=title, description=description) }}
+    {% endif %} {{ caller() }}
 </main>
-{% endmacro page_wrapper %} {% macro page_header(title, description="") %}
-<header class="page-header">
-    <h1>{{ title }}</h1>
+{% endmacro %} {% macro page_header(title, description="") %}
+<header class="p-page__header">
+    <h1 class="p-page__header-title">{{ title }}</h1>
     {% if description %}
-    <div class="page-description">{{ description | markdown | safe }}</div>
+    <div class="p-page__header-description">
+        {{ description | markdown | safe }}
+    </div>
     {% endif %}
 </header>
-{% endmacro page_header %} {% macro content_section(title="") %}
-<section class="content-section">
+{% endmacro %} {% macro content_section(title="", class="") %}
+<section class="p-section{% if class %} {{ class }}{% endif %}">
     {% if title %}
-    <h2>{{ title }}</h2>
+    <h2 class="p-section__title">{{ title }}</h2>
     {% endif %} {{ caller() }}
 </section>
-{% endmacro content_section %} {% macro meta_info(post_date) %}
-<div class="meta-info">
-    <time datetime="{{ post_date }}"
-        >{{ post_date | date(format="%B %d, %Y") }}</time
-    >
+{% endmacro %} {% macro meta_info(date, author="", reading_time="") %}
+<div class="c-meta">
+    {% if date %}
+    <time datetime="{{ date }}" class="c-meta__date">
+        {{ date | date(format="%B %d, %Y") }}
+    </time>
+    {% endif %} {% if author %}
+    <span class="c-meta__author"> By {{ author }} </span>
+    {% endif %} {% if reading_time %}
+    <span class="c-meta__reading-time"> {{ reading_time }} min read </span>
+    {% endif %}
 </div>
-{% endmacro meta_info %} {% macro post_card(post="") %}
-<article class="post-card">
-    <div class="post-meta">
-        {% if post.date %} {{ self::meta_info(post_date=post.date) }} {% endif
-        %}
-    </div>
-
-    <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
-
-    {% if post.description %}
-    <div class="post-excerpt">{{ post.description }}</div>
-    {% endif %} {% if post.taxonomies and post.taxonomies.tags %}
-    <div class="post-tags">
-        {% for tag in post.taxonomies.tags %}
-        <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}" class="tag"
-            >{{ tag }}</a
-        >
-        {% endfor %}
+{% endmacro %} {% macro post_card(post) %}
+<article class="c-card c-card--hover">
+    {% if post.extra.image %}
+    <div class="c-card__image-wrapper">
+        <img
+            src="{{ post.extra.image }}"
+            alt="{{ post.title }}"
+            class="c-card__image"
+            loading="lazy"
+        />
     </div>
     {% endif %}
+
+    <div class="c-card__body">
+        {% if post.date %} {{ self::meta_info( date=post.date,
+        author=post.extra.author, reading_time=post.extra.reading_time ) }} {%
+        endif %}
+
+        <h2 class="c-card__title">
+            <a href="{{ post.permalink }}">{{ post.title }}</a>
+        </h2>
+
+        {% if post.description %}
+        <p class="c-card__text">{{ post.description }}</p>
+        {% endif %} {% if post.taxonomies %}
+        <div class="c-card__tags">
+            {% if post.taxonomies.categories %} {% for category in
+            post.taxonomies.categories %}
+            <a
+                href="{{ get_taxonomy_url(kind='categories', name=category) }}"
+                class="c-badge c-badge--primary"
+            >
+                {{ category }}
+            </a>
+            {% endfor %} {% endif %} {% if post.taxonomies.tags %} {% for tag in
+            post.taxonomies.tags %}
+            <a
+                href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
+                class="c-badge c-badge--secondary c-badge--sm"
+            >
+                {{ tag }}
+            </a>
+            {% endfor %} {% endif %}
+        </div>
+        {% endif %}
+    </div>
 </article>
-{% endmacro post_card %} {% macro project_card(project="") %}
-<article class="project-card">
+{% endmacro %} {% macro project_card(project) %}
+<article class="c-card c-card--hover">
     {% if project.image %}
-    <div class="project-image">
-        <img src="{{ project.image }}" alt="{{ project.title }}" />
+    <div class="c-card__image-wrapper">
+        <img
+            src="{{ project.image }}"
+            alt="{{ project.title }}"
+            class="c-card__image"
+            loading="lazy"
+        />
     </div>
     {% endif %}
 
-    <div class="project-details">
-        <h2>{{ project.title }}</h2>
+    <div class="c-card__body">
         {% if project.category %}
-        <div class="project-category">{{ project.category }}</div>
+        <span class="c-badge c-badge--primary">{{ project.category }}</span>
         {% endif %}
 
-        <p>{{ project.description }}</p>
+        <h2 class="c-card__title">{{ project.title }}</h2>
 
-        <div class="project-links">
-            {% if project.url %}
-            <a
-                href="{{ project.url }}"
-                class="primary-link"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                {% if "github.com" in project.url %}View Source{% else %}View
-                Project{% endif %}
-            </a>
-            {% endif %} {% if project.demo %}
-            <a
-                href="{{ project.demo }}"
-                class="secondary-link"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Live Demo
-            </a>
-            {% endif %}
-        </div>
-
-        {% if project.tags %}
-        <div class="tech-stack">
+        {% if project.description %}
+        <p class="c-card__text">{{ project.description }}</p>
+        {% endif %} {% if project.tags %}
+        <div class="c-card__tags">
             {% for tag in project.tags %}
-            <span class="tech-tag">{{ tag }}</span>
+            <span class="c-badge c-badge--secondary c-badge--sm"
+                >{{ tag }}</span
+            >
             {% endfor %}
         </div>
         {% endif %}
+
+        <div class="c-card__actions">
+            {% if project.url %}
+            <a
+                href="{{ project.url }}"
+                class="c-button c-button--primary c-button--sm"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View Project
+            </a>
+            {% endif %} {% if project.github %}
+            <a
+                href="{{ project.github }}"
+                class="c-button c-button--ghost c-button--sm"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                View Source
+            </a>
+            {% endif %}
+        </div>
     </div>
 </article>
-{% endmacro project_card %} {% macro grid(items="") %}
-<div class="grid">{% for item in items %} {{ caller() }} {% endfor %}</div>
-{% endmacro grid %} {% macro page_nav(prev_page="", next_page="") %}
-<nav class="page-navigation">
-    {% if prev_page %}
-    <a href="{{ prev_page.permalink }}" class="prev-page">
-        <span class="nav-label">Previous</span>
-        <span class="page-title">{{ prev_page.title }}</span>
-    </a>
-    {% endif %} {% if next_page %}
-    <a href="{{ next_page.permalink }}" class="next-page">
-        <span class="nav-label">Next</span>
-        <span class="page-title">{{ next_page.title }}</span>
-    </a>
-    {% endif %}
+{% endmacro %} {% macro page_nav(prev_page="", next_page="") %} {% if prev_page
+or next_page %}
+<nav class="c-page-nav" aria-label="Page navigation">
+    <div class="o-switcher o-switcher--between">
+        {% if prev_page %}
+        <a href="{{ prev_page.permalink }}" class="c-card c-card--interactive">
+            <div class="c-card__body">
+                <span class="u-text-sm u-text-muted">Previous</span>
+                <h3 class="c-card__title">{{ prev_page.title }}</h3>
+            </div>
+        </a>
+        {% endif %} {% if next_page %}
+        <a href="{{ next_page.permalink }}" class="c-card c-card--interactive">
+            <div class="c-card__body">
+                <span class="u-text-sm u-text-muted">Next</span>
+                <h3 class="c-card__title">{{ next_page.title }}</h3>
+            </div>
+        </a>
+        {% endif %}
+    </div>
 </nav>
-{% endmacro page_nav %}
+{% endif %} {% endmacro %} {% macro grid(cols="3", gap="md", class="") %}
+<div
+    class="o-grid o-grid--{{ cols }}{% if gap %} o-grid--gap-{{ gap }}{% endif %}{% if class %} {{ class }}{% endif %}"
+>
+    {{ caller() }}
+</div>
+{% endmacro %} {% macro social_links(links) %}
+<div class="c-social-links">
+    {% for link in links %}
+    <a
+        href="{{ link.url }}"
+        class="c-social-links__item"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{ link.name }}"
+    >
+        {% if link.icon %} {{ link.icon | safe }} {% else %} {{ link.name }} {%
+        endif %}
+    </a>
+    {% endfor %}
+</div>
+{% endmacro %}

@@ -9,6 +9,15 @@
 
     &__figure {
         flex-shrink: 0;
+        width: var(--media-width, auto);
+
+        img {
+            display: block;
+            width: 100%;
+            height: var(--media-height, auto);
+            object-fit: var(--media-fit, cover);
+            border-radius: var(--site-radius);
+        }
     }
 
     &__body {
@@ -16,20 +25,170 @@
         min-width: 0; // Fixes text overflow in flex items
     }
 
-    // Variants
+    // Alignment variants
     &--center {
         align-items: center;
     }
 
+    &--end {
+        align-items: flex-end;
+    }
+
+    &--stretch {
+        align-items: stretch;
+    }
+
+    // Direction variants
     &--reverse {
         flex-direction: row-reverse;
     }
 
-    // Responsive
+    // Size variants
+    &--small {
+        --media-width: 100px;
+    }
+
+    &--medium {
+        --media-width: 200px;
+    }
+
+    &--large {
+        --media-width: 300px;
+    }
+
+    // Spacing variants
+    &--gap-sm {
+        gap: var(--spacing-sm);
+    }
+
+    &--gap-lg {
+        gap: var(--spacing-lg);
+    }
+
+    // Responsive variants
     &--stack {
         @include media-down("md") {
             flex-direction: column;
             align-items: stretch;
+
+            .o-media__figure {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: var(--spacing-md);
+            }
         }
+    }
+
+    // With border
+    &--bordered {
+        .o-media__figure {
+            border: 1px solid var(--color-border);
+            padding: var(--spacing-xs);
+            border-radius: var(--site-radius);
+            background: var(--color-surface);
+        }
+    }
+
+    // With hover effects
+    &--hover {
+        @include transition(transform, box-shadow);
+
+        &:hover {
+            transform: translateY(-2px);
+
+            .o-media__figure {
+                img {
+                    transform: scale(1.05);
+                }
+            }
+        }
+
+        .o-media__figure {
+            overflow: hidden;
+
+            img {
+                @include transition(transform);
+            }
+        }
+    }
+
+    // With overlay
+    &--overlay {
+        position: relative;
+
+        .o-media__body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--spacing-md);
+            background: linear-gradient(
+                to top,
+                rgba(var(--color-primary), 0.9),
+                transparent
+            );
+            color: var(--color-text-inverse);
+        }
+    }
+
+    // With aspect ratio
+    &--aspect-ratio {
+        .o-media__figure {
+            position: relative;
+            padding-bottom: var(--aspect-ratio, 56.25%); // 16:9 default
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        &--hover:hover {
+            box-shadow: var(--site-shadow);
+        }
+    }
+
+    [data-theme="dark"] & {
+        &--hover:hover {
+            box-shadow: var(--site-shadow);
+        }
+    }
+
+    // With loading state
+    &--loading {
+        .o-media__figure {
+            background: var(--color-surface);
+            position: relative;
+            overflow: hidden;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--color-surface-hover),
+                    transparent
+                );
+                animation: media-loading 1.5s infinite;
+            }
+        }
+    }
+}
+
+@keyframes media-loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
     }
 }
