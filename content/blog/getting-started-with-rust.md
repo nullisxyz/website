@@ -8,12 +8,17 @@ categories = ["Rust"]
 tags = ["programming", "beginners", "systems"]
 
 [extra]
-author = "John Doe"
 reading_time = 10
 toc = true
 featured = true
 hero_image = "/images/blog/rust-hero.jpg"
 thumbnail = "/images/blog/rust-thumbnail.jpg"
+
+[extra.author]
+name = "John Doe"
+avatar = "/images/authors/john-doe.jpg"
+bio = "Software architect and tech writer"
+social = { twitter = "https://twitter.com/johndoe", github = "https://github.com/johndoe" }
 
 [extra.meta]
 difficulty = "Beginner"

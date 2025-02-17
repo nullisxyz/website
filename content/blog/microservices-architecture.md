@@ -8,12 +8,17 @@ categories = ["Architecture"]
 tags = ["microservices", "distributed-systems", "scalability"]
 
 [extra]
-author = "John Doe"
 reading_time = 15
 toc = true
 featured = true
 hero_image = "/images/blog/microservices-hero.jpg"
 thumbnail = "/images/blog/microservices-thumbnail.jpg"
+
+[extra.author]
+name = "John Doe"
+avatar = "/images/authors/john-doe.jpg"
+bio = "Software architect and tech writer"
+social = { twitter = "https://twitter.com/johndoe", github = "https://github.com/johndoe" }
 
 [extra.meta]
 difficulty = "Advanced"

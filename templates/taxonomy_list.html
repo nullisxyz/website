@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<div class="o-container o-container--narrow">
+    <header class="l-page-header">
+        <h1 class="l-page-header__title">{{ taxonomy.name | title }}</h1>
+        <p class="l-page-header__description">
+            Browse all {{ taxonomy.items | length }} {{ taxonomy.name }}
+        </p>
+    </header>
+
+    <div class="o-stack o-stack--large">
+        {% for term in terms %}
+        <div class="c-card">
+            <div class="c-card__body">
+                <h2 class="c-card__title">
+                    <a href="{{ term.permalink }}" class="c-card__link">
+                        {{ term.name }}
+                    </a>
+                </h2>
+                <p class="c-card__meta">
+                    {{ term.pages | length }} post{{ term.pages | length |
+                    pluralize }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

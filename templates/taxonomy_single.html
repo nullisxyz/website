@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %}
+<div class="o-container o-container--narrow">
+    <header class="l-page-header">
+        <h1 class="l-page-header__title">{{ term.name }}</h1>
+        <p class="l-page-header__description">
+            {{ term.pages | length }} post{{ term.pages | length | pluralize }}
+            tagged with "{{ term.name }}"
+        </p>
+    </header>
+
+    <div class="o-grid o-grid--2">
+        {% for page in term.pages %}
+        <article class="c-card">
+            {% if page.extra.thumbnail %}
+            <img
+                src="{{ page.extra.thumbnail }}"
+                alt="{{ page.title }}"
+                class="c-card__image"
+            />
+            {% endif %}
+
+            <div class="c-card__body">
+                {% if page.date %}
+                <time datetime="{{ page.date }}" class="c-card__date">
+                    {{ page.date | date(format="%B %d, %Y") }}
+                </time>
+                {% endif %}
+
+                <h2 class="c-card__title">
+                    <a href="{{ page.permalink }}" class="c-card__link">
+                        {{ page.title }}
+                    </a>
+                </h2>
+
+                {% if page.description %}
+                <p class="c-card__text">{{ page.description }}</p>
+                {% endif %} {% if page.taxonomies.categories %}
+                <div class="c-card__categories">
+                    {% for category in page.taxonomies.categories %}
+                    <a
+                        href="{{ get_taxonomy_url(kind='categories', name=category) }}"
+                        class="c-badge"
+                    >
+                        {{ category }}
+                    </a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
