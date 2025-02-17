@@ -2,8 +2,35 @@
 $colors: (
     "primary": (
         "base": #080a0d,
-        "dark": #050709,
-        "light": #0b0e12,
+        // Obsidian Black
+        "dark": #050607,
+        // Darker shade
+        "light": #1a1e24,
+        // Lighter shade
+    ),
+    "secondary": (
+        "base": #0d3b66,
+        // Deep Crypto Blue
+        "dark": #092c4d,
+        // Darker shade
+        "light": #114a7f,
+        // Lighter shade
+    ),
+    "tertiary": (
+        "base": #37474f,
+        // Dark Graphite
+        "dark": #2b373d,
+        // Darker shade
+        "light": #445761,
+        // Lighter shade
+    ),
+    "accent": (
+        "base": #7ec8e3,
+        // Hacker Cyan
+        "dark": #5bb9dc,
+        // Darker shade
+        "light": #a1d7ea,
+        // Lighter shade
     ),
     "neutral": (
         "black": #000000,
@@ -18,16 +45,11 @@ $colors: (
         "gray-800": #2d3748,
         "gray-900": #1a202c,
     ),
-    "accent": (
-        "base": #7ec8e3,
-        "dark": #5ab9dc,
-        "light": #a2d7ea,
-    ),
     "status": (
-        "error": #cf6679,
-        "success": #4f8b7c,
-        "warning": #fbd38d,
-        "info": #63b3ed,
+        "error": #ff6b6b,
+        "success": #4caf50,
+        "warning": #ffa726,
+        "info": #29b6f6,
     ),
 );
 
@@ -58,8 +80,8 @@ $colors: (
         --color-background-hover: var(--color-neutral-gray-200);
 
         // Text colors
-        --color-text: var(--color-neutral-gray-900);
-        --color-text-muted: var(--color-neutral-gray-600);
+        --color-text: var(--color-primary);
+        --color-text-muted: var(--color-tertiary);
         --color-text-inverse: var(--color-neutral-white);
 
         // Border colors
@@ -81,23 +103,13 @@ $colors: (
         --color-footer-border: var(--color-neutral-gray-200);
 
         // Interactive elements
-        --color-primary-button: var(--color-accent);
-        --color-primary-button-hover: var(--color-accent-light);
-        --color-primary-button-text: var(--color-primary);
+        --color-primary-button: var(--color-secondary);
+        --color-primary-button-hover: var(--color-secondary-light);
+        --color-primary-button-text: var(--color-neutral-white);
 
-        --color-secondary-button: transparent;
-        --color-secondary-button-hover: var(--color-neutral-gray-100);
-        --color-secondary-button-text: var(--color-text);
-
-        // Form elements
-        --color-input-background: var(--color-neutral-white);
-        --color-input-border: var(--color-neutral-gray-300);
-        --color-input-text: var(--color-text);
-        --color-input-placeholder: var(--color-neutral-gray-500);
-
-        // Shadows
-        --shadow-color: rgba(0, 0, 0, 0.1);
-        --shadow-color-strong: rgba(0, 0, 0, 0.2);
+        --color-secondary-button: var(--color-tertiary);
+        --color-secondary-button-hover: var(--color-tertiary-light);
+        --color-secondary-button-text: var(--color-neutral-white);
     }
 
     // Dark theme defaults
@@ -105,7 +117,7 @@ $colors: (
         // Base colors
         --color-background: var(--color-primary);
         --color-background-alt: var(--color-primary-light);
-        --color-background-hover: rgba(255, 255, 255, 0.1);
+        --color-background-hover: var(--color-primary-dark);
 
         // Text colors
         --color-text: var(--color-neutral-white);
@@ -113,40 +125,35 @@ $colors: (
         --color-text-inverse: var(--color-primary);
 
         // Border colors
-        --color-border: var(--color-neutral-gray-800);
-        --color-border-hover: var(--color-neutral-gray-700);
+        --color-border: var(--color-tertiary);
+        --color-border-hover: var(--color-tertiary-light);
 
         // Surface colors
         --color-surface: rgba(255, 255, 255, 0.05);
         --color-surface-hover: rgba(255, 255, 255, 0.1);
 
         // Component specific
-        --color-card-background: rgba(255, 255, 255, 0.05);
-        --color-card-border: var(--color-neutral-gray-800);
+        --color-card-background: rgba(
+            13,
+            59,
+            102,
+            0.15
+        ); // Secondary color with opacity
+        --color-card-border: var(--color-tertiary);
 
         --color-header-background: rgba(8, 10, 13, 0.95);
-        --color-header-border: var(--color-neutral-gray-800);
+        --color-header-border: var(--color-tertiary);
 
-        --color-footer-background: rgba(5, 7, 9, 0.95);
-        --color-footer-border: var(--color-neutral-gray-800);
+        --color-footer-background: rgba(8, 10, 13, 0.98);
+        --color-footer-border: var(--color-tertiary);
 
         // Interactive elements
         --color-primary-button: var(--color-accent);
         --color-primary-button-hover: var(--color-accent-light);
         --color-primary-button-text: var(--color-primary);
 
-        --color-secondary-button: transparent;
-        --color-secondary-button-hover: rgba(255, 255, 255, 0.1);
-        --color-secondary-button-text: var(--color-text);
-
-        // Form elements
-        --color-input-background: rgba(255, 255, 255, 0.05);
-        --color-input-border: var(--color-neutral-gray-800);
-        --color-input-text: var(--color-text);
-        --color-input-placeholder: var(--color-neutral-gray-600);
-
-        // Shadows
-        --shadow-color: rgba(0, 0, 0, 0.3);
-        --shadow-color-strong: rgba(0, 0, 0, 0.4);
+        --color-secondary-button: var(--color-secondary);
+        --color-secondary-button-hover: var(--color-secondary-light);
+        --color-secondary-button-text: var(--color-neutral-white);
     }
 }

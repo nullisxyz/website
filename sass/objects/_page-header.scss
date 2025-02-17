@@ -18,7 +18,6 @@
     &__title {
         @include heading(2);
         margin-bottom: var(--spacing-lg);
-        @include transition(color);
 
         // Variant for larger titles (e.g. blog posts)
         &--large {
@@ -41,5 +40,31 @@
         color: var(--color-text-muted);
         @include font-size("sm");
         @include transition(color);
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        --page-header-title-color: var(--heading-color);
+        --page-header-text-color: var(--color-text-muted);
+        --page-header-meta-color: var(--color-text-muted);
+    }
+
+    [data-theme="dark"] & {
+        --page-header-title-color: var(--heading-color);
+        --page-header-text-color: var(--color-text-muted);
+        --page-header-meta-color: var(--color-text-muted);
+    }
+
+    &__title {
+        color: #7ec8e3; /* Fallback */
+        color: var(--page-header-title-color);
+    }
+
+    &__text {
+        color: var(--page-header-text-color);
+    }
+
+    &__meta {
+        color: var(--page-header-meta-color);
     }
 }

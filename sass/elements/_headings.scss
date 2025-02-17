@@ -2,6 +2,10 @@
 @use "../settings" as *;
 @use "../tools" as *;
 
+:root {
+    --heading-color: var(--color-accent);
+}
+
 h1,
 h2,
 h3,
@@ -11,9 +15,8 @@ h6 {
     @include font-family("mono");
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
-    color: var(--color-text);
+    color: var(--heading-color);
     margin-bottom: var(--spacing-md);
-    @include transition(color);
 }
 
 h1 {
