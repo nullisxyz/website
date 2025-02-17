@@ -1,0 +1,114 @@
+// utilities/_effects.scss
+@use "../settings" as *;
+
+// Effect utility maps
+$shadow-utilities: (
+    "none": none,
+    "sm": var(--shadow-sm),
+    "md": var(--shadow-md),
+    "lg": var(--shadow-lg),
+    "inner": inset 0 2px 4px var(--shadow-color),
+);
+
+$opacity-utilities: (
+    "0": 0,
+    "25": 0.25,
+    "50": 0.5,
+    "75": 0.75,
+    "100": 1,
+);
+
+$blur-utilities: (
+    "sm": 4px,
+    "md": 8px,
+    "lg": 12px,
+);
+
+$transition-utilities: (
+    "all": (
+        background-color,
+        border-color,
+        color,
+        fill,
+        stroke,
+        opacity,
+        box-shadow,
+        transform,
+        filter,
+        backdrop-filter,
+    ),
+    "colors": (
+        background-color,
+        border-color,
+        color,
+        fill,
+        stroke,
+    ),
+    "opacity": (
+        opacity,
+    ),
+    "shadow": (
+        box-shadow,
+    ),
+    "transform": (
+        transform,
+    ),
+    "none": none,
+);
+
+// Generate shadow utilities
+@each $name, $value in $shadow-utilities {
+    .u-shadow-#{$name} {
+        box-shadow: $value !important;
+    }
+}
+
+// Generate opacity utilities
+@each $name, $value in $opacity-utilities {
+    .u-opacity-#{$name} {
+        opacity: $value !important;
+    }
+}
+
+// Generate backdrop blur utilities
+@each $name, $value in $blur-utilities {
+    .u-backdrop-blur-#{$name} {
+        backdrop-filter: blur($value) !important;
+    }
+}
+
+// Generate transition utilities
+@each $name, $properties in $transition-utilities {
+    .u-transition {
+        @if $name == "all" {
+            transition-property: $properties !important;
+        } @else if $name == "none" {
+            transition: none !important;
+        } @else {
+            &-#{$name} {
+                transition-property: $properties !important;
+            }
+        }
+
+        @if $name != "none" {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transition-duration: 150ms !important;
+        }
+    }
+}
+
+// Theme-specific shadow adjustments
+$theme-shadows: (
+    "light": rgba(0, 0, 0, 0.1),
+    "dark": rgba(0, 0, 0, 0.3),
+);
+
+@each $theme, $shadow-color in $theme-shadows {
+    [data-theme="#{$theme}"] {
+        @each $size in ("sm", "md", "lg") {
+            .u-shadow-#{$size} {
+                --shadow-color: #{$shadow-color};
+            }
+        }
+    }
+}

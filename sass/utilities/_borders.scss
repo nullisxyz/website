@@ -1,0 +1,158 @@
+// utilities/_borders.scss
+@use "../settings" as *;
+
+// Border utility maps
+$border-widths: (
+    "0": 0,
+    "1": 1px,
+    "2": 2px,
+    "4": 4px,
+    "8": 8px,
+);
+
+$border-styles: (
+    "solid": solid,
+    "dashed": dashed,
+    "dotted": dotted,
+    "double": double,
+    "none": none,
+);
+
+$border-radius: (
+    "none": 0,
+    "sm": var(--border-radius-sm),
+    "md": var(--border-radius-md),
+    "lg": var(--border-radius-lg),
+    "xl": var(--border-radius-xl),
+    "full": var(--border-radius-full),
+);
+
+// Generate border width utilities
+@each $name, $value in $border-widths {
+    // All sides
+    .u-border-#{$name} {
+        border-width: #{$value} !important;
+    }
+
+    // Individual sides
+    .u-border-t-#{$name} {
+        border-top-width: #{$value} !important;
+    }
+
+    .u-border-r-#{$name} {
+        border-right-width: #{$value} !important;
+    }
+
+    .u-border-b-#{$name} {
+        border-bottom-width: #{$value} !important;
+    }
+
+    .u-border-l-#{$name} {
+        border-left-width: #{$value} !important;
+    }
+}
+
+// Generate border style utilities
+@each $name, $value in $border-styles {
+    .u-border-#{$name} {
+        border-style: #{$value} !important;
+    }
+}
+
+// Generate border radius utilities
+@each $name, $value in $border-radius {
+    // All corners
+    .u-rounded-#{$name} {
+        border-radius: #{$value} !important;
+    }
+
+    // Individual corners
+    .u-rounded-t-#{$name} {
+        border-top-left-radius: #{$value} !important;
+        border-top-right-radius: #{$value} !important;
+    }
+
+    .u-rounded-r-#{$name} {
+        border-top-right-radius: #{$value} !important;
+        border-bottom-right-radius: #{$value} !important;
+    }
+
+    .u-rounded-b-#{$name} {
+        border-bottom-right-radius: #{$value} !important;
+        border-bottom-left-radius: #{$value} !important;
+    }
+
+    .u-rounded-l-#{$name} {
+        border-top-left-radius: #{$value} !important;
+        border-bottom-left-radius: #{$value} !important;
+    }
+}
+
+// Generate border color utilities
+@each $color-name, $shades in $colors {
+    @each $shade-name, $value in $shades {
+        .u-border-#{$color-name}-#{$shade-name} {
+            border-color: var(--color-#{$color-name}-#{$shade-name}) !important;
+        }
+    }
+}
+
+// Theme-specific adjustments
+[data-theme="light"] {
+    .u-border-default {
+        border-color: var(--color-border) !important;
+    }
+}
+
+[data-theme="dark"] {
+    .u-border-default {
+        border-color: var(--color-border) !important;
+    }
+}
+
+// Responsive variants
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+        @each $name, $value in $border-widths {
+            .u-border-#{$name}-#{$breakpoint} {
+                border-width: #{$value} !important;
+            }
+        }
+
+        @each $name, $value in $border-radius {
+            .u-rounded-#{$name}-#{$breakpoint} {
+                border-radius: #{$value} !important;
+            }
+        }
+    }
+}
+
+// Divide utilities (borders between elements)
+.u-divide-y {
+    > * + * {
+        border-top-width: 1px !important;
+        border-top-style: solid !important;
+    }
+}
+
+.u-divide-x {
+    > * + * {
+        border-left-width: 1px !important;
+        border-left-style: solid !important;
+    }
+}
+
+// Generate divide widths
+@each $name, $value in $border-widths {
+    .u-divide-y-#{$name} {
+        > * + * {
+            border-top-width: #{$value} !important;
+        }
+    }
+
+    .u-divide-x-#{$name} {
+        > * + * {
+            border-left-width: #{$value} !important;
+        }
+    }
+}

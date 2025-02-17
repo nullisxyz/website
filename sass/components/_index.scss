@@ -1,0 +1,19 @@
+// components/_index.scss
+// Import all component styles
+
+@forward "button";
+@forward "card";
+@forward "header";
+@forward "footer";
+@forward "nav";
+@forward "hero";
+@forward "form";
+@forward "alert";
+@forward "modal";
+@forward "badge";
+@forward "loader";
+@forward "pagination";
+@forward "tooltip";
+@forward "theme-toggle";
+
+// Additional component imports can be added here as the system grows

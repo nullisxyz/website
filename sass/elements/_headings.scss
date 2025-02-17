@@ -1,0 +1,95 @@
+// elements/_headings.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @include font-family("mono");
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    @include transition(color);
+}
+
+h1 {
+    @include font-size("4xl");
+    margin-bottom: var(--spacing-lg);
+
+    @include media-up("md") {
+        @include font-size("5xl");
+    }
+
+    &.gradient-text {
+        background: linear-gradient(
+            135deg,
+            var(--color-accent),
+            var(--color-accent-light)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+h2 {
+    @include font-size("2xl");
+    margin-top: var(--spacing-xl);
+
+    @include media-up("md") {
+        @include font-size("3xl");
+    }
+}
+
+h3 {
+    @include font-size("xl");
+    margin-top: var(--spacing-lg);
+
+    @include media-up("md") {
+        @include font-size("2xl");
+    }
+}
+
+h4 {
+    @include font-size("lg");
+
+    @include media-up("md") {
+        @include font-size("xl");
+    }
+}
+
+h5,
+h6 {
+    @include font-size("base");
+
+    @include media-up("md") {
+        @include font-size("lg");
+    }
+}
+
+// Theme-specific adjustments
+[data-theme="light"] {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        --heading-shadow: 0 2px 4px var(--shadow-color);
+    }
+}
+
+[data-theme="dark"] {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        --heading-shadow: 0 2px 4px var(--shadow-color-strong);
+    }
+}

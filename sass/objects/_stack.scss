@@ -1,0 +1,26 @@
+// objects/_stack.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    > * {
+        margin-block: 0;
+    }
+
+    > * + * {
+        margin-block-start: var(--stack-space, var(--spacing-md));
+    }
+
+    // Variants
+    &--sm {
+        --stack-space: var(--spacing-sm);
+    }
+
+    &--lg {
+        --stack-space: var(--spacing-lg);
+    }
+}

@@ -1,0 +1,152 @@
+// settings/_colors.scss
+$colors: (
+    "primary": (
+        "base": #080a0d,
+        "dark": #050709,
+        "light": #0b0e12,
+    ),
+    "neutral": (
+        "black": #000000,
+        "white": #ffffff,
+        "gray-100": #f7fafc,
+        "gray-200": #edf2f7,
+        "gray-300": #e2e8f0,
+        "gray-400": #cbd5e0,
+        "gray-500": #a0aec0,
+        "gray-600": #718096,
+        "gray-700": #4a5568,
+        "gray-800": #2d3748,
+        "gray-900": #1a202c,
+    ),
+    "accent": (
+        "base": #7ec8e3,
+        "dark": #5ab9dc,
+        "light": #a2d7ea,
+    ),
+    "status": (
+        "error": #cf6679,
+        "success": #4f8b7c,
+        "warning": #fbd38d,
+        "info": #63b3ed,
+    ),
+);
+
+:root {
+    // Generate color custom properties
+    @each $color-name, $shades in $colors {
+        @each $shade-name, $value in $shades {
+            @if $shade-name == "base" {
+                --color-#{$color-name}: #{$value};
+            } @else {
+                --color-#{$color-name}-#{$shade-name}: #{$value};
+            }
+        }
+    }
+
+    // Theme-independent variables
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    // Light theme defaults
+    &[data-theme="light"] {
+        // Base colors
+        --color-background: var(--color-neutral-white);
+        --color-background-alt: var(--color-neutral-gray-100);
+        --color-background-hover: var(--color-neutral-gray-200);
+
+        // Text colors
+        --color-text: var(--color-neutral-gray-900);
+        --color-text-muted: var(--color-neutral-gray-600);
+        --color-text-inverse: var(--color-neutral-white);
+
+        // Border colors
+        --color-border: var(--color-neutral-gray-200);
+        --color-border-hover: var(--color-neutral-gray-300);
+
+        // Surface colors
+        --color-surface: var(--color-neutral-gray-100);
+        --color-surface-hover: var(--color-neutral-gray-200);
+
+        // Component specific
+        --color-card-background: var(--color-neutral-white);
+        --color-card-border: var(--color-neutral-gray-200);
+
+        --color-header-background: rgba(255, 255, 255, 0.95);
+        --color-header-border: var(--color-neutral-gray-200);
+
+        --color-footer-background: var(--color-neutral-gray-100);
+        --color-footer-border: var(--color-neutral-gray-200);
+
+        // Interactive elements
+        --color-primary-button: var(--color-accent);
+        --color-primary-button-hover: var(--color-accent-light);
+        --color-primary-button-text: var(--color-primary);
+
+        --color-secondary-button: transparent;
+        --color-secondary-button-hover: var(--color-neutral-gray-100);
+        --color-secondary-button-text: var(--color-text);
+
+        // Form elements
+        --color-input-background: var(--color-neutral-white);
+        --color-input-border: var(--color-neutral-gray-300);
+        --color-input-text: var(--color-text);
+        --color-input-placeholder: var(--color-neutral-gray-500);
+
+        // Shadows
+        --shadow-color: rgba(0, 0, 0, 0.1);
+        --shadow-color-strong: rgba(0, 0, 0, 0.2);
+    }
+
+    // Dark theme defaults
+    &[data-theme="dark"] {
+        // Base colors
+        --color-background: var(--color-primary);
+        --color-background-alt: var(--color-primary-light);
+        --color-background-hover: rgba(255, 255, 255, 0.1);
+
+        // Text colors
+        --color-text: var(--color-neutral-white);
+        --color-text-muted: var(--color-neutral-gray-400);
+        --color-text-inverse: var(--color-primary);
+
+        // Border colors
+        --color-border: var(--color-neutral-gray-800);
+        --color-border-hover: var(--color-neutral-gray-700);
+
+        // Surface colors
+        --color-surface: rgba(255, 255, 255, 0.05);
+        --color-surface-hover: rgba(255, 255, 255, 0.1);
+
+        // Component specific
+        --color-card-background: rgba(255, 255, 255, 0.05);
+        --color-card-border: var(--color-neutral-gray-800);
+
+        --color-header-background: rgba(8, 10, 13, 0.95);
+        --color-header-border: var(--color-neutral-gray-800);
+
+        --color-footer-background: rgba(5, 7, 9, 0.95);
+        --color-footer-border: var(--color-neutral-gray-800);
+
+        // Interactive elements
+        --color-primary-button: var(--color-accent);
+        --color-primary-button-hover: var(--color-accent-light);
+        --color-primary-button-text: var(--color-primary);
+
+        --color-secondary-button: transparent;
+        --color-secondary-button-hover: rgba(255, 255, 255, 0.1);
+        --color-secondary-button-text: var(--color-text);
+
+        // Form elements
+        --color-input-background: rgba(255, 255, 255, 0.05);
+        --color-input-border: var(--color-neutral-gray-800);
+        --color-input-text: var(--color-text);
+        --color-input-placeholder: var(--color-neutral-gray-600);
+
+        // Shadows
+        --shadow-color: rgba(0, 0, 0, 0.3);
+        --shadow-color-strong: rgba(0, 0, 0, 0.4);
+    }
+}

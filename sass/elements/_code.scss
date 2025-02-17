@@ -1,0 +1,148 @@
+// elements/_code.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+code {
+    @include font-family("mono");
+    @include font-size("sm");
+    padding: 0.2em 0.4em;
+    background: var(--color-code-background);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-code-text);
+    @include transition(background-color, color);
+}
+
+pre {
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-md);
+    background: var(--color-code-block-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    overflow-x: auto;
+    @include transition(background-color, border-color, box-shadow);
+
+    code {
+        padding: 0;
+        background: none;
+        color: var(--color-code-block-text);
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-relaxed);
+    }
+
+    // Line numbers
+    &.line-numbers {
+        counter-reset: line;
+        padding-left: 3.5em;
+        position: relative;
+
+        code {
+            display: block;
+
+            &::before {
+                counter-increment: line;
+                content: counter(line);
+                position: absolute;
+                left: 0;
+                width: 2.5em;
+                text-align: right;
+                color: var(--color-text-muted);
+                padding-right: 1em;
+                border-right: 1px solid var(--color-border);
+            }
+        }
+    }
+}
+
+// Syntax highlighting themes
+[data-theme="light"] {
+    --color-code-background: var(--color-surface);
+    --color-code-text: var(--color-accent-dark);
+    --color-code-block-background: var(--color-surface);
+    --color-code-block-text: var(--color-text);
+    --color-code-comment: var(--color-text-muted);
+    --color-code-keyword: #d73a49;
+    --color-code-string: #22863a;
+    --color-code-number: #005cc5;
+    --color-code-operator: #d73a49;
+    --color-code-function: #6f42c1;
+
+    --code-block-shadow: inset 0 1px 2px var(--shadow-color);
+}
+
+[data-theme="dark"] {
+    --color-code-background: rgba(var(--color-accent), 0.1);
+    --color-code-text: var(--color-accent);
+    --color-code-block-background: var(--color-surface);
+    --color-code-block-text: var(--color-text);
+    --color-code-comment: var(--color-text-muted);
+    --color-code-keyword: #ff7b72;
+    --color-code-string: #7ee787;
+    --color-code-number: #79c0ff;
+    --color-code-operator: #ff7b72;
+    --color-code-function: #d2a8ff;
+
+    --code-block-shadow: inset 0 1px 2px var(--shadow-color-strong);
+}
+
+// Syntax highlighting classes
+.token {
+    &.comment,
+    &.prolog,
+    &.doctype,
+    &.cdata {
+        color: var(--color-code-comment);
+    }
+
+    &.keyword,
+    &.property,
+    &.tag,
+    &.boolean,
+    &.constant {
+        color: var(--color-code-keyword);
+    }
+
+    &.string,
+    &.attr-value {
+        color: var(--color-code-string);
+    }
+
+    &.number,
+    &.unit {
+        color: var(--color-code-number);
+    }
+
+    &.operator,
+    &.entity,
+    &.url {
+        color: var(--color-code-operator);
+    }
+
+    &.function,
+    &.class-name {
+        color: var(--color-code-function);
+    }
+}
+
+// Code copy button
+.code-copy-button {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    @include transition(background-color, border-color, color);
+
+    &:hover {
+        background: var(--color-surface-hover);
+        color: var(--color-text);
+    }
+
+    &.copied {
+        color: var(--color-status-success);
+        border-color: var(--color-status-success);
+    }
+}

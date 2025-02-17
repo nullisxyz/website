@@ -1,0 +1,109 @@
+{% macro page_wrapper(title="", description="") %}
+<main class="container page-wrapper">
+    {{ self::page_header(title=title, description=description) }} {{ caller() }}
+</main>
+{% endmacro page_wrapper %} {% macro page_header(title, description="") %}
+<header class="page-header">
+    <h1>{{ title }}</h1>
+    {% if description %}
+    <div class="page-description">{{ description | markdown | safe }}</div>
+    {% endif %}
+</header>
+{% endmacro page_header %} {% macro content_section(title="") %}
+<section class="content-section">
+    {% if title %}
+    <h2>{{ title }}</h2>
+    {% endif %} {{ caller() }}
+</section>
+{% endmacro content_section %} {% macro meta_info(post_date) %}
+<div class="meta-info">
+    <time datetime="{{ post_date }}"
+        >{{ post_date | date(format="%B %d, %Y") }}</time
+    >
+</div>
+{% endmacro meta_info %} {% macro post_card(post="") %}
+<article class="post-card">
+    <div class="post-meta">
+        {% if post.date %} {{ self::meta_info(post_date=post.date) }} {% endif
+        %}
+    </div>
+
+    <h2><a href="{{ post.permalink }}">{{ post.title }}</a></h2>
+
+    {% if post.description %}
+    <div class="post-excerpt">{{ post.description }}</div>
+    {% endif %} {% if post.taxonomies and post.taxonomies.tags %}
+    <div class="post-tags">
+        {% for tag in post.taxonomies.tags %}
+        <a href="{{ get_taxonomy_url(kind='tags', name=tag) }}" class="tag"
+            >{{ tag }}</a
+        >
+        {% endfor %}
+    </div>
+    {% endif %}
+</article>
+{% endmacro post_card %} {% macro project_card(project="") %}
+<article class="project-card">
+    {% if project.image %}
+    <div class="project-image">
+        <img src="{{ project.image }}" alt="{{ project.title }}" />
+    </div>
+    {% endif %}
+
+    <div class="project-details">
+        <h2>{{ project.title }}</h2>
+        {% if project.category %}
+        <div class="project-category">{{ project.category }}</div>
+        {% endif %}
+
+        <p>{{ project.description }}</p>
+
+        <div class="project-links">
+            {% if project.url %}
+            <a
+                href="{{ project.url }}"
+                class="primary-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {% if "github.com" in project.url %}View Source{% else %}View
+                Project{% endif %}
+            </a>
+            {% endif %} {% if project.demo %}
+            <a
+                href="{{ project.demo }}"
+                class="secondary-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Live Demo
+            </a>
+            {% endif %}
+        </div>
+
+        {% if project.tags %}
+        <div class="tech-stack">
+            {% for tag in project.tags %}
+            <span class="tech-tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</article>
+{% endmacro project_card %} {% macro grid(items="") %}
+<div class="grid">{% for item in items %} {{ caller() }} {% endfor %}</div>
+{% endmacro grid %} {% macro page_nav(prev_page="", next_page="") %}
+<nav class="page-navigation">
+    {% if prev_page %}
+    <a href="{{ prev_page.permalink }}" class="prev-page">
+        <span class="nav-label">Previous</span>
+        <span class="page-title">{{ prev_page.title }}</span>
+    </a>
+    {% endif %} {% if next_page %}
+    <a href="{{ next_page.permalink }}" class="next-page">
+        <span class="nav-label">Next</span>
+        <span class="page-title">{{ next_page.title }}</span>
+    </a>
+    {% endif %}
+</nav>
+{% endmacro page_nav %}

@@ -1,0 +1,26 @@
+// style.scss
+// Import all ITCSS layers in order
+
+// Settings
+@use "settings";
+
+// Tools
+@use "tools";
+
+// Generic
+@use "generic";
+
+// Elements
+@use "elements";
+
+// Objects
+@use "objects";
+
+// Components
+@use "components";
+
+// Site-specific styles
+@use "site";
+
+// Utilities (should always come last)
+@use "utilities";

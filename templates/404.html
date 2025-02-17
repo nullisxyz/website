@@ -1,0 +1,54 @@
+{# website/templates/404.html #} {% extends "base.html" %} {% set is_404 = true
+%} {% block title %}Page Not Found | {{ config.title }}{% endblock %} {% block
+content %}
+<div class="p-error p-error--404">
+    <div class="o-container">
+        <div class="p-error__content">
+            <div class="p-error__illustration">
+                <!-- You can add a custom 404 illustration SVG here -->
+                <svg width="400" height="300" viewBox="0 0 400 300">
+                    <!-- Add your 404 illustration SVG content -->
+                </svg>
+            </div>
+
+            <h1 class="p-error__code">404</h1>
+            <h2 class="p-error__title">Page Not Found</h2>
+            <p class="p-error__text">
+                The page you're looking for doesn't exist or has been moved.
+            </p>
+
+            <div class="p-error__actions">
+                <a
+                    href="{{ config.base_url }}"
+                    class="c-button c-button--primary"
+                >
+                    <span class="c-button__icon c-button__icon--left">
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            fill="none"
+                        >
+                            <path
+                                d="M10 18.333L1.667 10 10 1.667M2.5 10h15.833"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                        </svg>
+                    </span>
+                    Return Home
+                </a>
+
+                <button
+                    class="c-button c-button--ghost"
+                    onclick="history.back()"
+                >
+                    Go Back
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

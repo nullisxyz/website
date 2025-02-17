@@ -1,0 +1,54 @@
+// site/pages/_contact.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.p-contact {
+    &__form {
+        background: var(--color-surface);
+        border-radius: var(--border-radius-lg);
+        padding: var(--spacing-xl);
+        @include transition(background-color);
+
+        [data-theme="light"] & {
+            box-shadow: var(--shadow-md);
+        }
+
+        [data-theme="dark"] & {
+            border: 1px solid var(--color-border);
+        }
+
+        &-input {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            color: var(--color-text);
+            @include transition(
+                background-color,
+                border-color,
+                color,
+                box-shadow
+            );
+
+            &:focus {
+                border-color: var(--color-accent);
+                box-shadow: 0 0 0 3px rgba(var(--color-accent), 0.1);
+            }
+        }
+    }
+
+    &__info {
+        &-card {
+            background: var(--color-surface);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            @include transition(background-color);
+
+            [data-theme="light"] & {
+                box-shadow: var(--shadow-sm);
+            }
+
+            [data-theme="dark"] & {
+                border: 1px solid var(--color-border);
+            }
+        }
+    }
+}

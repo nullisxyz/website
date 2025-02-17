@@ -1,0 +1,50 @@
+// utilities/_colors.scss
+@use "../settings" as *;
+
+// Color utility maps
+$color-utilities: (
+    "text": (
+        "primary": var(--color-text),
+        "muted": var(--color-text-muted),
+        "accent": var(--color-accent),
+        "success": var(--color-status-success),
+        "error": var(--color-status-error),
+        "warning": var(--color-status-warning),
+        "info": var(--color-status-info),
+    ),
+    "bg": (
+        "primary": var(--color-background),
+        "surface": var(--color-surface),
+        "accent": var(--color-accent),
+        "success": var(--color-status-success),
+        "error": var(--color-status-error),
+        "warning": var(--color-status-warning),
+        "info": var(--color-status-info),
+        "transparent": transparent,
+    ),
+    "border": (
+        "primary": var(--color-border),
+        "accent": var(--color-accent),
+        "success": var(--color-status-success),
+        "error": var(--color-status-error),
+        "warning": var(--color-status-warning),
+        "info": var(--color-status-info),
+    ),
+);
+
+// Generate color utilities
+@each $property, $variants in $color-utilities {
+    .u-#{$property} {
+        @each $name, $value in $variants {
+            &-#{$name} {
+                @if $property == "text" {
+                    color: $value !important;
+                } @else if $property == "bg" {
+                    background-color: $value !important;
+                } @else if $property == "border" {
+                    border-color: $value !important;
+                }
+            }
+        }
+    }
+}

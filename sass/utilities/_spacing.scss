@@ -1,0 +1,67 @@
+// utilities/_spacing.scss
+@use "../settings" as *;
+
+// Spacing utility maps
+$spacing-properties: (
+    "m": margin,
+    "p": padding,
+);
+
+$spacing-directions: (
+    "": "",
+    // all sides
+    "t": top,
+    "r": right,
+    "b": bottom,
+    "l": left,
+    "x": (
+        left,
+        right,
+    ),
+    "y": (
+        top,
+        bottom,
+    ),
+);
+
+// Generate spacing utilities
+@each $prop-key, $property in $spacing-properties {
+    @each $dir-key, $direction in $spacing-directions {
+        @each $size, $value in $spacing {
+            .u-#{$prop-key}#{$dir-key}-#{$size} {
+                @if type-of($direction) == list {
+                    // For x and y directions
+                    @each $d in $direction {
+                        #{$property}-#{$d}: var(--spacing-#{$size}) !important;
+                    }
+                } @else if $direction == "" {
+                    // For all sides
+                    #{$property}: var(--spacing-#{$size}) !important;
+                } @else {
+                    // For single direction
+                    #{$property}-#{$direction}: var(
+                        --spacing-#{$size}
+                    ) !important;
+                }
+            }
+        }
+    }
+}
+
+// Gap utilities
+@each $size, $value in $spacing {
+    .u-gap-#{$size} {
+        gap: var(--spacing-#{$size}) !important;
+    }
+}
+
+// Space between utilities
+@each $size, $value in $spacing {
+    .u-space-x-#{$size} > * + * {
+        margin-left: var(--spacing-#{$size}) !important;
+    }
+
+    .u-space-y-#{$size} > * + * {
+        margin-top: var(--spacing-#{$size}) !important;
+    }
+}

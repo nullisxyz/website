@@ -1,0 +1,23 @@
+// objects/_wrapper.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-wrapper {
+    padding: var(--spacing-xl) 0;
+
+    &--sm {
+        padding: var(--spacing-md) 0;
+    }
+
+    &--lg {
+        padding: var(--spacing-2xl) 0;
+    }
+
+    &--no-top {
+        padding-top: 0;
+    }
+
+    &--no-bottom {
+        padding-bottom: 0;
+    }
+}

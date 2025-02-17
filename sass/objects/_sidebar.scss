@@ -1,0 +1,24 @@
+// objects/_sidebar.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+
+    > :first-child {
+        flex-basis: var(--sidebar-width, 300px);
+        flex-grow: 1;
+    }
+
+    > :last-child {
+        flex-basis: 0;
+        flex-grow: 999;
+        min-width: var(--sidebar-content-min, 50%);
+    }
+
+    &--reverse {
+        flex-direction: row-reverse;
+    }
+}

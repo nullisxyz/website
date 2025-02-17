@@ -1,0 +1,100 @@
+// site/pages/_home.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.p-home {
+    &__intro {
+        max-width: 720px;
+        margin: 0 auto var(--spacing-2xl);
+        text-align: center;
+
+        p {
+            @include font-size("xl");
+            color: var(--color-text-muted);
+            line-height: var(--line-height-relaxed);
+        }
+    }
+
+    &__hero {
+        min-height: calc(100vh - var(--site-header-height));
+        display: flex;
+        align-items: center;
+        padding: var(--spacing-2xl) 0;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: var(--site-gradient-primary);
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        &-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        &-title {
+            @include font-size("5xl", true);
+            margin-bottom: var(--spacing-md);
+            color: var(--color-text);
+
+            @include media-down("md") {
+                @include font-size("4xl");
+            }
+        }
+
+        &-subtitle {
+            @include font-size("2xl");
+            color: var(--color-accent);
+            margin-bottom: var(--spacing-md);
+        }
+
+        &-description {
+            @include font-size("xl");
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &-cta {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+    &__stats {
+        margin-bottom: var(--spacing-2xl);
+
+        .c-stat {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: var(--color-surface);
+            border-radius: var(--border-radius-lg);
+            @include transition(background-color, transform);
+
+            &:hover {
+                transform: translateY(-4px);
+            }
+
+            &__value {
+                @include font-size("3xl");
+                font-weight: var(--font-weight-bold);
+                color: var(--color-accent);
+                margin-bottom: var(--spacing-xs);
+            }
+
+            &__label {
+                color: var(--color-text-muted);
+            }
+        }
+    }
+}

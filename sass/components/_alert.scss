@@ -1,0 +1,139 @@
+// components/_badge.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.c-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-full, 9999px);
+    @include font-size("sm");
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+    @include transition(background-color, border-color, color, transform);
+
+    // Color variants
+    &--primary {
+        background: var(--color-accent);
+        color: var(--color-text-inverse);
+    }
+
+    &--secondary {
+        background: var(--color-surface);
+        color: var(--color-text);
+        border: 1px solid var(--color-border);
+    }
+
+    &--success {
+        background: var(--color-status-success);
+        color: var(--color-text-inverse);
+    }
+
+    &--error {
+        background: var(--color-status-error);
+        color: var(--color-text-inverse);
+    }
+
+    &--warning {
+        background: var(--color-status-warning);
+        color: var(--color-text);
+    }
+
+    // Size variants
+    &--sm {
+        padding: 0.2rem var(--spacing-xs);
+        @include font-size("xs");
+    }
+
+    &--lg {
+        padding: var(--spacing-sm) var(--spacing-md);
+        @include font-size("base");
+    }
+
+    // With icon
+    &--with-icon {
+        gap: var(--spacing-xs);
+
+        .c-badge__icon {
+            width: 1em;
+            height: 1em;
+
+            svg {
+                width: 100%;
+                height: 100%;
+                fill: currentColor;
+            }
+        }
+    }
+
+    // Pill shape
+    &--pill {
+        border-radius: var(--border-radius-full);
+    }
+
+    // Outline variant
+    &--outline {
+        background: transparent;
+        border: 1px solid currentColor;
+
+        &.c-badge--primary {
+            color: var(--color-accent);
+        }
+
+        &.c-badge--success {
+            color: var(--color-status-success);
+        }
+
+        &.c-badge--error {
+            color: var(--color-status-error);
+        }
+
+        &.c-badge--warning {
+            color: var(--color-status-warning);
+        }
+    }
+
+    // Dot indicator
+    &--dot {
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            margin-right: var(--spacing-xs);
+        }
+    }
+
+    // Interactive
+    &--interactive {
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        --badge-shadow: 0 1px 2px var(--shadow-color);
+
+        &--secondary {
+            background: var(--color-surface);
+        }
+    }
+
+    [data-theme="dark"] & {
+        --badge-shadow: 0 1px 2px var(--shadow-color-strong);
+
+        &--secondary {
+            background: var(--color-surface);
+        }
+    }
+}

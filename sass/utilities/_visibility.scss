@@ -1,0 +1,77 @@
+// utilities/_visibility.scss
+@use "../settings" as *;
+
+// Visibility utility maps
+$display-values: (
+    "block": block,
+    "inline": inline,
+    "inline-block": inline-block,
+    "flex": flex,
+    "inline-flex": inline-flex,
+    "grid": grid,
+    "none": none,
+);
+
+$visibility-values: (
+    "visible": visible,
+    "invisible": hidden,
+    "collapse": collapse,
+);
+
+// Generate display utilities
+@each $name, $value in $display-values {
+    .u-#{$name} {
+        display: #{$value} !important;
+    }
+}
+
+// Generate visibility utilities
+@each $name, $value in $visibility-values {
+    .u-#{$name} {
+        visibility: #{$value} !important;
+    }
+}
+
+// Generate responsive visibility utilities
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+        @each $name, $value in $display-values {
+            .u-#{$name}-#{$breakpoint}-up {
+                display: #{$value} !important;
+            }
+        }
+    }
+
+    @media (max-width: #{$width - 1}) {
+        @each $name, $value in $display-values {
+            .u-#{$name}-#{$breakpoint}-down {
+                display: #{$value} !important;
+            }
+        }
+    }
+}
+
+// Screen reader only utility
+.u-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.u-sr-only-focusable {
+    &:focus,
+    &:active {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+        clip: auto !important;
+        white-space: normal !important;
+    }
+}

@@ -1,0 +1,123 @@
+// utilities/_flexbox.scss
+@use "../settings" as *;
+
+// Flexbox utility maps
+$flex-directions: (
+    "row": row,
+    "row-reverse": row-reverse,
+    "col": column,
+    "col-reverse": column-reverse,
+);
+
+$flex-wraps: (
+    "wrap": wrap,
+    "nowrap": nowrap,
+    "wrap-reverse": wrap-reverse,
+);
+
+$justify-contents: (
+    "start": flex-start,
+    "end": flex-end,
+    "center": center,
+    "between": space-between,
+    "around": space-around,
+    "evenly": space-evenly,
+);
+
+$align-items: (
+    "start": flex-start,
+    "end": flex-end,
+    "center": center,
+    "baseline": baseline,
+    "stretch": stretch,
+);
+
+$align-selfs: (
+    "auto": auto,
+    "start": flex-start,
+    "end": flex-end,
+    "center": center,
+    "stretch": stretch,
+);
+
+// Generate flex utilities
+@each $name, $value in $flex-directions {
+    .u-flex-#{$name} {
+        flex-direction: #{$value} !important;
+    }
+}
+
+@each $name, $value in $flex-wraps {
+    .u-flex-#{$name} {
+        flex-wrap: #{$value} !important;
+    }
+}
+
+@each $name, $value in $justify-contents {
+    .u-justify-#{$name} {
+        justify-content: #{$value} !important;
+    }
+}
+
+@each $name, $value in $align-items {
+    .u-items-#{$name} {
+        align-items: #{$value} !important;
+    }
+}
+
+@each $name, $value in $align-selfs {
+    .u-self-#{$name} {
+        align-self: #{$value} !important;
+    }
+}
+
+// Flex grow/shrink utilities
+@for $i from 0 through 1 {
+    .u-grow-#{$i} {
+        flex-grow: #{$i} !important;
+    }
+
+    .u-shrink-#{$i} {
+        flex-shrink: #{$i} !important;
+    }
+}
+
+// Common flex patterns
+.u-flex-1 {
+    flex: 1 1 0% !important;
+}
+
+.u-flex-auto {
+    flex: 1 1 auto !important;
+}
+
+.u-flex-initial {
+    flex: 0 1 auto !important;
+}
+
+.u-flex-none {
+    flex: none !important;
+}
+
+// Responsive variants
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+        @each $name, $value in $flex-directions {
+            .u-flex-#{$name}-#{$breakpoint} {
+                flex-direction: #{$value} !important;
+            }
+        }
+
+        @each $name, $value in $justify-contents {
+            .u-justify-#{$name}-#{$breakpoint} {
+                justify-content: #{$value} !important;
+            }
+        }
+
+        @each $name, $value in $align-items {
+            .u-items-#{$name}-#{$breakpoint} {
+                align-items: #{$value} !important;
+            }
+        }
+    }
+}

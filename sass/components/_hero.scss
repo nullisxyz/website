@@ -1,0 +1,163 @@
+// components/_hero.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.c-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-2xl) 0;
+    background: var(--color-background);
+    @include transition(background-color);
+
+    &__container {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 var(--spacing-md);
+    }
+
+    &__title {
+        @include font-size("5xl", true);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-text);
+        margin-bottom: var(--spacing-lg);
+        line-height: 1.2;
+        @include transition(color);
+
+        &--gradient {
+            background: linear-gradient(
+                45deg,
+                var(--color-accent),
+                var(--color-accent-light)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    }
+
+    &__subtitle {
+        @include font-size("xl", true);
+        color: var(--color-text-muted);
+        margin-bottom: var(--spacing-xl);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        @include transition(color);
+    }
+
+    &__actions {
+        display: flex;
+        gap: var(--spacing-md);
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    // Background variations
+    &--with-image {
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--hero-bg-image);
+            background-size: cover;
+            background-position: center;
+            opacity: 0.1;
+        }
+
+        [data-theme="light"] & {
+            &::before {
+                opacity: 0.05;
+            }
+        }
+
+        [data-theme="dark"] & {
+            &::before {
+                opacity: 0.15;
+            }
+        }
+    }
+
+    &--with-pattern {
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--hero-pattern);
+            opacity: 0.05;
+        }
+
+        [data-theme="light"] & {
+            &::before {
+                opacity: 0.03;
+            }
+        }
+
+        [data-theme="dark"] & {
+            &::before {
+                opacity: 0.07;
+            }
+        }
+    }
+
+    // With background gradient
+    &--gradient {
+        background: linear-gradient(
+            135deg,
+            var(--color-background),
+            var(--color-background-alt)
+        );
+
+        [data-theme="light"] & {
+            --gradient-opacity: 0.5;
+        }
+
+        [data-theme="dark"] & {
+            --gradient-opacity: 0.8;
+        }
+    }
+
+    // Animation
+    &--animate {
+        .c-hero__title {
+            @include slide-up(0.5s);
+        }
+
+        .c-hero__subtitle {
+            @include slide-up(0.5s, 0.2s);
+        }
+
+        .c-hero__actions {
+            @include slide-up(0.5s, 0.4s);
+        }
+    }
+
+    // Responsive adjustments
+    @include media-down("md") {
+        min-height: calc(100vh - var(--header-height));
+        padding: var(--spacing-xl) 0;
+
+        &__title {
+            @include font-size("4xl");
+        }
+
+        &__subtitle {
+            @include font-size("lg");
+        }
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        --hero-overlay: rgba(255, 255, 255, 0.9);
+        --hero-shadow: 0 4px 6px var(--shadow-color);
+    }
+
+    [data-theme="dark"] & {
+        --hero-overlay: rgba(0, 0, 0, 0.7);
+        --hero-shadow: 0 4px 6px var(--shadow-color-strong);
+    }
+}

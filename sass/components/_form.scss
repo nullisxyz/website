@@ -1,0 +1,138 @@
+// components/_form.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.c-form {
+    &__group {
+        margin-bottom: var(--spacing-md);
+    }
+
+    &__label {
+        display: block;
+        margin-bottom: var(--spacing-xs);
+        @include font-size("sm");
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text);
+    }
+
+    &__input {
+        width: 100%;
+        padding: var(--spacing-sm);
+        background: var(--color-input-background);
+        border: 1px solid var(--color-input-border);
+        border-radius: var(--border-radius-sm);
+        color: var(--color-input-text);
+        @include transition(border-color, background-color, box-shadow);
+
+        &:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px var(--shadow-color);
+            background: var(--color-input-background);
+        }
+
+        &::placeholder {
+            color: var(--color-input-placeholder);
+        }
+
+        &--error {
+            border-color: var(--color-status-error);
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(var(--color-status-error), 0.2);
+            }
+        }
+
+        &--success {
+            border-color: var(--color-status-success);
+
+            &:focus {
+                box-shadow: 0 0 0 3px rgba(var(--color-status-success), 0.2);
+            }
+        }
+    }
+
+    &__textarea {
+        @extend .c-form__input;
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    &__select {
+        @extend .c-form__input;
+        appearance: none;
+        padding-right: var(--spacing-xl);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right var(--spacing-sm) center;
+        background-size: 16px;
+    }
+
+    &__checkbox,
+    &__radio {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        cursor: pointer;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+            & + span {
+                position: relative;
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                background: var(--color-input-background);
+                border: 1px solid var(--color-input-border);
+                @include transition(background-color, border-color);
+            }
+
+            &:checked + span {
+                background: var(--color-accent);
+                border-color: var(--color-accent);
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 12px;
+                    height: 12px;
+                    background: var(--color-input-background);
+                    border-radius: 50%;
+                }
+            }
+
+            &:focus + span {
+                box-shadow: 0 0 0 3px var(--shadow-color);
+            }
+        }
+    }
+
+    &__error {
+        margin-top: var(--spacing-xs);
+        color: var(--color-status-error);
+        @include font-size("sm");
+    }
+
+    &__help {
+        margin-top: var(--spacing-xs);
+        color: var(--color-text-muted);
+        @include font-size("sm");
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        --input-shadow: 0 1px 2px var(--shadow-color);
+    }
+
+    [data-theme="dark"] & {
+        --input-shadow: 0 1px 2px var(--shadow-color-strong);
+    }
+}

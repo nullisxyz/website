@@ -1,0 +1,48 @@
+// site/layouts/_default.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.l-default {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-background);
+    @include transition(background-color);
+
+    &__header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: var(--z-fixed);
+        height: var(--site-header-height);
+        background: var(--site-header-background);
+        border-bottom: 1px solid var(--color-border);
+        backdrop-filter: blur(10px);
+        @include transition(background-color, border-color);
+    }
+
+    &__main {
+        flex: 1;
+        margin-top: var(--site-header-height);
+        padding: var(--spacing-xl) 0;
+
+        @include media-up("md") {
+            padding: var(--spacing-2xl) 0;
+        }
+    }
+
+    &__content {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 0 var(--spacing-md);
+    }
+
+    &__footer {
+        margin-top: auto;
+        background: var(--site-footer-background);
+        border-top: 1px solid var(--color-border);
+        @include transition(background-color, border-color);
+    }
+}

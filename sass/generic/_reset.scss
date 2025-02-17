@@ -1,0 +1,185 @@
+// generic/_reset.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+/* Modern CSS Reset with Theme Support */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    @include transition(
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease
+    );
+}
+
+// Remove default margin
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+// Set core root defaults
+html {
+    font-size: 62.5%; // 1rem = 10px
+    scroll-behavior: smooth;
+    height: 100%;
+    background-color: var(--color-background);
+    color: var(--color-text);
+}
+
+// Set core body defaults
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+}
+
+// Remove list styles
+ul,
+ol {
+    list-style: none;
+}
+
+// Make images easier to work with
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+// Inherit fonts for form controls
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+// Remove all animations and transitions for people that prefer not to see them
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// Theme-specific resets
+[data-theme="light"] {
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--color-neutral-gray-400);
+    }
+
+    // Default focus ring for light theme
+    :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+    }
+}
+
+[data-theme="dark"] {
+    input::placeholder,
+    textarea::placeholder {
+        color: var(--color-neutral-gray-600);
+    }
+
+    // Default focus ring for dark theme
+    :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+    }
+
+    // Adjust image brightness in dark mode
+    img:not([class*="preserve-color"]) {
+        filter: brightness(0.8) contrast(1.2);
+    }
+}
+
+// Selection styles
+::selection {
+    background-color: var(--color-accent);
+    color: var(--color-text-inverse);
+}
+
+// Smooth scrolling (unless reduced motion is preferred)
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        scroll-behavior: smooth;
+    }
+}
+
+// Base link reset
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--color-accent-light);
+    }
+}
+
+// Table reset
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+// Form element reset
+button,
+input,
+select,
+textarea {
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-sm);
+
+    &:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 2px rgba(var(--color-accent), 0.2);
+    }
+}
+
+// Remove default button styles
+button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}

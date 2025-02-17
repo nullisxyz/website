@@ -1,0 +1,101 @@
+// site/sections/_tech-stack.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.s-tech-stack {
+    &__header {
+        text-align: center;
+        margin-bottom: var(--spacing-xl);
+
+        &-title {
+            @include font-size("3xl");
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+            @include transition(color);
+        }
+
+        &-text {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--color-text-muted);
+            @include transition(color);
+        }
+    }
+
+    &__grid {
+        display: grid;
+        gap: var(--spacing-lg);
+
+        @include media-up("md") {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-up("lg") {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    &__category {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--border-radius-md);
+        padding: var(--spacing-lg);
+        @include transition(
+            background-color,
+            border-color,
+            transform,
+            box-shadow
+        );
+
+        [data-theme="light"] & {
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--shadow-lg);
+            }
+        }
+
+        [data-theme="dark"] & {
+            &:hover {
+                transform: translateY(-4px);
+                border-color: var(--color-accent);
+            }
+        }
+
+        &-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+
+            svg {
+                width: 24px;
+                height: 24px;
+                color: var(--color-accent);
+            }
+        }
+
+        &-title {
+            @include font-size("xl");
+            color: var(--color-text);
+            @include transition(color);
+        }
+
+        &-list {
+            display: grid;
+            gap: var(--spacing-sm);
+
+            li {
+                display: flex;
+                align-items: center;
+                gap: var(--spacing-sm);
+                color: var(--color-text-muted);
+                @include transition(color);
+
+                &::before {
+                    content: "→";
+                    color: var(--color-accent);
+                }
+            }
+        }
+    }
+}

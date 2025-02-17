@@ -1,0 +1,50 @@
+// site/pages/_blog.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.p-blog {
+    &__header {
+        text-align: center;
+        margin-bottom: var(--spacing-2xl);
+
+        &-title {
+            @include font-size("4xl", true);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-lg);
+            @include transition(color);
+        }
+    }
+
+    &__grid {
+        display: grid;
+        gap: var(--spacing-xl);
+
+        @include media-up("lg") {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    &__sidebar {
+        .widget {
+            background: var(--color-surface);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            @include transition(background-color);
+
+            [data-theme="light"] & {
+                box-shadow: var(--shadow-sm);
+            }
+
+            [data-theme="dark"] & {
+                border: 1px solid var(--color-border);
+            }
+
+            &-title {
+                color: var(--color-text);
+                margin-bottom: var(--spacing-md);
+                @include transition(color);
+            }
+        }
+    }
+}

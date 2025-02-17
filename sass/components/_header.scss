@@ -1,0 +1,174 @@
+// components/_header.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.c-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-header-background);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-header-border);
+    z-index: var(--z-fixed);
+    @include transition(transform, background-color, border-color);
+
+    // Header scroll behavior
+    &--scroll-up {
+        transform: translateY(0);
+    }
+
+    &--scroll-down {
+        transform: translateY(-100%);
+    }
+
+    // Inner container
+    &__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: var(--header-height, 6rem);
+        padding: 0 var(--spacing-md);
+        gap: var(--spacing-md);
+    }
+
+    // Logo/brand
+    &__brand {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        text-decoration: none;
+        color: var(--color-text);
+        @include transition(color);
+
+        &:hover {
+            color: var(--color-accent);
+        }
+
+        &-logo {
+            height: 32px;
+            width: auto;
+        }
+
+        &-text {
+            @include font-family("mono");
+            @include font-size("lg");
+            font-weight: var(--font-weight-bold);
+        }
+    }
+
+    // Navigation
+    &__nav {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+
+        @include media-down("md") {
+            display: none;
+
+            &.is-active {
+                display: flex;
+                position: fixed;
+                top: var(--header-height, 6rem);
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: var(--color-background);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: var(--spacing-lg);
+            }
+        }
+
+        .c-header__link {
+            @include font-family("mono");
+            @include font-size("sm");
+            font-weight: var(--font-weight-bold);
+        }
+    }
+
+    // Navigation links
+    &__link {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--border-radius-sm);
+        @include transition(color, background-color);
+
+        &:hover,
+        &.is-active {
+            color: var(--color-accent);
+            background-color: var(--color-surface);
+        }
+    }
+
+    // Actions section
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+
+    // Mobile menu button
+    &__menu-button {
+        display: none;
+        padding: var(--spacing-xs);
+        background: none;
+        border: none;
+        color: var(--color-text);
+        cursor: pointer;
+
+        @include media-down("md") {
+            display: block;
+        }
+
+        span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: currentColor;
+            margin: 4px 0;
+            @include transition(transform, opacity);
+        }
+
+        &.is-active {
+            span {
+                &:nth-child(1) {
+                    transform: translateY(6px) rotate(45deg);
+                }
+                &:nth-child(2) {
+                    opacity: 0;
+                }
+                &:nth-child(3) {
+                    transform: translateY(-6px) rotate(-45deg);
+                }
+            }
+        }
+    }
+
+    // Responsive adjustments
+    @include media-down("md") {
+        &__nav {
+            &.is-active {
+                padding: var(--spacing-lg);
+
+                .c-header__link {
+                    font-size: var(--font-size-lg);
+                    padding: var(--spacing-sm) var(--spacing-lg);
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    // Theme-specific adjustments
+    [data-theme="light"] & {
+        --header-shadow: 0 1px 3px var(--shadow-color);
+    }
+
+    [data-theme="dark"] & {
+        --header-shadow: 0 1px 3px var(--shadow-color);
+    }
+}

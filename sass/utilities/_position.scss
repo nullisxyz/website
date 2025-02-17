@@ -1,0 +1,101 @@
+// utilities/_position.scss
+@use "../settings" as *;
+
+// Position utility maps
+$positions: (
+    "static": static,
+    "relative": relative,
+    "absolute": absolute,
+    "fixed": fixed,
+    "sticky": sticky,
+);
+
+$placements: (
+    "0": 0,
+    "50": 50%,
+    "100": 100%,
+    "auto": auto,
+);
+
+$z-index-values: (
+    "0": 0,
+    "10": 10,
+    "20": 20,
+    "30": 30,
+    "40": 40,
+    "50": 50,
+    "auto": auto,
+);
+
+// Generate position utilities
+@each $name, $value in $positions {
+    .u-#{$name} {
+        position: #{$value} !important;
+    }
+}
+
+// Generate placement utilities
+@each $name, $value in $placements {
+    // Top
+    .u-top-#{$name} {
+        top: #{$value} !important;
+    }
+
+    // Right
+    .u-right-#{$name} {
+        right: #{$value} !important;
+    }
+
+    // Bottom
+    .u-bottom-#{$name} {
+        bottom: #{$value} !important;
+    }
+
+    // Left
+    .u-left-#{$name} {
+        left: #{$value} !important;
+    }
+
+    // Inset utilities
+    .u-inset-#{$name} {
+        top: #{$value} !important;
+        right: #{$value} !important;
+        bottom: #{$value} !important;
+        left: #{$value} !important;
+    }
+
+    .u-inset-x-#{$name} {
+        left: #{$value} !important;
+        right: #{$value} !important;
+    }
+
+    .u-inset-y-#{$name} {
+        top: #{$value} !important;
+        bottom: #{$value} !important;
+    }
+}
+
+// Generate z-index utilities
+@each $name, $value in $z-index-values {
+    .u-z-#{$name} {
+        z-index: #{$value} !important;
+    }
+}
+
+// Generate z-index utilities from z-layers
+@each $layer, $value in $z-layers {
+    .u-z-#{$layer} {
+        z-index: var(--z-#{$layer}) !important;
+    }
+}
+
+// Responsive variants
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+        @each $name, $value in $positions {
+            .u-#{$name}-#{$breakpoint} {
+                position: #{$value} !important;
+            }
+        }
+    }
+}

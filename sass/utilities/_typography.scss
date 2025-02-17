@@ -1,0 +1,120 @@
+// utilities/_typography.scss
+@use "../settings" as *;
+
+// Typography utility maps
+$font-families: (
+    "body": var(--font-body),
+    "mono": var(--font-mono),
+);
+
+$text-alignments: (
+    "left": left,
+    "center": center,
+    "right": right,
+    "justify": justify,
+);
+
+$text-transforms: (
+    "uppercase": uppercase,
+    "lowercase": lowercase,
+    "capitalize": capitalize,
+    "normal-case": none,
+);
+
+$text-decorations: (
+    "underline": underline,
+    "line-through": line-through,
+    "no-decoration": none,
+);
+
+$whitespace: (
+    "normal": normal,
+    "nowrap": nowrap,
+    "pre": pre,
+    "pre-line": pre-line,
+    "pre-wrap": pre-wrap,
+);
+
+// Generate font family utilities
+@each $name, $family in $font-families {
+    .u-font-#{$name} {
+        font-family: #{$family} !important;
+    }
+}
+
+// Generate font size utilities
+@each $size, $value in $font-sizes {
+    .u-text-#{$size} {
+        font-size: var(--font-size-#{$size}) !important;
+    }
+}
+
+// Generate font weight utilities
+@each $weight, $value in $font-weights {
+    .u-font-#{$weight} {
+        font-weight: var(--font-weight-#{$weight}) !important;
+    }
+}
+
+// Generate line height utilities
+@each $height, $value in $line-heights {
+    .u-leading-#{$height} {
+        line-height: var(--line-height-#{$height}) !important;
+    }
+}
+
+// Generate text alignment utilities
+@each $align, $value in $text-alignments {
+    .u-text-#{$align} {
+        text-align: #{$value} !important;
+    }
+}
+
+// Generate text transform utilities
+@each $transform, $value in $text-transforms {
+    .u-#{$transform} {
+        text-transform: #{$value} !important;
+    }
+}
+
+// Generate text decoration utilities
+@each $decoration, $value in $text-decorations {
+    .u-#{$decoration} {
+        text-decoration: #{$value} !important;
+    }
+}
+
+// Generate whitespace utilities
+@each $space, $value in $whitespace {
+    .u-whitespace-#{$space} {
+        white-space: #{$value} !important;
+    }
+}
+
+// Additional typography utilities
+.u-text-truncate {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.u-text-break {
+    word-break: break-word !important;
+}
+
+// Responsive typography utilities
+@each $breakpoint, $value in $breakpoints {
+    @media (min-width: #{$value}) {
+        @each $size, $font-size in $font-sizes {
+            .u-text-#{$breakpoint}-#{$size} {
+                font-size: var(--font-size-#{$size}) !important;
+            }
+        }
+
+        @each $align, $value in $text-alignments {
+            .u-text-#{$breakpoint}-#{$align} {
+                text-align: #{$value} !important;
+            }
+        }
+    }
+}

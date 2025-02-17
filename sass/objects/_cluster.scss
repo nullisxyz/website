@@ -1,0 +1,27 @@
+// objects/_cluster.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cluster-space, var(--spacing-md));
+    justify-content: flex-start;
+    align-items: center;
+
+    &--start {
+        align-items: flex-start;
+    }
+
+    &--end {
+        align-items: flex-end;
+    }
+
+    &--center {
+        justify-content: center;
+    }
+
+    &--space-between {
+        justify-content: space-between;
+    }
+}

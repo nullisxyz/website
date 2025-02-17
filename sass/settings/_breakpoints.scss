@@ -1,0 +1,19 @@
+// settings/_breakpoints.scss
+$breakpoints: (
+    "sm": 576px,
+    "md": 768px,
+    "lg": 992px,
+    "xl": 1200px,
+    "2xl": 1400px,
+);
+
+:root {
+    @each $name, $width in $breakpoints {
+        --breakpoint-#{$name}: #{$width};
+    }
+
+    // Add container-specific variables
+    --container-width: 1400px; // Max container width
+    --content-width: 75ch; // Optimal reading width
+    --narrow-width: 768px; // Narrow container width
+}

@@ -1,0 +1,98 @@
+// elements/_links.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    @include transition(
+        color,
+        background-color,
+        border-color,
+        text-decoration-color
+    );
+
+    &:hover {
+        color: var(--color-accent-light);
+    }
+
+    &:focus {
+        @include focus-ring;
+    }
+
+    // Underline animation on hover
+    &.animate-underline {
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        &:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+    }
+
+    // External link indicators
+    &[href^="http"]:not([href*="yourdomain.com"])::after {
+        content: "↗";
+        display: inline-block;
+        margin-left: 0.2em;
+        font-size: 0.8em;
+    }
+
+    // Skip link for accessibility
+    &.skip-link {
+        position: absolute;
+        top: -100px;
+        left: 0;
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: var(--color-accent);
+        color: var(--color-text-inverse);
+        z-index: var(--z-tooltip);
+        transition: top 0.3s ease;
+
+        &:focus {
+            top: 0;
+        }
+    }
+}
+
+// Theme-specific adjustments
+[data-theme="light"] {
+    a {
+        &.subtle-link {
+            color: var(--color-text);
+            border-bottom: 1px dotted var(--color-text-muted);
+
+            &:hover {
+                color: var(--color-accent);
+                border-bottom-color: var(--color-accent);
+            }
+        }
+    }
+}
+
+[data-theme="dark"] {
+    a {
+        &.subtle-link {
+            color: var(--color-text-muted);
+            border-bottom: 1px dotted var(--color-text-muted);
+
+            &:hover {
+                color: var(--color-accent);
+                border-bottom-color: var(--color-accent);
+            }
+        }
+    }
+}

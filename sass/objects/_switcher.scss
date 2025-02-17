@@ -1,0 +1,22 @@
+// objects/_switcher.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+
+    > * {
+        flex-grow: 1;
+        flex-basis: calc((var(--switcher-break, 30rem) - 100%) * 999);
+    }
+
+    &--center {
+        justify-content: center;
+    }
+
+    &--reverse {
+        flex-direction: row-reverse;
+    }
+}

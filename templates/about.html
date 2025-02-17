@@ -1,0 +1,32 @@
+{% extends "base.html" %} {% block title %}About | {{ config.title }}{% endblock
+%} {% block content %}
+<article class="p-about">
+    <div class="o-container o-container--content">
+        <header class="p-about__header">
+            <h1 class="c-heading">{{ page.title }}</h1>
+            {% if page.description %}
+            <div class="c-text">{{ page.description | markdown | safe }}</div>
+            {% endif %}
+        </header>
+
+        <div class="p-about__content">{{ page.content | safe }}</div>
+
+        {% if page.extra.social_links %}
+        <footer class="p-about__footer">
+            <div class="o-cluster o-cluster--center">
+                {% for link in page.extra.social_links %}
+                <a
+                    href="{{ link.url }}"
+                    class="c-button c-button--ghost"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {{ link.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </footer>
+        {% endif %}
+    </div>
+</article>
+{% endblock %}

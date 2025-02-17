@@ -1,0 +1,23 @@
+// settings/_animations.scss
+$transitions: (
+    "fast": 150ms,
+    "normal": 300ms,
+    "slow": 500ms,
+);
+
+$easings: (
+    "default": ease-in-out,
+    "in": ease-in,
+    "out": ease-out,
+    "linear": linear,
+);
+
+:root {
+    @each $speed, $duration in $transitions {
+        --transition-#{$speed}: #{$duration};
+    }
+
+    @each $name, $value in $easings {
+        --ease-#{$name}: #{$value};
+    }
+}

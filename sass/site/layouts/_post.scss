@@ -1,0 +1,89 @@
+// site/layouts/_post.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.l-post {
+    &__header {
+        text-align: center;
+        margin-bottom: var(--spacing-xl);
+
+        &-title {
+            @include font-size("4xl", true);
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+            @include transition(color);
+        }
+
+        &-meta {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            color: var(--color-text-muted);
+            @include font-size("sm");
+            @include transition(color);
+        }
+    }
+
+    &__content {
+        max-width: 720px;
+        margin: 0 auto;
+        color: var(--color-text);
+        @include transition(color);
+
+        // Content styling
+        h2 {
+            @include font-size("2xl");
+            color: var(--color-text);
+            margin: var(--spacing-xl) 0 var(--spacing-md);
+        }
+
+        h3 {
+            @include font-size("xl");
+            color: var(--color-text);
+            margin: var(--spacing-lg) 0 var(--spacing-md);
+        }
+
+        p {
+            color: var(--color-text-muted);
+            margin-bottom: var(--spacing-md);
+        }
+
+        img {
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-lg) 0;
+
+            [data-theme="dark"] & {
+                filter: brightness(0.8) contrast(1.2);
+            }
+        }
+
+        code {
+            background: var(--color-surface);
+            color: var(--color-accent);
+            padding: 0.2em 0.4em;
+            border-radius: var(--border-radius-sm);
+        }
+
+        pre {
+            background: var(--color-surface);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            overflow-x: auto;
+            margin: var(--spacing-lg) 0;
+            border: 1px solid var(--color-border);
+
+            code {
+                background: none;
+                padding: 0;
+                color: var(--color-text);
+            }
+        }
+    }
+
+    &__footer {
+        margin-top: var(--spacing-2xl);
+        padding-top: var(--spacing-xl);
+        border-top: 1px solid var(--color-border);
+        @include transition(border-color);
+    }
+}

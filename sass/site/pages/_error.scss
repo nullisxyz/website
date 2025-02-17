@@ -1,0 +1,60 @@
+// site/pages/_error.scss
+@use "../../settings" as *;
+@use "../../tools" as *;
+
+.p-error {
+    min-height: calc(100vh - var(--site-header-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--spacing-xl) 0;
+
+    &__code {
+        font-size: 12rem;
+        background: var(--site-gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1;
+        margin-bottom: var(--spacing-lg);
+
+        @include media-down("md") {
+            font-size: 6rem;
+        }
+    }
+
+    &__title {
+        @include font-size("3xl");
+        color: var(--color-text);
+        margin-bottom: var(--spacing-md);
+        @include transition(color);
+    }
+
+    &__text {
+        color: var(--color-text-muted);
+        margin-bottom: var(--spacing-xl);
+        @include transition(color);
+    }
+
+    &__actions {
+        display: flex;
+        gap: var(--spacing-md);
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    &__illustration {
+        max-width: 400px;
+        margin: 0 auto var(--spacing-xl);
+
+        svg {
+            [data-theme="light"] & {
+                filter: drop-shadow(0 4px 6px var(--shadow-color));
+            }
+
+            [data-theme="dark"] & {
+                filter: drop-shadow(0 4px 6px var(--shadow-color-strong));
+            }
+        }
+    }
+}

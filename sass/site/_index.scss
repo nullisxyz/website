@@ -1,0 +1,28 @@
+// site/_index.scss
+// Main site-specific styles integration
+
+// Import base theme
+@use "theme";
+
+// Import layouts
+@use "layouts/default";
+@use "layouts/post";
+@use "layouts/project";
+
+// Import pages
+@use "pages/home";
+@use "pages/about";
+@use "pages/projects";
+@use "pages/blog";
+@use "pages/contact";
+@use "pages/error";
+@use "pages/page";
+
+// Import sections
+@use "sections/featured-projects";
+@use "sections/latest-posts";
+@use "sections/tech-stack";
+@use "sections/contact-form";
+
+// Import overrides
+@use "overrides";

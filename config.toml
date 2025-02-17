@@ -1,0 +1,153 @@
+base_url = "https://nullis.xyz"
+compile_sass = true
+build_search_index = true
+generate_feeds = true
+title = "Nullis"
+description = "Nullis development studio"
+
+[markdown]
+highlight_code = true
+highlight_theme = "nord"
+
+[extra]
+# Site Configuration
+# logo = "/images/logo.svg"
+copyright = "All rights reserved"
+
+# Navigation Menu
+[[extra.menu]]
+label = "About"
+url = "/about"
+
+[[extra.menu]]
+label = "Blog"
+url = "/blog"
+
+[[extra.menu]]
+label = "Projects"
+url = "/projects"
+
+[[extra.menu]]
+label = "Contact"
+url = "/contact"
+
+[[extra.menu]]
+label = "Manifesto"
+url = "/manifesto"
+
+# Author information
+[extra.author]
+name = "John Doe"
+bio = "Software engineer focused on systems programming and distributed architecture"
+email = "john.doe@example.com"
+twitter = "@johndoe"
+github = "https://github.com/johndoe"
+linkedin = "https://linkedin.com/in/johndoe"
+avatar = "/images/avatar.jpg"
+
+# Hero Section
+[extra.hero]
+subtitle = "Software Engineer & Systems Architect"
+description = "Building robust, scalable solutions with a focus on security and efficiency"
+
+[[extra.hero.actions]]
+label = "View Projects"
+url = "/projects"
+style = "primary"
+
+[[extra.hero.actions]]
+label = "Read Blog"
+url = "/blog"
+style = "ghost"
+
+# Site Statistics
+[extra.stats]
+years_experience = "10+"
+projects_completed = "50+"
+happy_clients = "30+"
+
+# Featured Projects
+[[extra.projects]]
+title = "Project Alpha"
+description = "A cutting-edge distributed system built with Rust and WebAssembly"
+image = "/images/projects/alpha.jpg"
+tags = ["Rust", "WebAssembly", "Distributed Systems"]
+url = "https://github.com/username/project-alpha"
+category = "Backend Development"
+featured = true
+
+[[extra.projects]]
+title = "Project Beta"
+description = "High-performance data processing pipeline using Python and Kafka"
+image = "/images/projects/beta.jpg"
+tags = ["Python", "Kafka", "Data Processing"]
+url = "https://github.com/username/project-beta"
+category = "Data Engineering"
+featured = true
+
+[[extra.projects]]
+title = "Project Gamma"
+description = "Modern web application built with Next.js and GraphQL"
+image = "/images/projects/gamma.jpg"
+tags = ["Next.js", "GraphQL", "TypeScript"]
+url = "https://github.com/username/project-gamma"
+category = "Frontend Development"
+featured = true
+
+# Skills Categories
+[[extra.skills]]
+name = "Backend Development"
+icon = "server"
+items = ["Rust", "Go", "Python", "Node.js", "Distributed Systems"]
+
+[[extra.skills]]
+name = "Frontend Development"
+icon = "code"
+items = ["React", "TypeScript", "Next.js", "Tailwind CSS"]
+
+[[extra.skills]]
+name = "Infrastructure"
+icon = "cloud"
+items = ["Kubernetes", "Docker", "AWS", "Terraform"]
+
+# Contact Methods
+[[extra.contact_methods]]
+name = "Email"
+type = "email"
+value = "john.doe@example.com"
+description = "Best for professional inquiries"
+
+[[extra.contact_methods]]
+name = "GitHub"
+type = "social"
+value = "https://github.com/johndoe"
+description = "For code-related discussions"
+
+[[extra.contact_methods]]
+name = "LinkedIn"
+type = "social"
+value = "https://linkedin.com/in/johndoe"
+description = "For professional networking"
+
+# Social Links
+[extra.social]
+github = "https://github.com/johndoe"
+twitter = "https://twitter.com/johndoe"
+linkedin = "https://linkedin.com/in/johndoe"
+rss = "/atom.xml"
+
+# Footer Links
+[[extra.footer_links]]
+label = "Privacy Policy"
+url = "/privacy"
+
+[[extra.footer_links]]
+label = "Terms of Service"
+url = "/terms"
+
+# Site Features
+[extra.features]
+dark_mode = true
+newsletter_signup = true
+comments = false
+search = true

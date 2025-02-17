@@ -1,0 +1,174 @@
+// elements/_forms.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+// Form elements
+label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    @include font-size("sm");
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: var(--spacing-sm);
+    background: var(--color-input-background);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--border-radius-sm);
+    color: var(--color-input-text);
+    @include font-family("body");
+    @include transition(border-color, background-color, box-shadow, color);
+
+    &:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(var(--color-accent), 0.1);
+        background: var(--color-input-background);
+    }
+
+    &::placeholder {
+        color: var(--color-input-placeholder);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: var(--color-surface);
+    }
+}
+
+// Textarea specific
+textarea {
+    min-height: 100px;
+    resize: vertical;
+    line-height: var(--line-height-normal);
+}
+
+// Select specific
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-sm) center;
+    background-size: 1.5em;
+    padding-right: var(--spacing-xl);
+}
+
+// Fieldset and Legend
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0 0 var(--spacing-lg);
+}
+
+legend {
+    @include font-size("lg");
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text);
+    width: 100%;
+    padding: 0;
+}
+
+// Checkboxes and Radio buttons
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    cursor: pointer;
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        width: 1.2em;
+        height: 1.2em;
+        margin: 0;
+        appearance: none;
+        border: 1px solid var(--color-input-border);
+        background: var(--color-input-background);
+        cursor: pointer;
+        @include transition(background-color, border-color);
+
+        &:checked {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(var(--color-accent), 0.1);
+        }
+    }
+
+    input[type="checkbox"] {
+        border-radius: var(--border-radius-sm);
+
+        &:checked {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M13.3 3.3l-6.8 6.8-2.8-2.8-1.4 1.4 4.2 4.2 8.2-8.2z'/%3E%3C/svg%3E");
+            background-size: 0.8em;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+
+    input[type="radio"] {
+        border-radius: 50%;
+
+        &:checked {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Ccircle cx='8' cy='8' r='4'/%3E%3C/svg%3E");
+            background-size: 0.8em;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    }
+}
+
+// Form validation states
+.is-invalid {
+    border-color: var(--color-status-error) !important;
+
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(var(--color-status-error), 0.1) !important;
+    }
+}
+
+.is-valid {
+    border-color: var(--color-status-success) !important;
+
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(var(--color-status-success), 0.1) !important;
+    }
+}
+
+// Theme-specific adjustments
+[data-theme="light"] {
+    input,
+    textarea,
+    select {
+        --input-shadow: 0 1px 2px var(--shadow-color);
+    }
+}
+
+[data-theme="dark"] {
+    input,
+    textarea,
+    select {
+        --input-shadow: 0 1px 2px var(--shadow-color-strong);
+    }
+}
+
+// Help text and validation messages
+.form-help-text {
+    margin-top: var(--spacing-xs);
+    @include font-size("sm");
+    color: var(--color-text-muted);
+}
+
+.form-error-text {
+    margin-top: var(--spacing-xs);
+    @include font-size("sm");
+    color: var(--color-status-error);
+}

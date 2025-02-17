@@ -1,0 +1,147 @@
+// utilities/_grid.scss
+@use "../settings" as *;
+
+// Grid utility maps
+$grid-columns: (
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "12": 12,
+    "none": none,
+);
+
+$grid-rows: (
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 4,
+    "5": 5,
+    "6": 6,
+    "none": none,
+);
+
+$grid-flows: (
+    "row": row,
+    "col": column,
+    "dense": dense,
+    "row-dense": row dense,
+    "col-dense": column dense,
+);
+
+$grid-auto-columns: (
+    "auto": auto,
+    "min": min-content,
+    "max": max-content,
+    "fr": minmax(0, 1fr),
+);
+
+$grid-auto-rows: (
+    "auto": auto,
+    "min": min-content,
+    "max": max-content,
+    "fr": minmax(0, 1fr),
+);
+
+// Generate grid template columns
+@each $name, $value in $grid-columns {
+    .u-grid-cols-#{$name} {
+        @if $value == none {
+            grid-template-columns: none !important;
+        } @else {
+            grid-template-columns: repeat(#{$value}, minmax(0, 1fr)) !important;
+        }
+    }
+}
+
+// Generate grid template rows
+@each $name, $value in $grid-rows {
+    .u-grid-rows-#{$name} {
+        @if $value == none {
+            grid-template-rows: none !important;
+        } @else {
+            grid-template-rows: repeat(#{$value}, minmax(0, 1fr)) !important;
+        }
+    }
+}
+
+// Generate grid flow utilities
+@each $name, $value in $grid-flows {
+    .u-grid-flow-#{$name} {
+        grid-auto-flow: #{$value} !important;
+    }
+}
+
+// Generate grid auto columns
+@each $name, $value in $grid-auto-columns {
+    .u-auto-cols-#{$name} {
+        grid-auto-columns: #{$value} !important;
+    }
+}
+
+// Generate grid auto rows
+@each $name, $value in $grid-auto-rows {
+    .u-auto-rows-#{$name} {
+        grid-auto-rows: #{$value} !important;
+    }
+}
+
+// Generate column span utilities
+@for $i from 1 through 12 {
+    .u-col-span-#{$i} {
+        grid-column: span #{$i} / span #{$i} !important;
+    }
+}
+
+// Generate row span utilities
+@for $i from 1 through 6 {
+    .u-row-span-#{$i} {
+        grid-row: span #{$i} / span #{$i} !important;
+    }
+}
+
+// Generate column start/end utilities
+@for $i from 1 through 13 {
+    .u-col-start-#{$i} {
+        grid-column-start: #{$i} !important;
+    }
+    .u-col-end-#{$i} {
+        grid-column-end: #{$i} !important;
+    }
+}
+
+// Generate row start/end utilities
+@for $i from 1 through 7 {
+    .u-row-start-#{$i} {
+        grid-row-start: #{$i} !important;
+    }
+    .u-row-end-#{$i} {
+        grid-row-end: #{$i} !important;
+    }
+}
+
+// Responsive variants
+@each $breakpoint, $width in $breakpoints {
+    @media (min-width: #{$width}) {
+        @each $name, $value in $grid-columns {
+            .u-grid-cols-#{$name}-#{$breakpoint} {
+                @if $value == none {
+                    grid-template-columns: none !important;
+                } @else {
+                    grid-template-columns: repeat(
+                        #{$value},
+                        minmax(0, 1fr)
+                    ) !important;
+                }
+            }
+        }
+
+        @for $i from 1 through 12 {
+            .u-col-span-#{$i}-#{$breakpoint} {
+                grid-column: span #{$i} / span #{$i} !important;
+            }
+        }
+    }
+}

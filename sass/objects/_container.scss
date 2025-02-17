@@ -1,0 +1,43 @@
+// objects/_container.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    max-width: var(
+        --container-width,
+        var(--breakpoint-xl)
+    ); // Default max-width
+
+    &--sm {
+        max-width: var(--breakpoint-sm);
+    }
+
+    &--md {
+        max-width: var(--breakpoint-md);
+    }
+
+    &--lg {
+        max-width: var(--breakpoint-lg);
+    }
+
+    &--xl {
+        max-width: var(--breakpoint-xl);
+    }
+
+    &--content {
+        max-width: 75ch; // Optimal reading width
+    }
+
+    &--narrow {
+        max-width: var(--breakpoint-md);
+    }
+
+    &--fluid {
+        max-width: none;
+    }
+}

@@ -1,0 +1,48 @@
+// objects/_grid.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-grid {
+    display: grid;
+    gap: var(--spacing-md);
+
+    // Column variants
+    &--2 {
+        @include media-up("md") {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &--3 {
+        @include media-up("md") {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    &--4 {
+        @include media-up("md") {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media-up("lg") {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    // Auto-fit grid
+    &--auto-fit {
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(var(--min-column, 250px), 1fr)
+        );
+    }
+
+    // Gap variants
+    &--gap-sm {
+        gap: var(--spacing-sm);
+    }
+
+    &--gap-lg {
+        gap: var(--spacing-lg);
+    }
+}

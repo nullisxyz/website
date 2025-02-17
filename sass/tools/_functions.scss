@@ -1,0 +1,35 @@
+// tools/_functions.scss
+@use "sass:math";
+@use "sass:map";
+@use "sass:color";
+@use "../settings" as *;
+
+// Color functions
+@function get-color($color-name, $shade: "base") {
+    @return var(
+        --color-#{$color-name}#{if($shade == "base", "", "-" + $shade)}
+    );
+}
+
+// Spacing functions
+@function spacing($size) {
+    @return var(--spacing-#{$size});
+}
+
+// Z-index function
+@function z($layer) {
+    @return var(--z-#{$layer});
+}
+
+// Unit conversion functions
+@function strip-unit($number) {
+    @if type-of($number) == "number" and not unitless($number) {
+        @return math.div($number, ($number * 0 + 1));
+    }
+    @return $number;
+}
+
+@function rem($pixels) {
+    $rem: math.div(strip-unit($pixels), 16);
+    @return #{$rem}rem;
+}

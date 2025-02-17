@@ -1,0 +1,25 @@
+// tools/_interactions.scss
+@use "../settings" as *;
+
+@mixin focus-ring($color: "accent", $offset: 2px) {
+    &:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 $offset var(--color-#{$color});
+    }
+}
+
+@mixin hover-lift($distance: -4px) {
+    @include transition(transform, box-shadow);
+
+    &:hover {
+        transform: translateY($distance);
+        box-shadow: 0 #{abs($distance) * 2}px #{abs($distance) * 4}px
+            rgba(var(--color-primary), 0.1);
+    }
+}
+
+@mixin clickable {
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}

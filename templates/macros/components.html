@@ -1,0 +1,115 @@
+{% macro button(text, url="", type="", class="") %}
+<{% if url %}a href="{{ url }}"{% else %}button type="{{ type }}"{% endif %} class="button {{ class }}">
+    {{ text }}
+</{% if url %}a{% else %}button{% endif %}>
+{% endmacro button %}
+
+{% macro card(title, description="", image="", url="", tags="") %}
+<article class="card">
+    {% if image %}
+    <div class="card-image">
+        <img src="{{ image }}" alt="{{ title }}" />
+    </div>
+    {% endif %}
+
+    <div class="card-content">
+        <h2>
+            {% if url %}
+            <a href="{{ url }}">{{ title }}</a>
+            {% else %}
+            {{ title }}
+            {% endif %}
+        </h2>
+
+        {% if description %}
+        <p>{{ description }}</p>
+        {% endif %}
+
+        {% if tags %}
+        <div class="card-tags">
+            {% for tag in tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</article>
+{% endmacro card %}
+
+{% macro social_links(links) %}
+<div class="social-links">
+    {% for link in links %}
+    <a href="{{ link.url }}" class="social-link" target="_blank" rel="noopener noreferrer">
+        {{ link.name }}
+    </a>
+    {% endfor %}
+</div>
+{% endmacro social_links %}
+
+{% macro form_field(type, name, label="", required=false) %}
+<div class="form-group">
+    {% if label %}
+    <label for="{{ name }}">{{ label }}</label>
+    {% endif %}
+
+    {% if type == "textarea" %}
+    <textarea id="{{ name }}" name="{{ name }}" {% if required %}required{% endif %}></textarea>
+    {% else %}
+    <input type="{{ type }}" id="{{ name }}" name="{{ name }}" {% if required %}required{% endif %}>
+    {% endif %}
+</div>
+{% endmacro form_field %}
+
+{% macro icon(name) %}
+<span class="icon icon-{{ name }}" aria-hidden="true"></span>
+{% endmacro icon %}
+
+{% macro alert(message, type="info") %}
+<div class="alert alert-{{ type }}" role="alert">
+    {{ message }}
+</div>
+{% endmacro alert %}
+
+{% macro breadcrumbs(items) %}
+<nav class="breadcrumbs" aria-label="Breadcrumbs">
+    <ol>
+        {% for item in items %}
+        <li>
+            {% if not loop.last %}
+            <a href="{{ item.url }}">{{ item.title }}</a>
+            {% else %}
+            <span aria-current="page">{{ item.title }}</span>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ol>
+</nav>
+{% endmacro breadcrumbs %}
+
+{% macro pagination(current_page, total_pages, base_url) %}
+<nav class="pagination" aria-label="Pagination">
+    {% if current_page > 1 %}
+    <a href="{{ base_url }}{{ current_page - 1 }}" class="prev-page">Previous</a>
+    {% endif %}
+
+    <span class="current-page">Page {{ current_page }} of {{ total_pages }}</span>
+
+    {% if current_page < total_pages %}
+    <a href="{{ base_url }}{{ current_page + 1 }}" class="next-page">Next</a>
+    {% endif %}
+</nav>
+{% endmacro pagination %}
+
+{% macro tag_list(tags) %}
+<div class="tag-list">
+    {% for tag in tags %}
+    <span class="tag">{{ tag }}</span>
+    {% endfor %}
+</div>
+{% endmacro tag_list %}
+
+{% macro loading_spinner() %}
+<div class="loading-spinner" aria-label="Loading">
+    <div class="spinner"></div>
+</div>
+{% endmacro loading_spinner %}

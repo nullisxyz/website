@@ -1,0 +1,84 @@
+// components/_badge.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.c-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-full, 9999px);
+    @include font-size("sm");
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+
+    // Color variants
+    &--primary {
+        background: var(--color-accent);
+        color: var(--color-primary);
+    }
+
+    &--secondary {
+        background: rgba(var(--color-accent), 0.1);
+        color: var(--color-accent);
+    }
+
+    &--success {
+        background: var(--color-success);
+        color: var(--color-neutral-white);
+    }
+
+    &--error {
+        background: var(--color-error);
+        color: var(--color-neutral-white);
+    }
+
+    &--warning {
+        background: var(--color-warning);
+        color: var(--color-primary);
+    }
+
+    // Size variants
+    &--sm {
+        padding: 0.2rem var(--spacing-xs);
+        @include font-size("xs");
+    }
+
+    &--lg {
+        padding: var(--spacing-sm) var(--spacing-md);
+        @include font-size("base");
+    }
+
+    // With icon
+    &--with-icon {
+        gap: var(--spacing-xs);
+
+        .c-badge__icon {
+            width: 1em;
+            height: 1em;
+        }
+    }
+
+    // Pill shape
+    &--pill {
+        border-radius: var(--border-radius-full);
+    }
+
+    // Outline variant
+    &--outline {
+        background: transparent;
+        border: 1px solid currentColor;
+    }
+
+    // Dot indicator
+    &--dot {
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            margin-right: var(--spacing-xs);
+        }
+    }
+}

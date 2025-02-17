@@ -1,0 +1,45 @@
+// tools/_animations.scss
+@use "sass:map";
+@use "../settings" as *;
+
+@mixin transition($properties...) {
+    $transitions: ();
+
+    @each $property in $properties {
+        $transitions: append(
+            $transitions,
+            $property var(--transition-normal) var(--ease-default),
+            comma
+        );
+    }
+
+    transition: $transitions;
+}
+
+@mixin fade-in($duration: "normal", $delay: 0ms) {
+    animation: fadeIn var(--transition-#{$duration}) ease-out $delay forwards;
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+@mixin slide-up($duration: "normal", $delay: 0ms) {
+    animation: slideUp var(--transition-#{$duration}) ease-out $delay forwards;
+
+    @keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

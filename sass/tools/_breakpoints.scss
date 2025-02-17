@@ -1,0 +1,25 @@
+// tools/_breakpoints.scss
+@use "../settings" as *;
+
+// Media query mixins
+@mixin media-up($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (min-width: map-get($breakpoints, $breakpoint)) {
+            @content;
+        }
+    }
+}
+
+@mixin media-down($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @media (max-width: map-get($breakpoints, $breakpoint) - 1) {
+            @content;
+        }
+    }
+}
+
+@mixin media-between($min, $max) {
+    @media (min-width: map-get($breakpoints, $min)) and (max-width: map-get($breakpoints, $max) - 1) {
+        @content;
+    }
+}
