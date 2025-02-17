@@ -104,10 +104,7 @@
     }
 
     // Theme-specific adjustments
-    [data-theme="light"] & {
-        --footer-shadow: 0 -1px 3px var(--shadow-color);
-    }
-
+    [data-theme="light"] &,
     [data-theme="dark"] & {
         --footer-shadow: 0 -1px 3px var(--shadow-color);
     }

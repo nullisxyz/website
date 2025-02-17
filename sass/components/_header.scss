@@ -164,10 +164,7 @@
     }
 
     // Theme-specific adjustments
-    [data-theme="light"] & {
-        --header-shadow: 0 1px 3px var(--shadow-color);
-    }
-
+    [data-theme="light"] &,
     [data-theme="dark"] & {
         --header-shadow: 0 1px 3px var(--shadow-color);
     }
