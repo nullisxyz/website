@@ -1,11 +1,12 @@
-{% extends "base.html" %} {% block title %}About | {{ config.title }}{% endblock
-%} {% block content %}
+{% extends "base.html" %} {% block content %}
 <article class="p-about">
     <div class="o-container o-container--content">
-        <header class="p-about__header">
-            <h1 class="c-heading">{{ page.title }}</h1>
+        <header class="o-page-header o-page-header--center">
+            <h1 class="o-page-header__title">{{ page.title }}</h1>
             {% if page.description %}
-            <div class="c-text">{{ page.description | markdown | safe }}</div>
+            <div class="o-page-header__text">
+                {{ page.description | markdown | safe }}
+            </div>
             {% endif %}
         </header>
 

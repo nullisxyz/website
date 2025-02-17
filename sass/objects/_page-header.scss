@@ -1,0 +1,45 @@
+// website/sass/objects/_page-header.scss
+@use "../settings" as *;
+@use "../tools" as *;
+
+.o-page-header {
+    margin-bottom: var(--spacing-2xl);
+
+    // Layout variations
+    &--center {
+        text-align: center;
+
+        .o-page-header__text {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &__title {
+        @include heading(2);
+        margin-bottom: var(--spacing-lg);
+        @include transition(color);
+
+        // Variant for larger titles (e.g. blog posts)
+        &--large {
+            @include font-size("4xl", true);
+            margin-bottom: var(--spacing-md);
+        }
+    }
+
+    &__text {
+        @include font-size("lg");
+        color: var(--color-text-muted);
+        max-width: 720px;
+        @include transition(color);
+    }
+
+    &__meta {
+        display: flex;
+        gap: var(--spacing-md);
+        justify-content: center;
+        color: var(--color-text-muted);
+        @include font-size("sm");
+        @include transition(color);
+    }
+}

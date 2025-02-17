@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block content %}
 <div class="p-blog">
     <div class="o-container">
-        <header class="p-blog__header">
-            <h1 class="p-blog__header-title">{{ section.title }}</h1>
+        <header class="o-page-header o-page-header--center">
+            <h1 class="o-page-header__title">{{ section.title }}</h1>
             {% if section.description %}
-            <div class="p-blog__header-text">
+            <div class="o-page-header__text">
                 {{ section.description | markdown | safe }}
             </div>
             {% endif %}

@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block content %}
 <article class="l-post">
     <div class="o-container">
-        <header class="l-post__header">
-            <h1 class="l-post__header-title">{{ page.title }}</h1>
+        <header class="o-page-header o-page-header--center">
+            <h1 class="o-page-header__title">{{ page.title }}</h1>
 
-            <div class="l-post__header-meta">
+            <div class="o-page-header__meta">
                 {% if page.date %}
                 <time
                     datetime="{{ page.date }}"

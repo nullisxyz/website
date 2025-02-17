@@ -3,27 +3,6 @@
 @use "../../tools" as *;
 
 .l-post {
-    &__header {
-        text-align: center;
-        margin-bottom: var(--spacing-xl);
-
-        &-title {
-            @include font-size("4xl", true);
-            color: var(--color-text);
-            margin-bottom: var(--spacing-md);
-            @include transition(color);
-        }
-
-        &-meta {
-            display: flex;
-            gap: var(--spacing-md);
-            justify-content: center;
-            color: var(--color-text-muted);
-            @include font-size("sm");
-            @include transition(color);
-        }
-    }
-
     &__content {
         max-width: 720px;
         margin: 0 auto;
