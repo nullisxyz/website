@@ -1,101 +1,54 @@
 {% extends "base.html" %} {% block content %}
-<article class="l-post{% if page.extra.animate %} l-post--animate{% endif %}">
+<article class="l-post">
     <div class="o-container o-container--content">
+        <!-- Header Section -->
         <header class="l-post__header">
-            {% if page.taxonomies and page.taxonomies.categories %}
-            <div class="l-post__categories">
-                {% for category in page.taxonomies.categories %}
-                <a
-                    href="{{ get_taxonomy_url(kind='categories', name=category) }}"
-                    class="c-badge c-badge--primary"
-                >
-                    {{ category }}
-                </a>
-                {% endfor %}
-            </div>
-            {% endif %}
-
-            <h1 class="l-post__header-title">{{ page.title }}</h1>
+            <h1 class="l-post__header-title l-post__header-title--gradient">
+                {{ page.title }}
+            </h1>
 
             <div class="l-post__meta">
                 {% if page.date %}
                 <time datetime="{{ page.date }}" class="l-post__date">
                     {{ page.date | date(format="%B %d, %Y") }}
                 </time>
-                {% endif %} {% if page.extra.read_time %}
+                {% endif %} {% if page.extra.reading_time %}
                 <span class="l-post__read-time">
-                    {{ page.extra.read_time }} min read
+                    {{ page.extra.reading_time }} min read
                 </span>
-                {% endif %} {% if page.extra.author %}
-                <div class="l-post__author">
-                    {% if page.extra.author.avatar %}
-                    <img
-                        src="{{ page.extra.author.avatar }}"
-                        alt="{{ page.extra.author.name }}"
-                        class="l-post__author-avatar"
-                    />
-                    {% endif %}
-                    <span class="l-post__author-name">
-                        {{ page.extra.author.name }}
-                    </span>
-                </div>
+                {% endif %} {% if page.extra.meta and page.extra.meta.difficulty
+                %}
+                <span class="l-post__difficulty">
+                    Difficulty: {{ page.extra.meta.difficulty }}
+                </span>
                 {% endif %}
             </div>
 
-            {% if page.extra.image %}
-            <div class="l-post__image-wrapper">
+            {% if page.extra.author %}
+            <div class="l-post__author">
+                {% if page.extra.author.avatar %}
                 <img
-                    src="{{ page.extra.image }}"
-                    alt="{{ page.title }}"
-                    class="l-post__image"
-                />
-            </div>
-            {% endif %}
-        </header>
-
-        <div class="l-post__content c-content">
-            {{ page.content | safe }} {% if page.taxonomies and
-            page.taxonomies.tags %}
-            <div class="l-post__tags">
-                {% for tag in page.taxonomies.tags %}
-                <a
-                    href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
-                    class="c-badge c-badge--secondary"
-                >
-                    {{ tag }}
-                </a>
-                {% endfor %}
-            </div>
-            {% endif %}
-        </div>
-
-        <footer class="l-post__footer">
-            {% if config.extra.author %}
-            <div class="c-card c-card--horizontal c-card--glass">
-                {% if config.extra.author.avatar %}
-                <img
-                    src="{{ config.extra.author.avatar }}"
-                    alt="{{ config.extra.author.name }}"
-                    class="c-card__image"
-                    width="120"
-                    height="120"
+                    src="{{ page.extra.author.avatar }}"
+                    alt="{{ page.extra.author.name }}"
+                    class="l-post__author-avatar"
                 />
                 {% endif %}
-
-                <div class="c-card__body">
-                    <h2 class="c-card__title">
-                        Written by {{ config.extra.author.name }}
-                    </h2>
-                    {% if config.extra.author.bio %}
-                    <p class="c-card__text">{{ config.extra.author.bio }}</p>
-                    {% endif %} {% if config.extra.author.social %}
-                    <div class="c-card__social">
-                        {% for platform, url in config.extra.author.social %}
+                <div class="l-post__author-info">
+                    <span class="l-post__author-name"
+                        >{{ page.extra.author.name }}</span
+                    >
+                    {% if page.extra.author.bio %}
+                    <p class="l-post__author-bio">
+                        {{ page.extra.author.bio }}
+                    </p>
+                    {% endif %} {% if page.extra.author.social %}
+                    <div class="l-post__author-social">
+                        {% for platform, url in page.extra.author.social %}
                         <a
                             href="{{ url }}"
                             class="c-button c-button--ghost c-button--sm"
                             target="_blank"
-                            rel="noopener noreferrer"
+                            rel="noopener"
                         >
                             {{ platform }}
                         </a>
@@ -104,72 +57,147 @@
                     {% endif %}
                 </div>
             </div>
-            {% endif %} {% if config.extra.features.related_posts %}
-            <div class="l-post__related">
-                <h3 class="l-post__related-title">Related Posts</h3>
-                <div class="o-grid o-grid--2">
-                    {% for related in page.extra.related_posts %}
+            {% endif %} {% if page.extra.hero_image %}
+            <div class="l-post__hero">
+                <img
+                    src="{{ page.extra.hero_image }}"
+                    alt="{{ page.title }}"
+                    class="l-post__hero-image"
+                />
+            </div>
+            {% endif %}
+        </header>
+
+        <!-- Content Wrapper (for TOC sidebar) -->
+        <div class="l-post__wrapper">
+            <!-- Main Content Area -->
+            <div class="l-post__main">
+                {% if page.extra.prerequisites %}
+                <div class="l-post__prerequisites">
+                    <h2>Prerequisites</h2>
+                    <ul>
+                        {% for prereq in page.extra.prerequisites %}
+                        <li>
+                            <strong>{{ prereq.name }}</strong>
+                            {% if prereq.description %}
+                            <p>{{ prereq.description }}</p>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %} {% if page.extra.series %}
+                <div class="l-post__series">
+                    <h3>
+                        Part {{ page.extra.series.part }} of {{
+                        page.extra.series.name }}
+                    </h3>
+                </div>
+                {% endif %}
+                <div class="l-post__content c-content">
+                    {{ page.content | safe }}
+                </div>
+
+                {% if page.taxonomies and page.taxonomies.tags %}
+                <div class="l-post__tags">
+                    {% for tag in page.taxonomies.tags %}
                     <a
-                        href="{{ related.permalink }}"
-                        class="c-card c-card--hover"
+                        href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
+                        class="c-badge c-badge--secondary"
                     >
-                        <div class="c-card__body">
-                            {% if related.date %}
-                            <time
-                                datetime="{{ related.date }}"
-                                class="c-card__date"
-                            >
-                                {{ related.date | date(format="%B %d, %Y") }}
-                            </time>
-                            {% endif %}
-                            <h4 class="c-card__title">{{ related.title }}</h4>
-                            {% if related.description %}
-                            <p class="c-card__text">
-                                {{ related.description }}
-                            </p>
-                            {% endif %}
-                        </div>
+                        {{ tag }}
                     </a>
                     {% endfor %}
                 </div>
-            </div>
-            {% endif %} {% if config.extra.features.comments and not
-            page.extra.disable_comments %}
-            <div class="l-post__comments">
-                <!-- Add your commenting system here -->
-            </div>
-            {% endif %}
-
-            <nav class="l-post__navigation">
-                <div class="o-switcher o-switcher--between">
+                {% endif %} {% if page.extra.resources %}
+                <div class="l-post__resources">
+                    <h2>Additional Resources</h2>
+                    <ul>
+                        {% for key, url in page.extra.resources %}
+                        <li>
+                            <a href="{{ url }}" target="_blank" rel="noopener"
+                                >{{ key | capitalize }}</a
+                            >
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}{% if page.extra.meta %}
+                <div class="l-post__meta-links">
+                    {% if page.extra.meta.repository %}
+                    <a
+                        href="{{ page.extra.meta.repository }}"
+                        class="c-button c-button--primary"
+                        >GitHub</a
+                    >
+                    {% endif %} {% if page.extra.meta.live_demo %}
+                    <a
+                        href="{{ page.extra.meta.live_demo }}"
+                        class="c-button c-button--secondary"
+                        >Live Demo</a
+                    >
+                    {% endif %}
+                </div>
+                {% endif %}
+                <nav class="l-post__navigation">
                     {% if page.lighter %}
                     <a
                         href="{{ page.lighter.permalink }}"
                         class="c-card c-card--interactive"
                     >
-                        <div class="c-card__body">
-                            <span class="u-text-sm u-text-muted">Previous</span>
-                            <h4 class="c-card__title">
-                                {{ page.lighter.title }}
-                            </h4>
-                        </div>
+                        <span>Previous</span>
+                        <h4>{{ page.lighter.title }}</h4>
                     </a>
                     {% endif %} {% if page.heavier %}
                     <a
                         href="{{ page.heavier.permalink }}"
                         class="c-card c-card--interactive"
                     >
-                        <div class="c-card__body">
-                            <span class="u-text-sm u-text-muted">Next</span>
-                            <h4 class="c-card__title">
-                                {{ page.heavier.title }}
-                            </h4>
-                        </div>
+                        <span>Next</span>
+                        <h4>{{ page.heavier.title }}</h4>
                     </a>
                     {% endif %}
-                </div>
+                </nav>
+            </div>
+
+            <!-- Table of Contents Sidebar -->
+            {% if page.toc and page.extra.toc %}
+            <nav class="l-post__toc">
+                <h2>Table of Contents</h2>
+                <ul>
+                    {% for h1 in page.toc %}
+                    <li>
+                        <a href="{{ h1.permalink | safe }}">{{ h1.title }}</a>
+                        {% if h1.children %}
+                        <ul>
+                            {% for h2 in h1.children %}
+                            <li>
+                                <a href="{{ h2.permalink | safe }}"
+                                    >{{ h2.title }}</a
+                                >
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
             </nav>
-        </footer>
+            {% endif %}
+        </div>
+
+        {% if page.taxonomies and page.taxonomies.categories %}
+        <div class="l-post__categories">
+            {% for category in page.taxonomies.categories %}
+            <a
+                href="{{ get_taxonomy_url(kind='categories', name=category) }}"
+                class="c-badge c-badge--primary"
+            >
+                {{ category }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </article>
 
@@ -178,29 +206,20 @@
     <div class="o-container o-container--narrow">
         <div class="c-card c-card--glass">
             <div class="c-card__body">
-                <h3 class="c-card__title">Subscribe to the Newsletter</h3>
-                <p class="c-card__text">
-                    Get notified about new posts and updates.
-                </p>
-
+                <h3>Subscribe to the Newsletter</h3>
+                <p>Get notified about new posts and updates.</p>
                 <form
                     class="c-form"
                     action="{{ config.extra.newsletter_endpoint }}"
                     method="POST"
                 >
-                    <div class="c-form__group">
-                        <input
-                            type="email"
-                            name="email"
-                            class="c-form__input"
-                            placeholder="Enter your email"
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        class="c-button c-button--primary c-button--full"
-                    >
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    />
+                    <button type="submit" class="c-button c-button--primary">
                         Subscribe
                     </button>
                 </form>

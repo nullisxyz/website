@@ -22,7 +22,7 @@ social = { twitter = "https://twitter.com/johndoe", github = "https://github.com
 
 [extra.meta]
 difficulty = "Beginner"
-project_files = "https://github.com/username/rust-tutorial"
+repository = "https://github.com/username/rust-tutorial"
 live_demo = "https://rust-demo.example.com"
 
 [[extra.prerequisites]]
@@ -33,10 +33,10 @@ description = "Familiarity with any programming language"
 name = "Command line basics"
 description = "Comfortable using terminal/command prompt"
 
-[extra.resources]
-documentation = "https://doc.rust-lang.org/"
-github = "https://github.com/rust-lang/rust"
-community = "https://users.rust-lang.org/"
+# [extra.resources]
+# documentation = "https://doc.rust-lang.org/"
+# github = "https://github.com/rust-lang/rust"
+# community = "https://users.rust-lang.org/"
 
 [extra.series]
 name = "Rust Programming Guide"

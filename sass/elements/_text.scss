@@ -256,13 +256,17 @@ address {
     }
 
     pre {
-        max-width: var(--content-measure-wide);
-        margin-inline: auto;
-        padding: var(--spacing-md);
-        background: var(--color-code-background);
-        border-radius: var(--site-radius);
-        overflow-x: auto;
-        @include transition(background-color);
+        max-width: none; // Remove max-width constraint
+        width: 100%; // Take full width of parent
+        margin-left: calc(
+            -1 * var(--spacing-md)
+        ); // Negative margin to break out
+        margin-right: calc(-1 * var(--spacing-md));
+
+        @include media-up("md") {
+            margin-left: 0; // Reset margins on larger screens
+            margin-right: 0;
+        }
     }
 
     img {

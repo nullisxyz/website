@@ -22,7 +22,7 @@ social = { twitter = "https://twitter.com/johndoe", github = "https://github.com
 
 [extra.meta]
 difficulty = "Advanced"
-project_files = "https://github.com/username/microservices-example"
+repository = "https://github.com/username/microservices-example"
 live_demo = "https://microservices-demo.example.com"
 
 [extra.architecture_diagram]

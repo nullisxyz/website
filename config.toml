@@ -12,7 +12,11 @@ taxonomies = [
 
 [markdown]
 highlight_code = true
-highlight_theme = "nord"
+highlight_theme = "css"
+highlight_themes_css = [
+    { theme = "solarized-dark", filename = "solarized-dark.css" },
+    { theme = "solarized-light", filename = "solarized-light.css" }
+]
 external_links_target_blank = true
 external_links_no_follow = true
 external_links_no_referrer = true

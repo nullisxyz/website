@@ -9,7 +9,7 @@
 
     // Content container - optimal reading width
     &--content {
-        max-width: min(100%, var(--content-measure));
+        max-width: min(100% - 2rem, var(--content-measure));
         margin-inline: auto;
 
         @include media-up("xl") {
