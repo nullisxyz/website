@@ -1,5 +1,4 @@
-{% extends "base.html" %} {% import "macros/toc.html" as toc %} {% block content
-%}
+{% extends "base.html" %} {% block content %}
 <article class="p-page{% if page.extra.animate %} p-page--animate{% endif %}">
     <div class="o-container o-container--content">
         <header
@@ -18,78 +17,23 @@
             {% endif %}
         </header>
 
-        <div class="p-page__content">
-            {% if config.extra.features.table_of_contents and not
-            page.extra.disable_toc %}
-            <div class="p-page__sidebar">
-                <div class="c-card c-card--glass">
-                    <div class="c-card__header">
-                        <h2 class="c-card__title">Table of Contents</h2>
-                    </div>
-                    <div class="c-card__body">
-                        <nav class="c-toc" aria-label="Table of contents">
-                            {{ toc::generate(html=page.content) }}
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-
-            <div class="p-page__main">
-                <div class="c-content">{{ page.content | safe }}</div>
-
-                {% if config.extra.features.comments and not
-                page.extra.disable_comments %}
-                <section class="p-page__comments">
-                    <!-- Add your commenting system here -->
-                </section>
-                {% endif %}
-            </div>
-        </div>
-
-        {% if config.extra.features.related_pages %}
-        <footer class="p-page__footer">
-            <nav class="o-switcher" aria-label="Page navigation">
-                {% if page.lighter %}
-                <a
-                    href="{{ page.lighter.permalink }}"
-                    class="c-card c-card--interactive"
-                >
-                    <div class="c-card__body">
-                        <span class="u-text-sm u-text-muted">Previous</span>
-                        <h3 class="c-card__title">{{ page.lighter.title }}</h3>
-                    </div>
-                </a>
-                {% endif %} {% if page.heavier %}
-                <a
-                    href="{{ page.heavier.permalink }}"
-                    class="c-card c-card--interactive"
-                >
-                    <div class="c-card__body">
-                        <span class="u-text-sm u-text-muted">Next</span>
-                        <h3 class="c-card__title">{{ page.heavier.title }}</h3>
-                    </div>
-                </a>
-                {% endif %}
-            </nav>
-        </footer>
-        {% endif %}
+        <div class="c-content">{{ page.content | safe }}</div>
     </div>
 </article>
 
-{% if config.extra.features.cta and not page.extra.disable_cta %}
+{% if page.extra.cta %}
 <section class="p-page__cta">
     <div class="o-container o-container--narrow">
         <div class="c-card c-card--glass">
             <div class="c-card__body">
-                <h2 class="c-card__title">{{ config.extra.cta.title }}</h2>
-                <p class="c-card__text">{{ config.extra.cta.description }}</p>
+                <h2 class="c-card__title">{{ page.extra.cta.title }}</h2>
+                <p class="c-card__text">{{ page.extra.cta.description }}</p>
                 <div class="c-card__actions">
                     <a
-                        href="{{ config.extra.cta.button_url }}"
+                        href="{{ page.extra.cta.button_url }}"
                         class="c-button c-button--primary"
                     >
-                        {{ config.extra.cta.button_text }}
+                        {{ page.extra.cta.button_text }}
                     </a>
                 </div>
             </div>
