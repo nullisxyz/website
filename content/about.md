@@ -75,17 +75,17 @@ title = "Areas of Interest"
 [[extra.interests.items]]
 title = "Distributed Systems"
 description = "Building scalable and reliable distributed systems"
-icon = "distributed-icon.svg"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6C13.1046 6 14 5.10457 14 4C14 2.89543 13.1046 2 12 2C10.8954 2 10 2.89543 10 4C10 5.10457 10.8954 6 12 6Z"/><path d="M12 22C13.1046 22 14 21.1046 14 20C14 18.8954 13.1046 18 12 18C10.8954 18 10 18.8954 10 20C10 21.1046 10.8954 22 12 22Z"/><path d="M6 14C7.10457 14 8 13.1046 8 12C8 10.8954 7.10457 10 6 10C4.89543 10 4 10.8954 4 12C4 13.1046 4.89543 14 6 14Z"/><path d="M18 14C19.1046 14 20 13.1046 20 12C20 10.8954 19.1046 10 18 10C16.8954 10 16 10.8954 16 12C16 13.1046 16.8954 14 18 14Z"/><path d="M7.05025 7.05025L10.9497 10.9497"/><path d="M13.0503 13.0503L16.9498 16.9498"/><path d="M16.9498 7.05025L13.0503 10.9497"/><path d="M10.9497 13.0503L7.05025 16.9498"/></svg>"""
 
 [[extra.interests.items]]
 title = "System Security"
 description = "Implementing robust security measures in complex systems"
-icon = "security-icon.svg"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z"/><path d="M12 8V13"/><path d="M12 16V16.01"/></svg>"""
 
 [[extra.interests.items]]
 title = "Performance Optimization"
 description = "Optimizing systems for maximum efficiency"
-icon = "performance-icon.svg"
+icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2V6"/><path d="M12 18V22"/><path d="M4.93 4.93L7.76 7.76"/><path d="M16.24 16.24L19.07 19.07"/><path d="M2 12H6"/><path d="M18 12H22"/><path d="M4.93 19.07L7.76 16.24"/><path d="M16.24 7.76L19.07 4.93"/><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"/></svg>"""
 
 [extra.cta]
 title = "Let's Connect"
