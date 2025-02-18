@@ -3,8 +3,13 @@
     class="p-projects{% if page.extra.animate %} p-projects--animate{% endif %}"
 >
     <div class="o-container o-container--content">
+        <!-- Header -->
         <header class="p-projects__header">
-            <h1 class="p-projects__header-title">{{ page.title }}</h1>
+            <h1
+                class="p-projects__header-title{% if page.extra.gradient_title %} p-projects__header-title--gradient{% endif %}"
+            >
+                {{ page.title }}
+            </h1>
             {% if page.description %}
             <div class="p-projects__header-description">
                 {{ page.description | markdown | safe }}
@@ -12,7 +17,8 @@
             {% endif %}
         </header>
 
-        {% if config.extra.project_categories %}
+        <!-- Category Filters -->
+        {% if page.extra.filters.categories %}
         <div class="p-projects__filters">
             <button
                 class="c-button c-button--ghost is-active"
@@ -20,7 +26,7 @@
             >
                 All Projects
             </button>
-            {% for category in config.extra.project_categories %}
+            {% for category in page.extra.filters.categories %}
             <button
                 class="c-button c-button--ghost"
                 data-filter="{{ category | slugify }}"
@@ -31,12 +37,14 @@
         </div>
         {% endif %}
 
+        <!-- Project Grid -->
         <div class="p-projects__grid">
-            {% for project in config.extra.projects %}
+            {% for project in page.extra.projects %}
             <article
-                class="p-projects__card"
+                class="p-projects__card{% if project.featured %} p-projects__card--featured{% endif %}"
                 data-category="{{ project.category | slugify }}"
             >
+                <!-- Project Image -->
                 {% if project.image %}
                 <div class="p-projects__card-image-wrapper">
                     <img
@@ -48,29 +56,62 @@
                 </div>
                 {% endif %}
 
+                <!-- Project Content -->
                 <div class="p-projects__card-content">
-                    {% if project.category %}
-                    <div class="p-projects__card-category">
-                        {{ project.category }}
+                    <!-- Header: Category & Title -->
+                    <div class="p-projects__card-header">
+                        {% if project.category %}
+                        <div class="p-projects__card-category">
+                            {{ project.category }}
+                        </div>
+                        {% endif %}
+                        <h2 class="p-projects__card-title">
+                            {{ project.title }}
+                        </h2>
                     </div>
-                    {% endif %}
 
-                    <h2 class="p-projects__card-title">{{ project.title }}</h2>
-
+                    <!-- Description -->
                     {% if project.description %}
                     <p class="p-projects__card-description">
                         {{ project.description }}
                     </p>
-                    {% endif %} {% if project.tags %}
-                    <div class="p-projects__card-tags">
-                        {% for tag in project.tags %}
-                        <span class="c-badge c-badge--secondary c-badge--sm">
-                            {{ tag }}
-                        </span>
+                    {% endif %}
+
+                    <!-- Stats Grid -->
+                    {% if project.stats %}
+                    <div class="p-projects__card-stats">
+                        {% for stat in project.stats %}
+                        <div class="p-projects__card-stats-item">
+                            <div class="p-projects__card-stats-item-value">
+                                {{ stat.value }}
+                            </div>
+                            <div class="p-projects__card-stats-item-label">
+                                {{ stat.label }}
+                            </div>
+                        </div>
                         {% endfor %}
                     </div>
                     {% endif %}
 
+                    <!-- Meta Information -->
+                    <div class="p-projects__card-meta">
+                        {% if project.technologies %}
+                        <div class="p-projects__card-technologies">
+                            {% for tech in project.technologies %}
+                            <div class="p-projects__card-technologies-item">
+                                {% if tech.icon %}
+                                <img
+                                    src="/images/icons/{{ tech.icon }}"
+                                    alt="{{ tech.name }}"
+                                />
+                                {% endif %} {{ tech.name }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Action Links -->
                     <div class="p-projects__card-links">
                         {% if project.url %}
                         <a
@@ -125,42 +166,57 @@
                 </div>
             </article>
             {% endfor %}
+
+            <!-- Empty State -->
+            <div class="p-projects__empty" style="display: none">
+                <div class="p-projects__empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        ></path>
+                    </svg>
+                </div>
+                <div class="p-projects__empty-text">
+                    No projects found matching your filter.
+                </div>
+            </div>
         </div>
 
+        <!-- Content Section -->
         {% if page.content %}
         <div class="p-projects__content c-content">
             {{ page.content | safe }}
         </div>
         {% endif %}
-    </div>
-</div>
 
-{% if config.extra.features.cta %}
-<section class="p-projects__cta">
-    <div class="o-container o-container--narrow">
-        <div class="c-card c-card--glass">
-            <div class="c-card__body">
-                <h2 class="c-card__title">{{ config.extra.cta.title }}</h2>
-                <p class="c-card__text">{{ config.extra.cta.description }}</p>
-                <div class="c-card__actions">
-                    <a
-                        href="{{ config.extra.cta.button_url }}"
-                        class="c-button c-button--primary"
-                    >
-                        {{ config.extra.cta.button_text }}
-                    </a>
+        <!-- CTA Section -->
+        {% if page.extra.cta and page.extra.cta.enabled %}
+        <div class="p-projects__cta">
+            <div class="c-card c-card--glass">
+                <div class="c-card__content">
+                    <h2 class="c-card__title">{{ page.extra.cta.title }}</h2>
+                    <p class="c-card__text">{{ page.extra.cta.description }}</p>
+                    <div class="c-card__actions">
+                        <a
+                            href="{{ page.extra.cta.button_url }}"
+                            class="c-button c-button--primary"
+                        >
+                            {{ page.extra.cta.button_text }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
-</section>
-{% endif %}
+</div>
 
+<!-- Filter Script -->
 <script>
-    // Project filtering functionality
     document.addEventListener("DOMContentLoaded", function () {
         const filterButtons = document.querySelectorAll("[data-filter]");
         const projects = document.querySelectorAll(".p-projects__card");
+        const emptyState = document.querySelector(".p-projects__empty");
 
         filterButtons.forEach((button) => {
             button.addEventListener("click", () => {
@@ -172,20 +228,27 @@
                 button.classList.add("is-active");
 
                 const filterValue = button.getAttribute("data-filter");
+                let visibleProjects = 0;
 
                 projects.forEach((project) => {
                     if (filterValue === "all") {
                         project.classList.remove("is-filtered-out");
+                        visibleProjects++;
                     } else {
                         const projectCategory =
                             project.getAttribute("data-category");
                         if (projectCategory === filterValue) {
                             project.classList.remove("is-filtered-out");
+                            visibleProjects++;
                         } else {
                             project.classList.add("is-filtered-out");
                         }
                     }
                 });
+
+                // Show/hide empty state
+                emptyState.style.display =
+                    visibleProjects === 0 ? "block" : "none";
             });
         });
     });
