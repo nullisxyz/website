@@ -29,6 +29,7 @@ table_of_contents = true
 related_pages = true
 cta = true
 grid_layout = true
+stats = true
 
 # Theme Configuration
 theme_color = "#2b95b8"

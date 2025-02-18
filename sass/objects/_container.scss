@@ -3,91 +3,25 @@
 @use "../tools" as *;
 
 .o-container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
-    max-width: var(--container-width, var(--breakpoint-xl));
+    width: min(100% - 2rem, var(--container-max-width));
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
 
-    // Size variants
-    &--sm {
-        max-width: var(--breakpoint-sm);
-    }
-
-    &--md {
-        max-width: var(--breakpoint-md);
-    }
-
-    &--lg {
-        max-width: var(--breakpoint-lg);
-    }
-
-    &--xl {
-        max-width: var(--breakpoint-xl);
-    }
-
-    &--2xl {
-        max-width: var(--breakpoint-2xl);
-    }
-
-    // Special variants
+    // Content container - optimal reading width
     &--content {
-        max-width: 75ch; // Optimal reading width
+        max-width: min(100%, var(--content-measure));
+        margin-inline: auto;
+
+        @include media-up("xl") {
+            max-width: min(100%, var(--content-measure-xl));
+            padding-inline: 0;
+        }
     }
 
+    // Narrow content container
     &--narrow {
-        max-width: var(--breakpoint-md);
-    }
-
-    &--fluid {
-        max-width: none;
-    }
-
-    // Padding variants
-    &--no-padding {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    &--padding-sm {
-        padding-left: var(--spacing-sm);
-        padding-right: var(--spacing-sm);
-    }
-
-    &--padding-lg {
-        padding-left: var(--spacing-lg);
-        padding-right: var(--spacing-lg);
-    }
-
-    // With vertical padding
-    &--with-vertical-padding {
-        padding-top: var(--spacing-xl);
-        padding-bottom: var(--spacing-xl);
-    }
-
-    // Responsive padding adjustments
-    @include media-down("sm") {
-        padding-left: var(--spacing-sm);
-        padding-right: var(--spacing-sm);
-
-        &--responsive-padding {
-            padding-left: var(--spacing-sm);
-            padding-right: var(--spacing-sm);
-        }
-    }
-
-    @include media-up("lg") {
-        &--responsive-padding {
-            padding-left: var(--spacing-lg);
-            padding-right: var(--spacing-lg);
-        }
-    }
-
-    // Nested containers
-    .o-container {
-        padding-left: 0;
-        padding-right: 0;
+        max-width: min(100%, var(--content-measure-narrow));
+        margin-inline: auto;
     }
 
     // With background
@@ -95,8 +29,7 @@
         position: relative;
         background: var(--color-surface);
         border-radius: var(--site-radius);
-        padding-top: var(--spacing-xl);
-        padding-bottom: var(--spacing-xl);
+        padding-block: var(--spacing-xl);
 
         [data-theme="light"] & {
             box-shadow: var(--site-shadow);
@@ -124,6 +57,26 @@
 
         @include media-up("md") {
             grid-template-columns: repeat(var(--columns, 12), 1fr);
+        }
+    }
+
+    // Nested containers should not inherit padding
+    .o-container {
+        padding-inline: 0;
+    }
+
+    // Responsive padding adjustments
+    @include media-down("sm") {
+        padding-inline: var(--spacing-sm);
+
+        &--responsive-padding {
+            padding-inline: var(--spacing-sm);
+        }
+    }
+
+    @include media-up("lg") {
+        &--responsive-padding {
+            padding-inline: var(--spacing-lg);
         }
     }
 }

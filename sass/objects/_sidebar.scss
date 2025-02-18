@@ -28,10 +28,6 @@
         --sidebar-width: 200px;
     }
 
-    &--wide {
-        --sidebar-width: 400px;
-    }
-
     // Spacing variants
     &--gap-sm {
         gap: var(--spacing-sm);

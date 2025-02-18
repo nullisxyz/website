@@ -1,4 +1,4 @@
-// site/layouts/_default.scss
+// layouts/_default.scss
 @use "../../settings" as *;
 @use "../../tools" as *;
 
@@ -34,7 +34,7 @@
     &__main {
         flex: 1;
         margin-top: var(--site-header-height);
-        padding: var(--spacing-xl) 0;
+        padding-block: var(--spacing-xl);
         position: relative;
 
         &::before {
@@ -45,23 +45,30 @@
             z-index: -1;
         }
 
+        // Center content and maintain readable width
+        > .o-container {
+            display: grid;
+            gap: var(--spacing-xl);
+            justify-items: center;
+
+            @include media-up("xl") {
+                max-width: min(100%, var(--content-measure-xl));
+                margin-inline: auto;
+            }
+        }
+
         @include media-up("md") {
-            padding: var(--spacing-2xl) 0;
+            padding-block: var(--spacing-2xl);
         }
     }
 
     &__content {
-        max-width: var(--site-content-width);
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0 var(--spacing-md);
-
-        &--wide {
-            max-width: var(--site-max-width);
-        }
+        width: 100%;
+        max-width: var(--content-measure);
+        margin-inline: auto;
 
         &--narrow {
-            max-width: calc(var(--site-content-width) * 0.8);
+            max-width: var(--content-measure-narrow);
         }
     }
 

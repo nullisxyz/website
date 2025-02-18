@@ -32,15 +32,21 @@ icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M1
 title = "Featured Work"
 description = "A selection of my most impactful projects and contributions"
 
-[extra.stats_section]
+[extra.stats]
 title = "Impact & Experience"
 background = "gradient"
-items = [
-    { value = "10+", label = "Years Experience" },
-    { value = "50+", label = "Projects Completed" },
-    { value = "30+", label = "Happy Clients" },
-    { value = "15+", label = "Open Source Projects" }
-]
+
+[[extra.stats.items]]
+value = "10+"
+label = "Years Experience"
+
+[[extra.stats.items]]
+value = "50+"
+label = "Projects Completed"
+
+[[extra.stats.items]]
+value = "15+"
+label = "Open Source Projects"
 
 [extra.skills_section]
 title = "Technical Expertise"

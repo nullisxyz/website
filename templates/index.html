@@ -41,7 +41,7 @@
     <section class="p-home__stats">
         <div class="o-container">
             <div class="o-grid o-grid--3">
-                {% for stat in config.extra.stats %}
+                {% for stat in section.extra.stats.items %}
                 <div class="c-stat">
                     <div class="c-stat__value">{{ stat.value }}</div>
                     <div class="c-stat__label">{{ stat.label }}</div>

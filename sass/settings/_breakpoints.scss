@@ -12,8 +12,12 @@ $breakpoints: (
         --breakpoint-#{$name}: #{$width};
     }
 
-    // Add container-specific variables
-    --container-width: 1400px; // Max container width
-    --content-width: 75ch; // Optimal reading width
-    --narrow-width: 768px; // Narrow container width
+    // Container settings
+    --container-max-width: 1400px; // Maximum overall container width
+    --content-measure: 75ch; // Optimal reading width
+    --content-measure-narrow: 65ch; // Narrow content width
+    --content-measure-xl: calc(var(--container-max-width) * 0.9);
+
+    // Spacing for container padding
+    --container-padding: clamp(var(--spacing-md), 5vw, var(--spacing-xl));
 }

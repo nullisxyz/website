@@ -3,7 +3,9 @@
 @use "../tools" as *;
 
 p {
-    margin-bottom: var(--spacing-md);
+    max-width: var(--content-measure);
+    margin-inline: auto;
+    margin-block-end: var(--spacing-md);
     color: var(--color-text);
     @include transition(color);
 
@@ -12,7 +14,7 @@ p {
     }
 
     &:last-child {
-        margin-bottom: 0;
+        margin-block-end: 0;
     }
 }
 
@@ -32,15 +34,17 @@ em {
 }
 
 blockquote {
+    max-width: var(--content-measure-narrow);
+    margin-block: var(--spacing-lg);
+    margin-inline: auto;
     padding: var(--spacing-md);
-    margin: var(--spacing-lg) 0;
     border-left: 4px solid var(--color-accent);
     background: var(--color-surface);
     border-radius: var(--site-radius);
     @include transition(background-color, border-color, box-shadow);
 
     p {
-        margin-bottom: 0;
+        margin-block-end: 0;
         font-style: italic;
         color: var(--color-text-muted);
 
@@ -57,7 +61,7 @@ blockquote {
 
     cite {
         display: block;
-        margin-top: var(--spacing-sm);
+        margin-block-start: var(--spacing-sm);
         @include font-size("sm");
         color: var(--color-text-muted);
 
@@ -205,5 +209,136 @@ address {
     blockquote {
         padding: var(--spacing-sm);
         margin: var(--spacing-md) 0;
+    }
+}
+
+// Long-form content wrapper
+.c-content {
+    max-width: var(--content-measure);
+    margin-inline: auto;
+    color: var(--color-text);
+    @include transition(color);
+
+    > * + * {
+        margin-block-start: var(--spacing-md);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        max-width: var(--content-measure-narrow);
+        margin-inline: auto;
+        color: var(--color-text);
+        @include transition(color);
+    }
+
+    h2 {
+        margin-block: var(--spacing-xl) var(--spacing-md);
+    }
+
+    p {
+        max-width: var(--content-measure);
+    }
+
+    ul,
+    ol {
+        max-width: var(--content-measure-narrow);
+        margin-inline: auto;
+        padding-inline-start: var(--spacing-lg);
+    }
+
+    blockquote {
+        max-width: var(--content-measure-narrow);
+        margin-inline: auto;
+    }
+
+    pre {
+        max-width: var(--content-measure-wide);
+        margin-inline: auto;
+        padding: var(--spacing-md);
+        background: var(--color-code-background);
+        border-radius: var(--site-radius);
+        overflow-x: auto;
+        @include transition(background-color);
+    }
+
+    img {
+        display: block;
+        max-width: var(--content-measure-wide);
+        height: auto;
+        margin-inline: auto;
+        margin-block: var(--spacing-lg);
+        border-radius: var(--site-radius);
+        @include transition(filter);
+
+        [data-theme="dark"] & {
+            filter: brightness(0.8) contrast(1.2);
+        }
+    }
+
+    a {
+        color: var(--color-link);
+        text-decoration: none;
+        border-bottom: 1px solid var(--color-link);
+        @include transition(color, border-color);
+
+        &:hover {
+            color: var(--color-link-hover);
+            border-color: var(--color-link-hover);
+        }
+    }
+
+    code {
+        @include font-family("mono");
+        @include font-size("sm");
+        padding: 0.2em 0.4em;
+        background: var(--color-code-background);
+        border-radius: var(--site-radius-sm);
+        color: var(--color-accent);
+        @include transition(background-color, color);
+    }
+
+    pre code {
+        padding: 0;
+        background: none;
+        color: var(--color-text);
+    }
+
+    table {
+        width: 100%;
+        max-width: var(--content-measure);
+        margin-inline: auto;
+        margin-block: var(--spacing-lg);
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--color-border);
+            @include transition(border-color);
+        }
+
+        th {
+            background: var(--color-surface);
+            font-weight: var(--font-weight-bold);
+            @include transition(background-color);
+        }
+
+        tr:nth-child(even) {
+            background: var(--color-surface);
+            @include transition(background-color);
+        }
+    }
+
+    hr {
+        max-width: var(--content-measure-narrow);
+        margin-inline: auto;
+        margin-block: var(--spacing-xl);
+        border: 0;
+        border-top: 1px solid var(--color-border);
+        @include transition(border-color);
     }
 }
