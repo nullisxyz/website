@@ -23,8 +23,18 @@
                 </span>
                 {% endif %}
             </div>
-
-            {% if page.extra.author %}
+            {% if page.taxonomies and page.taxonomies.categories %}
+            <div class="l-post__categories">
+                {% for category in page.taxonomies.categories %}
+                <a
+                    href="{{ get_taxonomy_url(kind='categories', name=category) }}"
+                    class="c-badge c-badge--primary"
+                >
+                    {{ category }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %} {% if page.extra.author %}
             <div class="l-post__author">
                 {% if page.extra.author.avatar %}
                 <img
@@ -97,32 +107,7 @@
                 <div class="l-post__content c-content">
                     {{ page.content | safe }}
                 </div>
-
-                {% if page.taxonomies and page.taxonomies.tags %}
-                <div class="l-post__tags">
-                    {% for tag in page.taxonomies.tags %}
-                    <a
-                        href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
-                        class="c-badge c-badge--secondary"
-                    >
-                        {{ tag }}
-                    </a>
-                    {% endfor %}
-                </div>
-                {% endif %} {% if page.extra.resources %}
-                <div class="l-post__resources">
-                    <h2>Additional Resources</h2>
-                    <ul>
-                        {% for key, url in page.extra.resources %}
-                        <li>
-                            <a href="{{ url }}" target="_blank" rel="noopener"
-                                >{{ key | capitalize }}</a
-                            >
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endif %}{% if page.extra.meta %}
+                {% if page.extra.meta %}
                 <div class="l-post__meta-links">
                     {% if page.extra.meta.repository %}
                     <a
@@ -138,23 +123,47 @@
                     >
                     {% endif %}
                 </div>
+                {% endif %} {% if page.extra.resources %}
+                <div class="l-post__resources">
+                    <h2>Additional Resources</h2>
+                    <ul>
+                        {% for key, url in page.extra.resources %}
+                        <li>
+                            <a href="{{ url }}" target="_blank" rel="noopener"
+                                >{{ key | capitalize }}</a
+                            >
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}{% if page.taxonomies and page.taxonomies.tags %}
+                <div class="l-post__tags">
+                    {% for tag in page.taxonomies.tags %}
+                    <a
+                        href="{{ get_taxonomy_url(kind='tags', name=tag) }}"
+                        class="c-badge c-badge--secondary"
+                    >
+                        {{ tag }}
+                    </a>
+                    {% endfor %}
+                </div>
                 {% endif %}
                 <nav class="l-post__navigation">
-                    {% if page.lighter %}
+                    {% if page.higher %}
                     <a
-                        href="{{ page.lighter.permalink }}"
+                        href="{{ page.higher.permalink }}"
                         class="c-card c-card--interactive"
                     >
                         <span>Previous</span>
-                        <h4>{{ page.lighter.title }}</h4>
+                        <h4>{{ page.higher.title }}</h4>
                     </a>
-                    {% endif %} {% if page.heavier %}
+                    {% endif %} {% if page.lower %}
                     <a
-                        href="{{ page.heavier.permalink }}"
+                        href="{{ page.lower.permalink }}"
                         class="c-card c-card--interactive"
                     >
                         <span>Next</span>
-                        <h4>{{ page.heavier.title }}</h4>
+                        <h4>{{ page.lower.title }}</h4>
                     </a>
                     {% endif %}
                 </nav>
@@ -185,19 +194,6 @@
             </nav>
             {% endif %}
         </div>
-
-        {% if page.taxonomies and page.taxonomies.categories %}
-        <div class="l-post__categories">
-            {% for category in page.taxonomies.categories %}
-            <a
-                href="{{ get_taxonomy_url(kind='categories', name=category) }}"
-                class="c-badge c-badge--primary"
-            >
-                {{ category }}
-            </a>
-            {% endfor %}
-        </div>
-        {% endif %}
     </div>
 </article>
 

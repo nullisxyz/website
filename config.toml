@@ -22,6 +22,7 @@ external_links_no_follow = true
 external_links_no_referrer = true
 
 [extra]
+pagination_path = "page"
 
 # Site-wide Features
 [extra.features]

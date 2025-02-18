@@ -1,6 +1,7 @@
 {% extends "base.html" %} {% block content %}
 <div class="p-blog{% if section.extra.animate %} p-blog--animate{% endif %}">
     <div class="o-container o-container--content">
+        <!-- Header -->
         <header class="p-blog__header">
             <h1
                 class="p-blog__header-title{% if section.extra.gradient_title %} p-blog__header-title--gradient{% endif %}"
@@ -14,6 +15,7 @@
             {% endif %}
         </header>
 
+        <!-- Featured Posts Section -->
         {% if section.extra.featured_posts and section.extra.featured_posts.show
         %}
         <section class="p-blog__featured">
@@ -68,8 +70,10 @@
                 {% endif %} {% endfor %}
             </div>
         </section>
-        {% endif %} {% if section.extra.filters and section.extra.filters.show
-        %}
+        {% endif %}
+
+        <!-- Category Filters -->
+        {% if section.extra.filters and section.extra.filters.show %}
         <div class="p-blog__filters">
             <div class="c-button-group">
                 <button
@@ -90,12 +94,14 @@
         </div>
         {% endif %}
 
+        <!-- Main Content Grid -->
         <div class="p-blog__container">
             <div class="p-blog__grid">
+                <!-- Main Content Area -->
                 <div class="p-blog__main">
-                    {% if section.pages %}
+                    {% if paginator %}
                     <div class="o-stack o-stack--lg">
-                        {% for page in section.pages %}
+                        {% for page in paginator.pages %}
                         <article
                             class="c-card c-card--hover"
                             data-categories="{{ page.taxonomies.categories | join(sep=' ') | slugify }}"
@@ -201,7 +207,7 @@
                         {% endfor %}
                     </div>
 
-                    {% if paginator %}
+                    <!-- Pagination Controls -->
                     <nav class="c-pagination" aria-label="Pagination">
                         {% if paginator.previous %}
                         <a
@@ -210,14 +216,45 @@
                         >
                             Previous
                         </a>
+                        {% endif %} {% if paginator.first and
+                        paginator.current_index > 2 %}
+                        <a
+                            href="{{ paginator.first }}"
+                            class="c-pagination__item"
+                            >1</a
+                        >
+                        {% if paginator.current_index > 3 %}
+                        <span class="c-pagination__item">...</span>
+                        {% endif %} {% endif %} {% if paginator.previous %}
+                        <a
+                            href="{{ paginator.previous }}"
+                            class="c-pagination__item"
+                            >{{ paginator.current_index - 1 }}</a
+                        >
                         {% endif %}
 
-                        <span class="c-pagination__item c-pagination__current">
-                            Page {{ paginator.current_index }} of {{
-                            paginator.number_pagers }}
-                        </span>
+                        <span class="c-pagination__item c-pagination__current"
+                            >{{ paginator.current_index }}</span
+                        >
 
                         {% if paginator.next %}
+                        <a
+                            href="{{ paginator.next }}"
+                            class="c-pagination__item"
+                            >{{ paginator.current_index + 1 }}</a
+                        >
+                        {% endif %} {% if paginator.last and
+                        paginator.current_index < paginator.number_pagers - 1 %}
+                        {% if paginator.current_index < paginator.number_pagers
+                        - 2 %}
+                        <span class="c-pagination__item">...</span>
+                        {% endif %}
+                        <a
+                            href="{{ paginator.last }}"
+                            class="c-pagination__item"
+                            >{{ paginator.number_pagers }}</a
+                        >
+                        {% endif %} {% if paginator.next %}
                         <a
                             href="{{ paginator.next }}"
                             class="c-pagination__item c-pagination__next"
@@ -226,7 +263,8 @@
                         </a>
                         {% endif %}
                     </nav>
-                    {% endif %} {% else %}
+
+                    {% else %}
                     <div class="c-alert c-alert--info">
                         <div class="c-alert__content">
                             <p class="c-alert__text">
@@ -237,6 +275,7 @@
                     {% endif %}
                 </div>
 
+                <!-- Sidebar -->
                 {% if section.extra.sidebar and section.extra.sidebar.show %}
                 <aside class="p-blog__sidebar">
                     {% if section.extra.sidebar.show_about and
@@ -331,10 +370,10 @@
                                     <h3 class="c-card__recent-post-title">
                                         {{ page.title }}
                                     </h3>
-                                    <time class="c-card__recent-post-date"
-                                        >{{ page.date | date(format="%B %d, %Y")
-                                        }}</time
-                                    >
+                                    <time class="c-card__recent-post-date">
+                                        {{ page.date | date(format="%B %d, %Y")
+                                        }}
+                                    </time>
                                 </a>
                                 {% endfor %}
                             </div>
@@ -386,6 +425,7 @@
             </div>
         </div>
 
+        <!-- Newsletter Section -->
         {% if section.extra.newsletter and section.extra.newsletter.show %}
         <section class="p-blog__newsletter">
             <div class="c-card c-card--glass">

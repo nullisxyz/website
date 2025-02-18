@@ -328,6 +328,7 @@
 
             span {
                 color: var(--color-text-muted);
+                @include font-family("mono");
                 @include font-size("sm");
             }
 

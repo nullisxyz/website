@@ -3,6 +3,7 @@ title = "Blog"
 sort_by = "date"
 template = "blog/index.html"
 page_template = "blog/single.html"
+paginate_by = 10
 description = "Thoughts on software development, technology, and building great things."
 generate_feeds = true
 
