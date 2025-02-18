@@ -2,7 +2,11 @@
 <div class="p-contact{% if page.extra.animate %} p-contact--animate{% endif %}">
     <div class="o-container o-container--content">
         <header class="p-contact__header">
-            <h1 class="p-contact__header-title">{{ page.title }}</h1>
+            <h1
+                class="p-contact__header-title{% if page.extra.gradient_title %} p-contact__header-title--gradient{% endif %}"
+            >
+                {{ page.title }}
+            </h1>
             {% if page.description %}
             <div class="p-contact__header-description">
                 {{ page.description | markdown | safe }}
@@ -11,83 +15,162 @@
         </header>
 
         <div class="p-contact__grid">
-            <aside class="p-contact__info">
-                {% if config.extra.contact_info %} {% for item in
-                config.extra.contact_info %}
+            <div class="p-contact__form">
+                <form
+                    action="{{ page.extra.contact_form.endpoint }}"
+                    method="POST"
+                >
+                    <div class="p-contact__form-group">
+                        <label class="p-contact__form-label" for="name"
+                            >Name</label
+                        >
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="p-contact__form-input"
+                            required
+                        />
+                    </div>
+
+                    <div class="p-contact__form-group">
+                        <label class="p-contact__form-label" for="email"
+                            >Email</label
+                        >
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="p-contact__form-input"
+                            required
+                        />
+                    </div>
+
+                    <div class="p-contact__form-group">
+                        <label class="p-contact__form-label" for="subject"
+                            >Subject</label
+                        >
+                        <input
+                            type="text"
+                            id="subject"
+                            name="subject"
+                            class="p-contact__form-input"
+                            required
+                        />
+                    </div>
+
+                    <div class="p-contact__form-group">
+                        <label class="p-contact__form-label" for="message"
+                            >Message</label
+                        >
+                        <textarea
+                            id="message"
+                            name="message"
+                            class="p-contact__form-input p-contact__form-textarea"
+                            required
+                        ></textarea>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="c-button c-button--primary p-contact__form-submit"
+                    >
+                        Send Message
+                    </button>
+                </form>
+            </div>
+
+            <div class="p-contact__info">
+                {% for method in page.extra.contact_methods %}
                 <div class="p-contact__info-card">
-                    {% if item.icon %}
+                    {% if method.icon %}
                     <div class="p-contact__info-card-icon">
-                        {{ item.icon | safe }}
+                        {{ method.icon | safe }}
                     </div>
                     {% endif %}
-
-                    <h3 class="p-contact__info-card-title">{{ item.title }}</h3>
-
-                    <p class="p-contact__info-card-text">{{ item.text }}</p>
-
-                    {% if item.link %}
+                    <h3 class="p-contact__info-card-title">
+                        {{ method.title }}
+                    </h3>
+                    <p class="p-contact__info-card-text">
+                        {{ method.description }}
+                    </p>
+                    {% if method.link %}
                     <a
-                        href="{{ item.link.url }}"
+                        href="{{ method.link }}"
                         class="p-contact__info-card-link"
-                        {%
-                        if
-                        item.link.external
-                        %}target="_blank"
-                        rel="noopener noreferrer"
-                        {%
-                        endif
-                        %}
                     >
-                        {{ item.link.text }} {% if item.link.external %}
-                        <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                        >
-                            <path
-                                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
-                            ></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                        {% endif %}
+                        {{ method.value }}
                     </a>
                     {% endif %}
                 </div>
-                {% endfor %} {% endif %} {% if config.extra.social_links %}
-                <div class="p-contact__social">
-                    <h3 class="p-contact__social-title">Connect With Me</h3>
-                    <div class="p-contact__social-links">
-                        {% for link in config.extra.social_links %}
-                        <a
-                            href="{{ link.url }}"
-                            class="p-contact__social-link"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="{{ link.name }}"
-                        >
-                            {{ link.icon | safe }}
-                        </a>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endif %}
-            </aside>
+                {% endfor %}
+            </div>
         </div>
 
-        {% if config.extra.features.map and config.extra.map_embed_url %}
-        <div class="p-contact__map">
-            <iframe
-                src="{{ config.extra.map_embed_url }}"
-                width="100%"
-                height="450"
-                style="border: 0"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+        {% if page.extra.availability %}
+        <div class="p-contact__availability">
+            <h2 class="p-contact__section-title">Availability</h2>
+            <div class="p-contact__availability-content">
+                <div class="p-contact__availability-items">
+                    <div class="p-contact__availability-item">
+                        <span class="p-contact__availability-label"
+                            >Timezone</span
+                        >
+                        <span class="p-contact__availability-value"
+                            >{{ page.extra.availability.timezone }}</span
+                        >
+                    </div>
+                    <div class="p-contact__availability-item">
+                        <span class="p-contact__availability-label"
+                            >Working Hours</span
+                        >
+                        <span class="p-contact__availability-value"
+                            >{{ page.extra.availability.working_hours }}</span
+                        >
+                    </div>
+                    <div class="p-contact__availability-item">
+                        <span class="p-contact__availability-label"
+                            >Response Time</span
+                        >
+                        <span class="p-contact__availability-value"
+                            >{{ page.extra.availability.response_time }}</span
+                        >
+                    </div>
+                </div>
+                <div class="p-contact__availability-status">
+                    {{ page.extra.availability.current_status }}
+                </div>
+            </div>
+        </div>
+        {% endif %} {% if page.extra.meetings %}
+        <div class="p-contact__meetings">
+            <h2 class="p-contact__section-title">Schedule a Meeting</h2>
+            <div class="p-contact__meetings-content">
+                <p class="p-contact__meetings-text">Available for:</p>
+                <ul class="p-contact__meetings-list">
+                    {% for item in page.extra.meetings.available_for %}
+                    <li class="p-contact__meetings-item">{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <a
+                    href="{{ page.extra.meetings.calendar_link }}"
+                    class="c-button c-button--primary c-button--full"
+                    target="_blank"
+                    >Schedule a Call</a
+                >
+            </div>
+        </div>
+        {% endif %} {% if page.extra.faq %}
+        <div class="p-contact__faq">
+            <h2 class="p-contact__section-title">{{ page.extra.faq.title }}</h2>
+            <div class="p-contact__faq-list">
+                {% for item in page.extra.faq.items %}
+                <div class="p-contact__faq-item">
+                    <h3 class="p-contact__faq-question">{{ item.question }}</h3>
+                    <p class="p-contact__faq-answer">{{ item.answer }}</p>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endif %} {% if page.content %}
         <div class="p-contact__content c-content">
@@ -97,19 +180,19 @@
     </div>
 </div>
 
-{% if config.extra.features.cta %}
+{% if page.extra.cta %}
 <section class="p-contact__cta">
     <div class="o-container o-container--narrow">
         <div class="c-card c-card--glass">
             <div class="c-card__body">
-                <h2 class="c-card__title">{{ config.extra.cta.title }}</h2>
-                <p class="c-card__text">{{ config.extra.cta.description }}</p>
+                <h2 class="c-card__title">{{ page.extra.cta.title }}</h2>
+                <p class="c-card__text">{{ page.extra.cta.description }}</p>
                 <div class="c-card__actions">
                     <a
-                        href="{{ config.extra.cta.button_url }}"
+                        href="{{ page.extra.cta.button_url }}"
                         class="c-button c-button--primary"
                     >
-                        {{ config.extra.cta.button_text }}
+                        {{ page.extra.cta.button_text }}
                     </a>
                 </div>
             </div>

@@ -41,9 +41,3 @@ show_toc = true
 show_categories = true
 show_stats = true
 +++
-
-# Project Portfolio
-
-Introduction text about your projects and expertise...
-
-[Rest of the content remains the same...]
