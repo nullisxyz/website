@@ -103,7 +103,7 @@ open_source = "15+"
 [[extra.projects]]
 title = "Distributed System Framework"
 description = "High-performance distributed computing framework designed for scalability and fault tolerance."
-image = "/images/projects/distributed-framework.jpg"
+image = "https://fakeimg.pl/640x480"
 category = "Backend Development"
 tags = ["Rust", "WebAssembly", "Kubernetes"]
 github = "https://github.com/username/distributed-framework"
@@ -113,7 +113,7 @@ featured = true
 [[extra.projects]]
 title = "Security Infrastructure Platform"
 description = "Enterprise-grade security infrastructure platform with advanced threat detection."
-image = "/images/projects/security-platform.jpg"
+image = "https://fakeimg.pl/640x480"
 category = "Security"
 tags = ["Go", "Terraform", "AWS"]
 github = "https://github.com/username/security-platform"

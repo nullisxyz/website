@@ -102,6 +102,13 @@
         }
     }
 
+    &__date {
+        @include font-family("mono");
+        @include font-size("sm");
+        color: var(--color-text-muted);
+        margin-right: var(--spacing-sm);
+    }
+
     // Variants
     &--hover {
         &:hover {

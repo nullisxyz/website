@@ -2,7 +2,11 @@
 <div class="p-blog{% if section.extra.animate %} p-blog--animate{% endif %}">
     <div class="o-container o-container--content">
         <header class="p-blog__header">
-            <h1 class="p-blog__header-title">{{ section.title }}</h1>
+            <h1
+                class="p-blog__header-title{% if section.extra.gradient_title %} p-blog__header-title--gradient{% endif %}"
+            >
+                {{ section.title }}
+            </h1>
             {% if section.description %}
             <div class="p-blog__header-description">
                 {{ section.description | markdown | safe }}
@@ -10,17 +14,96 @@
             {% endif %}
         </header>
 
+        {% if section.extra.featured_posts and section.extra.featured_posts.show
+        %}
+        <section class="p-blog__featured">
+            <div class="p-blog__featured-header">
+                <h2 class="p-blog__featured-title">
+                    {{ section.extra.featured_posts.title }}
+                </h2>
+            </div>
+            <div class="p-blog__featured-grid">
+                {% for page in section.pages |
+                slice(end=section.extra.featured_posts.count) %} {% if
+                page.extra.featured %}
+                <article class="c-card c-card--featured">
+                    {% if page.extra.image %}
+                    <div class="c-card__image-wrapper">
+                        <img
+                            src="{{ page.extra.image }}"
+                            alt="{{ page.title }}"
+                            class="c-card__image"
+                            loading="lazy"
+                        />
+                    </div>
+                    {% endif %}
+                    <div class="c-card__body">
+                        <div class="c-card__meta">
+                            {% if page.date %}
+                            <time
+                                datetime="{{ page.date }}"
+                                class="c-card__date"
+                            >
+                                {{ page.date | date(format="%B %d, %Y") }}
+                            </time>
+                            {% endif %} {% if page.taxonomies and
+                            page.taxonomies.categories %} {% for category in
+                            page.taxonomies.categories %}
+                            <a
+                                href="{{ get_taxonomy_url(kind='categories', name=category) }}"
+                                class="c-badge c-badge--primary"
+                            >
+                                {{ category }}
+                            </a>
+                            {% endfor %} {% endif %}
+                        </div>
+                        <h2 class="c-card__title">
+                            <a href="{{ page.permalink }}">{{ page.title }}</a>
+                        </h2>
+                        {% if page.description %}
+                        <p class="c-card__text">{{ page.description }}</p>
+                        {% endif %}
+                    </div>
+                </article>
+                {% endif %} {% endfor %}
+            </div>
+        </section>
+        {% endif %} {% if section.extra.filters and section.extra.filters.show
+        %}
+        <div class="p-blog__filters">
+            <div class="c-button-group">
+                <button
+                    class="c-button c-button--secondary is-active"
+                    data-filter="all"
+                >
+                    All
+                </button>
+                {% for category in section.extra.filters.categories %}
+                <button
+                    class="c-button c-button--secondary"
+                    data-filter="{{ category | slugify }}"
+                >
+                    {{ category }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         <div class="p-blog__container">
             <div class="p-blog__grid">
                 <div class="p-blog__main">
                     {% if section.pages %}
                     <div class="o-stack o-stack--lg">
                         {% for page in section.pages %}
-                        <article class="c-card c-card--hover">
-                            {% if page.extra.image %}
+                        <article
+                            class="c-card c-card--hover"
+                            data-categories="{{ page.taxonomies.categories | join(sep=' ') | slugify }}"
+                        >
+                            {% if page.extra.thumbnail %}
                             <div class="c-card__image-wrapper">
                                 <img
-                                    src="{{ page.extra.image }}"
+                                    src="{{ page.extra.thumbnail }}"
                                     alt="{{ page.title }}"
                                     class="c-card__image"
                                     loading="lazy"
@@ -38,6 +121,11 @@
                                         {{ page.date | date(format="%B %d, %Y")
                                         }}
                                     </time>
+                                    {% endif %} {% if page.extra.meta and
+                                    page.extra.meta.difficulty %}
+                                    <span class="c-badge c-badge--secondary">
+                                        {{ page.extra.meta.difficulty }}
+                                    </span>
                                     {% endif %} {% if page.taxonomies and
                                     page.taxonomies.categories %} {% for
                                     category in page.taxonomies.categories %}
@@ -84,15 +172,29 @@
                                             class="c-card__author-avatar"
                                         />
                                         {% endif %}
-                                        <span class="c-card__author-name">
-                                            {{ page.extra.author.name }}
-                                        </span>
+                                        <div class="c-card__author-info">
+                                            <span class="c-card__author-name"
+                                                >{{ page.extra.author.name
+                                                }}</span
+                                            >
+                                            {% if page.extra.author.bio %}
+                                            <span class="c-card__author-bio"
+                                                >{{ page.extra.author.bio
+                                                }}</span
+                                            >
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    {% endif %} {% if page.extra.read_time %}
-                                    <span class="c-card__read-time">
-                                        {{ page.extra.read_time }} min read
-                                    </span>
                                     {% endif %}
+
+                                    <div class="c-card__metrics">
+                                        {% if page.extra.reading_time %}
+                                        <span class="c-card__read-time">
+                                            {{ page.extra.reading_time }} min
+                                            read
+                                        </span>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -135,8 +237,10 @@
                     {% endif %}
                 </div>
 
+                {% if section.extra.sidebar and section.extra.sidebar.show %}
                 <aside class="p-blog__sidebar">
-                    {% if config.extra.author %}
+                    {% if section.extra.sidebar.show_about and
+                    config.extra.author %}
                     <div class="c-card c-card--glass">
                         <div class="c-card__body">
                             {% if config.extra.author.avatar %}
@@ -146,11 +250,9 @@
                                 class="c-card__author-avatar u-mb-md"
                             />
                             {% endif %}
-
                             <h2 class="c-card__title">
                                 {{ config.extra.author.name }}
                             </h2>
-
                             {% if config.extra.author.bio %}
                             <p class="c-card__text">
                                 {{ config.extra.author.bio }}
@@ -172,35 +274,38 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% endif %} {% if config.extra.features.categories %}
+                    {% endif %} {% if section.extra.sidebar.show_categories %}
                     <div class="c-card c-card--glass">
                         <div class="c-card__header">
                             <h2 class="c-card__title">Categories</h2>
                         </div>
                         <div class="c-card__body">
                             <div class="c-card__categories">
-                                {% for category in terms %}
+                                {% set categories =
+                                get_taxonomy(kind="categories") %} {% for term
+                                in categories.items %}
                                 <a
-                                    href="{{ category.permalink }}"
-                                    class="c-badge {% if category.extra.primary %}c-badge--primary{% else %}c-badge--secondary{% endif %}"
+                                    href="{{ term.permalink }}"
+                                    class="c-badge {% if term.extra.primary %}c-badge--primary{% else %}c-badge--secondary{% endif %}"
                                 >
-                                    {{ category.name }}
+                                    {{ term.name }}
                                     <span class="c-badge__count"
-                                        >{{ category.pages | length }}</span
+                                        >{{ term.pages | length }}</span
                                     >
                                 </a>
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
-                    {% endif %} {% if config.extra.features.tags %}
+                    {% endif %} {% if section.extra.sidebar.show_tags %}
                     <div class="c-card c-card--glass">
                         <div class="c-card__header">
                             <h2 class="c-card__title">Tags</h2>
                         </div>
                         <div class="c-card__body">
                             <div class="c-card__tags">
-                                {% for tag in tags %}
+                                {% set tags = get_taxonomy(kind="tags") %} {%
+                                for tag in tags.items %}
                                 <a
                                     href="{{ tag.permalink }}"
                                     class="c-badge c-badge--secondary c-badge--sm"
@@ -211,10 +316,110 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %} {% if section.extra.sidebar.show_recent_posts %}
+                    <div class="c-card c-card--glass">
+                        <div class="c-card__header">
+                            <h2 class="c-card__title">Recent Posts</h2>
+                        </div>
+                        <div class="c-card__body">
+                            <div class="c-card__recent-posts">
+                                {% for page in section.pages | slice(end=5) %}
+                                <a
+                                    href="{{ page.permalink }}"
+                                    class="c-card__recent-post"
+                                >
+                                    <h3 class="c-card__recent-post-title">
+                                        {{ page.title }}
+                                    </h3>
+                                    <time class="c-card__recent-post-date"
+                                        >{{ page.date | date(format="%B %d, %Y")
+                                        }}</time
+                                    >
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %} {% if section.extra.sidebar.show_search %}
+                    <div class="c-card c-card--glass">
+                        <div class="c-card__header">
+                            <h2 class="c-card__title">Search</h2>
+                        </div>
+                        <div class="c-card__body">
+                            <form
+                                class="c-search"
+                                action="/search"
+                                method="GET"
+                            >
+                                <input
+                                    type="search"
+                                    name="q"
+                                    class="c-search__input"
+                                    placeholder="Search posts..."
+                                />
+                                <button type="submit" class="c-search__button">
+                                    <span class="u-sr-only">Search</span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line
+                                            x1="21"
+                                            y1="21"
+                                            x2="16.65"
+                                            y2="16.65"
+                                        ></line>
+                                    </svg>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     {% endif %}
                 </aside>
+                {% endif %}
             </div>
         </div>
+
+        {% if section.extra.newsletter and section.extra.newsletter.show %}
+        <section class="p-blog__newsletter">
+            <div class="c-card c-card--glass">
+                <div class="c-card__body text-center">
+                    <h2 class="c-card__title">
+                        {{ section.extra.newsletter.title }}
+                    </h2>
+                    <p class="c-card__text">
+                        {{ section.extra.newsletter.description }}
+                    </p>
+                    <form
+                        class="c-form"
+                        action="{{ section.extra.newsletter.endpoint }}"
+                        method="POST"
+                    >
+                        <div class="c-form__group">
+                            <input
+                                type="email"
+                                class="c-form__input"
+                                placeholder="Enter your email"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            class="c-button c-button--primary"
+                        >
+                            {{ section.extra.newsletter.button_text }}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

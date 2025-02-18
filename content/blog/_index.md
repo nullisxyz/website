@@ -13,7 +13,7 @@ gradient_title = true
 
 [extra.featured_posts]
 title = "Featured Articles"
-show = true
+show = false
 count = 3
 
 [extra.categories_section]
@@ -24,19 +24,19 @@ description = "Explore articles by category"
 [extra.sidebar]
 show = true
 show_about = true
-show_categories = true
+show_categories = false
 show_tags = true
-show_recent_posts = true
-show_search = true
+show_recent_posts = false
+show_search = false
 
 [extra.newsletter]
-show = true
+show = false
 title = "Stay Updated"
 description = "Get notified about new articles and tutorials."
 button_text = "Subscribe"
 
 [extra.filters]
-show = true
+show = false
 categories = [
     "Distributed Systems",
     "Rust",
@@ -45,6 +45,3 @@ categories = [
     "Performance"
 ]
 +++
-
-## Latest Articles
-Welcome to my blog where I share insights about software development, system design, and technology.

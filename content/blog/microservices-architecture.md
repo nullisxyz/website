@@ -11,12 +11,12 @@ tags = ["microservices", "distributed-systems", "scalability"]
 reading_time = 15
 toc = true
 featured = true
-hero_image = "/images/blog/microservices-hero.jpg"
-thumbnail = "/images/blog/microservices-thumbnail.jpg"
+hero_image = "https://fakeimg.pl/1920x1080"
+thumbnail = "https://fakeimg.pl/640x480"
 
 [extra.author]
 name = "John Doe"
-avatar = "/images/authors/john-doe.jpg"
+avatar = "/images/avatar.jpg"
 bio = "Software architect and tech writer"
 social = { twitter = "https://twitter.com/johndoe", github = "https://github.com/johndoe" }
 

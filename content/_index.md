@@ -13,7 +13,7 @@ title = "Building the Future of Distributed Systems"
 subtitle = "Software Engineer & Systems Architect"
 description = "Specializing in high-performance distributed systems, security infrastructure, and scalable architecture design."
 background_pattern = true
-image = "/images/hero-illustration.svg"
+image = "https://fakeimg.pl/1920x1080"
 gradient_text = true
 
 [[extra.hero.actions]]
