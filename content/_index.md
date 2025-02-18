@@ -62,5 +62,3 @@ button_text = "Get in Touch"
 button_url = "/contact"
 button_style = "primary"
 +++
-
-Welcome to my portfolio! I'm a software engineer specializing in distributed systems and high-performance computing.
