@@ -31,7 +31,7 @@ description = "For code-related discussions and open source collaboration"
 [[extra.contact_methods]]
 title = "LinkedIn"
 icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/></svg>"""
-value = "John Doe"
+value = "John Citizen"
 link = "https://linkedin.com/in/johndoe"
 description = "For professional networking and opportunities"
 

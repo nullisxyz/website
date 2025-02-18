@@ -15,7 +15,7 @@ hero_image = "https://fakeimg.pl/1920x1080"
 thumbnail = "https://fakeimg.pl/640x480"
 
 [extra.author]
-name = "John Doe"
+name = "John Citizen"
 avatar = "/images/avatar.jpg"
 bio = "Software architect and tech writer"
 social = { twitter = "https://twitter.com/johndoe", github = "https://github.com/johndoe" }

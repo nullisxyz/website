@@ -68,7 +68,7 @@ url = "/manifesto"
 
 # Author Information
 [extra.author]
-name = "John Doe"
+name = "John Citizen"
 title = "Software Engineer & Systems Architect"
 bio = "Software engineer focused on systems programming and distributed architecture. Building robust, scalable solutions with a focus on security and efficiency."
 email = "john.doe@example.com"

@@ -1,5 +1,5 @@
 +++
-title = "John Doe"
+title = "John Citizen"
 template = "index.html"
 description = "Software Engineer & Systems Architect specializing in distributed systems and high-performance computing"
 
