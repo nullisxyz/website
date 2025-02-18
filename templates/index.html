@@ -1,5 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <div class="p-home{% if section.extra.animate %} p-home--animate{% endif %}">
+    <!-- Hero Section -->
     <section class="p-home__hero">
         <div class="o-container">
             <div class="p-home__hero-content">
@@ -17,8 +18,7 @@
                 <p class="p-home__hero-description">
                     {{ config.extra.hero.description }}
                 </p>
-                {% endif %}
-
+                {% endif %} {% if config.extra.hero.actions %}
                 <div class="p-home__hero-cta">
                     {% for action in config.extra.hero.actions %}
                     <a
@@ -33,71 +33,99 @@
                     </a>
                     {% endfor %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
 
+    <!-- Stats Section -->
     {% if config.extra.features.stats %}
-    <section class="p-home__stats">
+    <section
+        class="p-home__stats{% if section.extra.stats.background %} p-home__stats--{{ section.extra.stats.background }}{% endif %}"
+    >
         <div class="o-container">
-            <div class="o-grid o-grid--3">
+            {% if section.extra.stats.title %}
+            <header class="p-home__stats-header">
+                <h2
+                    class="p-home__stats-title{% if section.extra.stats.gradient_title %} p-home__stats-title--gradient{% endif %}"
+                >
+                    {{ section.extra.stats.title }}
+                </h2>
+                {% if section.extra.stats.description %}
+                <p class="p-home__stats-description">
+                    {{ section.extra.stats.description }}
+                </p>
+                {% endif %}
+            </header>
+            {% endif %}
+
+            <div class="p-home__stats-grid">
                 {% for stat in section.extra.stats.items %}
-                <div class="c-stat">
-                    <div class="c-stat__value">{{ stat.value }}</div>
-                    <div class="c-stat__label">{{ stat.label }}</div>
+                <div class="p-home__stats-item">
+                    {% if stat.icon %}
+                    <div class="p-home__stats-icon">{{ stat.icon | safe }}</div>
+                    {% endif %}
+                    <div class="p-home__stats-value">{{ stat.value }}</div>
+                    <div class="p-home__stats-label">{{ stat.label }}</div>
+                    {% if stat.description %}
+                    <div class="p-home__stats-description">
+                        {{ stat.description }}
+                    </div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </div>
         </div>
     </section>
-    {% endif %} {% if config.extra.projects %}
-    <section class="s-featured-projects">
+    {% endif %}
+
+    <!-- Featured Projects Section -->
+    {% if config.extra.projects %}
+    <section class="p-home__projects">
         <div class="o-container">
-            <header class="s-featured-projects__header">
-                <h2 class="s-featured-projects__header-title">
+            <header class="p-home__projects-header">
+                <h2 class="p-home__projects-title">
                     {{ section.extra.featured_projects.title |
                     default(value="Featured Projects") }}
                 </h2>
-                <p class="s-featured-projects__header-description">
+                <p class="p-home__projects-description">
                     {{ section.extra.featured_projects.description |
                     default(value="Check out some of my highlighted work") }}
                 </p>
             </header>
 
-            <div class="s-featured-projects__grid">
+            <div class="p-home__projects-grid">
                 {% for project in config.extra.projects %} {% if
                 project.featured and loop.index <= 3 %}
-                <article class="s-featured-projects__card">
+                <article class="p-home__project">
                     {% if project.image %}
-                    <div class="s-featured-projects__card-image-wrapper">
+                    <div class="p-home__project-image-wrapper">
                         <img
                             src="{{ project.image }}"
                             alt="{{ project.title }}"
-                            class="s-featured-projects__card-image"
+                            class="p-home__project-image"
                             loading="lazy"
                         />
                     </div>
                     {% endif %}
 
-                    <div class="s-featured-projects__card-content">
+                    <div class="p-home__project-content">
                         {% if project.category %}
-                        <div class="s-featured-projects__card-meta">
-                            <span class="s-featured-projects__card-category">
-                                {{ project.category }}
-                            </span>
+                        <div class="p-home__project-category">
+                            {{ project.category }}
                         </div>
                         {% endif %}
 
-                        <h3 class="s-featured-projects__card-title">
+                        <h3 class="p-home__project-title">
                             {{ project.title }}
                         </h3>
 
                         {% if project.description %}
-                        <p class="s-featured-projects__card-description">
+                        <p class="p-home__project-description">
                             {{ project.description }}
                         </p>
                         {% endif %} {% if project.tags %}
-                        <div class="s-featured-projects__card-tags">
+                        <div class="p-home__project-tags">
                             {% for tag in project.tags %}
                             <span
                                 class="c-badge c-badge--secondary c-badge--sm"
@@ -108,7 +136,7 @@
                         </div>
                         {% endif %}
 
-                        <div class="s-featured-projects__card-links">
+                        <div class="p-home__project-links">
                             {% if project.url %}
                             <a
                                 href="{{ project.url }}"
@@ -130,7 +158,7 @@
                 {% endif %} {% endfor %}
             </div>
 
-            <div class="s-featured-projects__cta">
+            <div class="p-home__projects-cta">
                 <a
                     href="{{ get_url(path='@/projects.md') }}"
                     class="c-button c-button--primary"
