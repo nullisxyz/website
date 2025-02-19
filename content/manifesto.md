@@ -8,6 +8,7 @@ header_class = "header--with-pattern"
 gradient_title = true
 
 [extra.cta]
+enabled = true
 title = "Share These Values?"
 description = "Let's collaborate on projects that align with these principles."
 button_text = "Get in Touch"

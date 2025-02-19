@@ -177,40 +177,18 @@
 
     &--animate {
         .s-contact-form__header {
-            animation: slide-down 0.5s ease-out;
+            @include slide-down("normal");
         }
 
         .s-contact-form__form {
-            animation: fade-in 0.5s ease-out 0.2s forwards;
+            @include fade-in("normal", "200ms");
             opacity: 0;
         }
 
         .s-contact-form__alternative {
-            animation: fade-in 0.5s ease-out 0.4s forwards;
+            @include fade-in("normal", "400ms");
             opacity: 0;
         }
-    }
-}
-
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 

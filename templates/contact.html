@@ -180,23 +180,6 @@
     </div>
 </div>
 
-{% if page.extra.cta %}
-<section class="p-contact__cta">
-    <div class="o-container o-container--narrow">
-        <div class="c-card c-card--glass">
-            <div class="c-card__body">
-                <h2 class="c-card__title">{{ page.extra.cta.title }}</h2>
-                <p class="c-card__text">{{ page.extra.cta.description }}</p>
-                <div class="c-card__actions">
-                    <a
-                        href="{{ page.extra.cta.button_url }}"
-                        class="c-button c-button--primary"
-                    >
-                        {{ page.extra.cta.button_text }}
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %} {% endblock %}
+<!-- CTA Section -->
+{% if page.extra.cta and page.extra.cta.enabled %} {% set cta = page.extra.cta
+%} {% include "partials/cta.html" %} {% endif %} {% endblock %}

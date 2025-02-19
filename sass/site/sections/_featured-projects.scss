@@ -171,7 +171,6 @@
 
         // Featured card variant
         &--featured {
-            // Remove grid-column span
             @include media-down("md") {
                 grid-column: span 1;
             }
@@ -186,22 +185,14 @@
         }
     }
 
-    &__cta {
-        text-align: center;
-        margin-top: var(--spacing-xl);
-        position: relative;
-        z-index: 1;
-    }
-
     // Animation variants
     &--animate {
         .s-featured-projects__header {
-            animation: slide-down 0.5s ease-out;
+            @include slide-down;
         }
 
         .s-featured-projects__card {
             opacity: 0;
-            animation: fade-in 0.5s ease-out forwards;
 
             @for $i from 1 through 6 {
                 &:nth-child(#{$i}) {
@@ -209,33 +200,6 @@
                 }
             }
         }
-
-        .s-featured-projects__cta {
-            animation: fade-in 0.5s ease-out 0.8s forwards;
-            opacity: 0;
-        }
-    }
-}
-
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 

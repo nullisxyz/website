@@ -388,88 +388,51 @@
         }
     }
 
-    &__cta {
-        margin-top: var(--spacing-2xl);
-        padding: var(--spacing-2xl) 0;
-
-        .c-card {
-            background: var(--color-card-background);
-            backdrop-filter: blur(10px);
-        }
-    }
-
     // Animation variants
     &--animate {
         .p-contact__header {
-            animation: slide-down 0.5s ease-out;
+            @include slide-down;
         }
 
         .p-contact__form {
-            animation: fade-in 0.5s ease-out 0.2s forwards;
             opacity: 0;
+            @include fade-in("normal", 0.2s);
+            animation-delay: 0s;
         }
 
         .p-contact__info-card {
             opacity: 0;
-            animation: slide-in 0.5s ease-out forwards;
 
-            @for $i from 1 through 3 {
-                &:nth-child(#{$i}) {
-                    animation-delay: #{$i * 0.1 + 0.4}s;
-                }
+            @include media-up("lg") {
+                // Use slide-up on larger screens
+                @include slide-left("fast", 0.2s);
+            }
+
+            @include media-down("lg") {
+                // Use fade-in on smaller screens
+                @include slide-up("normal", 0.2s);
             }
         }
 
-        .p-contact__availability,
-        .p-contact__meetings,
-        .p-contact__faq {
-            opacity: 0;
-            animation: fade-in 0.5s ease-out forwards;
+        @each $section,
+            $delay in ("availability": 0.3s, "meetings": 0.4s, "faq": 0.5s)
+        {
+            .p-contact__#{$section} {
+                opacity: 0;
+                animation: none;
+
+                // Use slide-up on larger screens
+                @include media-up("lg") {
+                    animation: none;
+                    @include slide-up("fast", #{$delay});
+                }
+
+                // Use fade-in on smaller screens
+                @include media-down("lg") {
+                    opacity: 0; // Reset opacity for smaller screens
+                    @include fade-in("normal", #{$delay});
+                }
+            }
         }
-
-        .p-contact__availability {
-            animation-delay: 0.6s;
-        }
-
-        .p-contact__meetings {
-            animation-delay: 0.8s;
-        }
-
-        .p-contact__faq {
-            animation-delay: 1s;
-        }
-    }
-}
-
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slide-in {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
     }
 }

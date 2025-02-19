@@ -88,6 +88,7 @@ description = "Optimizing systems for maximum efficiency"
 icon = """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2V6"/><path d="M12 18V22"/><path d="M4.93 4.93L7.76 7.76"/><path d="M16.24 16.24L19.07 19.07"/><path d="M2 12H6"/><path d="M18 12H22"/><path d="M4.93 19.07L7.76 16.24"/><path d="M16.24 7.76L19.07 4.93"/><path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z"/></svg>"""
 
 [extra.cta]
+enabled = true
 title = "Let's Connect"
 description = "Interested in collaborating or learning more about my work?"
 button_text = "Get in Touch"

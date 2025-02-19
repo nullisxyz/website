@@ -230,7 +230,7 @@
     }
 
     // Animation variants
-    &--animate {
+    /* &--animate {
         .l-project__header {
             animation: slide-down 0.5s ease-out;
         }
@@ -239,7 +239,7 @@
             animation: fade-in 0.5s ease-out 0.2s forwards;
             opacity: 0;
         }
-    }
+        }*/
 }
 
 @keyframes slide-down {

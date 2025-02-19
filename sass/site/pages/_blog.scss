@@ -322,33 +322,34 @@
     // Animation variants
     &--animate {
         .p-blog__header {
-            animation: slide-down 0.5s ease-out;
+            @include slide-up();
         }
 
         .p-blog__featured {
-            animation: fade-in 0.5s ease-out 0.2s forwards;
             opacity: 0;
+            @include fade-in(200ms, 300ms); // Longer delay after header
         }
 
         .p-blog__filters {
-            animation: fade-in 0.5s ease-out 0.3s forwards;
             opacity: 0;
+            @include fade-in(
+                250ms,
+                400ms
+            ); // Longer delay after featured section
         }
 
         .c-card {
-            opacity: 0;
-            animation: fade-in 0.5s ease-out forwards;
-
             @for $i from 1 through 10 {
                 &:nth-child(#{$i}) {
-                    animation-delay: #{$i * 0.1 + 0.4}s;
+                    animation-delay: #{$i * 100ms + 500ms}; // Staggered delays
+                    @include fade-in();
                 }
             }
         }
 
         .p-blog__newsletter {
-            animation: fade-in 0.5s ease-out 0.8s forwards;
             opacity: 0;
+            @include fade-in(300ms, 600ms); // Longer delay after cards
         }
     }
 }
@@ -525,29 +526,6 @@
             width: 18px;
             height: 18px;
         }
-    }
-}
-
-// Animations
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 

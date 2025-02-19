@@ -61,6 +61,7 @@ question = "What are your rates?"
 answer = "Rates vary depending on project scope and requirements. Let's discuss your needs to determine the best approach."
 
 [extra.cta]
+enabled = true
 title = "Ready to Start?"
 description = "Have a project in mind? Let's discuss how we can work together."
 button_text = "Schedule a Call"

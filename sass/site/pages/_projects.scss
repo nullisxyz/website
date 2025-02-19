@@ -349,48 +349,19 @@
         }
     }
 
-    &__cta {
-        margin-top: var(--spacing-2xl);
-
-        .c-card {
-            text-align: center;
-            padding: var(--spacing-xl);
-
-            &__title {
-                @include font-size("2xl");
-                color: var(--color-text);
-                margin-bottom: var(--spacing-md);
-            }
-
-            &__text {
-                color: var(--color-text-muted);
-                margin-bottom: var(--spacing-lg);
-                max-width: 600px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            &__actions {
-                display: flex;
-                justify-content: center;
-            }
-        }
-    }
-
     // Animation variants
     &--animate {
         .p-projects__header {
-            animation: slide-down 0.5s ease-out;
+            @include slide-down;
         }
 
         .p-projects__filters {
-            animation: fade-in 0.5s ease-out 0.2s forwards;
-            opacity: 0;
+            @include fade-in("normal", 0.2);
         }
 
         .p-projects__card {
             opacity: 0;
-            animation: fade-in 0.5s ease-out forwards;
+            @include fade-in("normal");
 
             @for $i from 1 through 12 {
                 &:nth-child(#{$i}) {
@@ -414,28 +385,6 @@
     }
 }
 
-@keyframes slide-down {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 // Responsive adjustments
 @include media-down("sm") {
     .p-projects {
@@ -453,12 +402,6 @@
                 .p-projects__card-content {
                     padding: var(--spacing-lg);
                 }
-            }
-        }
-
-        &__cta {
-            .c-card {
-                padding: var(--spacing-lg);
             }
         }
     }

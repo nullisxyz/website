@@ -1,4 +1,3 @@
-// site/pages/_about.scss
 @use "../../settings" as *;
 @use "../../tools" as *;
 
@@ -470,31 +469,18 @@
         }
     }
 
-    &__cta {
-        padding: var(--spacing-2xl) 0;
-        position: relative;
-
-        &::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: var(--site-pattern-dots);
-            opacity: 0.05;
-            z-index: 0;
-        }
-    }
-
     // Animation variants
     &--animate {
         .p-about__hero-content > * {
             opacity: 0;
-            animation: slide-up 0.5s ease-out forwards;
 
             @for $i from 1 through 5 {
                 &:nth-child(#{$i}) {
                     animation-delay: #{$i * 0.1}s;
                 }
             }
+
+            @include slide-up();
         }
 
         .p-about__skills-card,
@@ -502,36 +488,15 @@
         .p-about__education-card,
         .p-about__interests-card {
             opacity: 0;
-            animation: fade-in 0.5s ease-out forwards;
 
             @for $i from 1 through 6 {
                 &:nth-child(#{$i}) {
                     animation-delay: #{$i * 0.1 + 0.3}s;
                 }
             }
+
+            @include fade-in();
         }
-    }
-}
-
-@keyframes slide-up {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 

@@ -17,6 +17,7 @@
 }
 
 @mixin fade-in($duration: "normal", $delay: 0ms) {
+    opacity: 0;
     animation: fadeIn var(--transition-#{$duration}) ease-out $delay forwards;
 
     @keyframes fadeIn {
@@ -30,6 +31,7 @@
 }
 
 @mixin slide-up($duration: "normal", $delay: 0ms) {
+    opacity: 0;
     animation: slideUp var(--transition-#{$duration}) ease-out $delay forwards;
 
     @keyframes slideUp {
@@ -40,6 +42,38 @@
         to {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+}
+
+@mixin slide-down($duration: "normal", $delay: 0ms) {
+    opacity: 0;
+    animation: slideDown var(--transition-#{$duration}) ease-out $delay forwards;
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+@mixin slide-left($duration: "normal", $delay: 0ms) {
+    opacity: 0;
+    animation: slideLeft var(--transition-#{$duration}) ease-out $delay forwards;
+
+    @keyframes slideLeft {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
         }
     }
 }

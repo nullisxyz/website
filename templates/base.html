@@ -5,50 +5,24 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {% if is_404 is defined and is_404 %}
-            {{ meta::meta_tags(
-                title="404 - Page Not Found | " ~ config.title,
-                description="The page you're looking for doesn't exist or has been moved.",
-                url=config.base_url ~ "/404.html",
-                image="",
-                is_404=true
-            ) }}
-        {% elif section is defined %}
-            {{ meta::meta_tags(
-                title=section.title,
-                description=section.description | default(value=config.description), 
-                url=config.base_url ~ section.path,
-                image="",
-                is_404=false
-            ) }}
-        {% elif page is defined %}
-            {{ meta::meta_tags(
-                title=page.title,
-                description=page.description | default(value=config.description),
-                url=config.base_url ~ page.path,
-                image="",
-                is_404=false
-            ) }}
-        {% else %}
-            {{ meta::meta_tags(
-                title=config.title,
-                description=config.description,
-                url=config.base_url,
-                image="",
-                is_404=false
-            ) }}
-        {% endif %}
+        {% if is_404 is defined and is_404 %} {{ meta::meta_tags( title="404 -
+        Page Not Found | " ~ config.title, description="The page you're looking
+        for doesn't exist or has been moved.", url=config.base_url ~
+        "/404.html", image="", is_404=true ) }} {% elif section is defined %} {{
+        meta::meta_tags( title=section.title, description=section.description |
+        default(value=config.description), url=config.base_url ~ section.path,
+        image="", is_404=false ) }} {% elif page is defined %} {{
+        meta::meta_tags( title=page.title, description=page.description |
+        default(value=config.description), url=config.base_url ~ page.path,
+        image="", is_404=false ) }} {% else %} {{ meta::meta_tags(
+        title=config.title, description=config.description, url=config.base_url,
+        image="", is_404=false ) }} {% endif %}
 
         <title>
-            {% block title %}
-                {% if section is defined and section.title %}
-                    {{ config.title }} | {{ section.title }}
-                {% elif page is defined and page.title %}
-                    {{ config.title }} | {{ page.title }}
-                {% else %}
-                    {{ config.title }}
-                {% endif %}
-            {% endblock %}
+            {% block title %} {% if section is defined and section.title %} {{
+            config.title }} | {{ section.title }} {% elif page is defined and
+            page.title %} {{ config.title }} | {{ page.title }} {% else %} {{
+            config.title }} {% endif %} {% endblock %}
         </title>
 
         <!-- Fonts -->

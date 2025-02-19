@@ -86,7 +86,7 @@
     // Animation variants
     &--animate {
         .l-default__main {
-            animation: fade-in 0.5s ease-out;
+            @include fade-in("normal");
         }
     }
 
@@ -114,16 +114,5 @@
                 z-index: -1;
             }
         }
-    }
-}
-
-@keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
