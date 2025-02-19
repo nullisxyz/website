@@ -5,58 +5,55 @@
         {% include "partials/page-header.html" %}
 
         <div class="p-contact__grid">
-            <div class="p-contact__form">
+            <!-- Contact Form Section -->
+            <div class="s-contact-form">
                 <form
                     action="{{ page.extra.contact_form.endpoint }}"
                     method="POST"
                 >
-                    <div class="p-contact__form-group">
-                        <label class="p-contact__form-label" for="name"
-                            >Name</label
-                        >
+                    <div class="c-form__group">
+                        <label class="c-form__label" for="name">Name</label>
                         <input
                             type="text"
                             id="name"
                             name="name"
-                            class="p-contact__form-input"
+                            class="c-form__input"
                             required
                         />
                     </div>
 
-                    <div class="p-contact__form-group">
-                        <label class="p-contact__form-label" for="email"
-                            >Email</label
-                        >
+                    <div class="c-form__group">
+                        <label class="c-form__label" for="email">Email</label>
                         <input
                             type="email"
                             id="email"
                             name="email"
-                            class="p-contact__form-input"
+                            class="c-form__input"
                             required
                         />
                     </div>
 
-                    <div class="p-contact__form-group">
-                        <label class="p-contact__form-label" for="subject"
+                    <div class="c-form__group">
+                        <label class="c-form__label" for="subject"
                             >Subject</label
                         >
                         <input
                             type="text"
                             id="subject"
                             name="subject"
-                            class="p-contact__form-input"
+                            class="c-form__input"
                             required
                         />
                     </div>
 
-                    <div class="p-contact__form-group">
-                        <label class="p-contact__form-label" for="message"
+                    <div class="c-form__group">
+                        <label class="c-form__label" for="message"
                             >Message</label
                         >
                         <textarea
                             id="message"
                             name="message"
-                            class="p-contact__form-input p-contact__form-textarea"
+                            class="c-form__input c-form__textarea"
                             required
                         ></textarea>
                     </div>
@@ -70,18 +67,21 @@
                 </form>
             </div>
 
-            <div class="p-contact__info">
+            <!-- Contact Info Section -->
+            <div
+                class="p-contact__info{% if page.extra.contact_methods|length > 3 %} p-contact__info--stacked{% endif %}"
+            >
                 {% for method in page.extra.contact_methods %}
-                <div class="p-contact__info-card">
+                <div class="p-contact__info-card c-card">
                     {% if method.icon %}
                     <div class="p-contact__info-card-icon">
                         {{ method.icon | safe }}
                     </div>
                     {% endif %}
-                    <h3 class="p-contact__info-card-title">
+                    <h3 class="c-card__title p-contact__info-card-title">
                         {{ method.title }}
                     </h3>
-                    <p class="p-contact__info-card-text">
+                    <p class="c-card__subtitle p-contact__info-card-text">
                         {{ method.description }}
                     </p>
                     {% if method.link %}
@@ -97,6 +97,7 @@
             </div>
         </div>
 
+        <!-- Availability Section -->
         {% if page.extra.availability %}
         <div class="p-contact__availability">
             <h2 class="p-contact__section-title">Availability</h2>
@@ -127,12 +128,15 @@
                         >
                     </div>
                 </div>
-                <div class="p-contact__availability-status">
+                <div class="p-contact__availability-status c-card__subtitle">
                     {{ page.extra.availability.current_status }}
                 </div>
             </div>
         </div>
-        {% endif %} {% if page.extra.meetings %}
+        {% endif %}
+
+        <!-- Meetings Section -->
+        {% if page.extra.meetings %}
         <div class="p-contact__meetings">
             <h2 class="p-contact__section-title">Schedule a Meeting</h2>
             <div class="p-contact__meetings-content">
@@ -150,7 +154,10 @@
                 >
             </div>
         </div>
-        {% endif %} {% if page.extra.faq %}
+        {% endif %}
+
+        <!-- FAQ Section -->
+        {% if page.extra.faq %}
         <div class="p-contact__faq">
             <h2 class="p-contact__section-title">{{ page.extra.faq.title }}</h2>
             <div class="p-contact__faq-list">
@@ -162,7 +169,10 @@
                 {% endfor %}
             </div>
         </div>
-        {% endif %} {% if page.content %}
+        {% endif %}
+
+        <!-- Additional Content Section -->
+        {% if page.content %}
         <div class="p-contact__content c-content">
             {{ page.content | safe }}
         </div>

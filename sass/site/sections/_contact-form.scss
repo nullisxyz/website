@@ -1,9 +1,8 @@
-// site/sections/_contact-form.scss
 @use "../../settings" as *;
 @use "../../tools" as *;
 
 .s-contact-form {
-    max-width: 720px;
+    width: 100%;
     margin: 0 auto;
     padding: var(--spacing-xl);
     background: var(--color-surface);
@@ -48,7 +47,7 @@
     }
 
     &__form {
-        .form-group {
+        .c-form__group {
             margin-bottom: var(--spacing-md);
 
             &:last-child {

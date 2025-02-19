@@ -1,198 +1,138 @@
 {% extends "base.html" %} {% block content %}
-<article class="p-about{% if page.extra.animate %} p-about--animate{% endif %}">
-    <!-- Hero Section -->
-    <section class="p-about__hero">
-        <div class="o-container">
-            <div class="p-about__hero-content">
-                {% if page.extra.image %}
-                <div class="p-about__hero-image">
-                    <img
-                        src="{{ page.extra.image }}"
-                        alt="Profile picture"
-                        class="u-rounded-full u-shadow-lg"
-                    />
-                </div>
-                {% endif %} {% if page.extra.intro %}
-                <h1
-                    class="p-about__hero-title{% if page.extra.gradient_title %} p-about__hero-title--gradient{% endif %}"
-                >
-                    {{ page.extra.intro.title }}
-                </h1>
-                <p class="p-about__hero-subtitle">
-                    {{ page.extra.intro.subtitle }}
-                </p>
-                <div class="p-about__hero-meta">
-                    {% if page.extra.intro.experience %}
-                    <div class="c-badge c-badge--primary">
-                        {{ page.extra.intro.experience }} Experience
-                    </div>
-                    {% endif %} {% if page.extra.intro.location %}
-                    <div class="c-badge c-badge--secondary">
-                        {{ page.extra.intro.location }}
-                    </div>
-                    {% endif %}
-                </div>
-                {% endif %}
-            </div>
+<div class="p-about">
+    <!-- Intro Section -->
+    <section class="p-about__section">
+        <div class="o-center o-center--text">
+            <h1 class="text-gradient">About Me</h1>
+            <p class="o-center__text">
+                A passionate developer focused on creating elegant solutions to
+                complex problems.
+            </p>
         </div>
     </section>
 
-    <div class="o-container o-container--content">
-        <!-- Introduction -->
-        <section class="p-about__intro">
-            <div class="c-content">{{ page.content | safe }}</div>
-        </section>
-
-        <!-- Skills Section -->
-        {% if page.extra.skills %}
-        <section class="p-about__skills">
-            <header class="p-about__skills-header">
-                <h2 class="p-about__skills-header-title">Skills & Expertise</h2>
-            </header>
-
-            <div class="p-about__skills-grid">
-                {% for skill in page.extra.skills %}
-                <div class="p-about__skills-card">
+    <!-- Skills Section -->
+    <section class="p-about__section">
+        <div class="o-center o-center--text">
+            <h2 class="heading-underline heading-underline--center">
+                Skills & Expertise
+            </h2>
+            <p>Core technologies and tools I work with</p>
+        </div>
+        <div class="o-grid o-grid--3">
+            {% for skill in page.extra.skills %}
+            <div class="c-card c-card--skill">
+                <div class="c-card__body">
                     {% if skill.icon %}
-                    <div class="p-about__skills-card-icon">
-                        {{ skill.icon | safe }}
-                    </div>
+                    <div class="c-card__icon">{{ skill.icon | safe }}</div>
                     {% endif %}
-
-                    <h3 class="p-about__skills-card-title">{{ skill.name }}</h3>
-
-                    {% if skill.items %}
-                    <ul class="p-about__skills-card-list">
+                    <h3 class="c-card__title">{{ skill.name }}</h3>
+                    <ul class="c-card__list">
                         {% for item in skill.items %}
-                        <li class="p-about__skills-card-list-item">
-                            <div class="p-about__skills-card-list-item-content">
-                                <span
-                                    class="p-about__skills-card-list-item-name"
-                                    >{{ item.name }}</span
-                                >
-                                {% if item.level %}
-                                <span
-                                    class="p-about__skills-card-list-item-level"
+                        <li class="c-card__list-item">
+                            <div class="c-card__list-item-header">
+                                <span>{{ item.name }}</span>
+                                <span class="c-card__list-item-level"
                                     >{{ item.level }}</span
                                 >
-                                {% endif %}
                             </div>
-                            {% if item.percentage %}
-                            <div class="p-about__skills-card-progress">
-                                <div class="p-about__skills-card-progress-bar">
-                                    <div
-                                        class="p-about__skills-card-progress-bar-fill"
-                                        style="width: {{ item.percentage }}%"
-                                    ></div>
-                                </div>
+                            <div class="c-progress">
+                                <div
+                                    class="c-progress__bar"
+                                    style="width: {{ item.progress }}%"
+                                ></div>
                             </div>
-                            {% endif %}
                         </li>
                         {% endfor %}
                     </ul>
-                    {% endif %}
                 </div>
-                {% endfor %}
             </div>
-        </section>
-        {% endif %}
+            {% endfor %}
+        </div>
+    </section>
 
-        <!-- Experience Section -->
-        {% if page.extra.background.experience %}
-        <section class="p-about__experience">
-            <header class="p-about__experience-header">
-                <h2 class="p-about__experience-header-title">
-                    Professional Experience
-                </h2>
-            </header>
-
-            <div class="p-about__experience-timeline">
-                {% for exp in page.extra.background.experience %}
-                <div class="p-about__experience-timeline-item">
-                    <div class="p-about__experience-timeline-item-date">
-                        {{ exp.period }}
+    <!-- Experience Section -->
+    <section class="p-about__section">
+        <div class="o-center o-center--text">
+            <h2 class="heading-underline heading-underline--center">
+                Work Experience
+            </h2>
+            <p>My professional journey and key achievements</p>
+        </div>
+        <div class="p-about__timeline">
+            {% for experience in page.extra.background.experience %}
+            <div class="c-card c-card--experience">
+                <div class="c-card__body">
+                    <div class="c-card__header">
+                        <span class="c-badge">{{ experience.date }}</span>
                     </div>
-                    <h3 class="p-about__experience-timeline-item-title">
-                        {{ exp.title }}
-                    </h3>
-                    <div class="p-about__experience-timeline-item-company">
-                        {{ exp.company }}
-                    </div>
-                    <div class="p-about__experience-timeline-item-description">
-                        {{ exp.description }}
-                    </div>
-                    {% if exp.achievements %}
-                    <ul class="p-about__experience-timeline-item-achievements">
-                        {% for achievement in exp.achievements %}
+                    <h3 class="c-card__title">{{ experience.title }}</h3>
+                    <div class="c-card__company">{{ experience.company }}</div>
+                    <p class="c-card__description">
+                        {{ experience.description }}
+                    </p>
+                    {% if experience.achievements %}
+                    <ul class="c-card__achievements">
+                        {% for achievement in experience.achievements %}
                         <li>{{ achievement }}</li>
                         {% endfor %}
                     </ul>
                     {% endif %}
                 </div>
-                {% endfor %}
             </div>
-        </section>
-        {% endif %}
+            {% endfor %}
+        </div>
+    </section>
 
-        <!-- Education Section -->
-        {% if page.extra.background.education %}
-        <section class="p-about__education">
-            <header class="p-about__education-header">
-                <h2 class="p-about__education-header-title">Education</h2>
-            </header>
-
-            <div class="p-about__education-grid">
-                {% for edu in page.extra.background.education %}
-                <div class="p-about__education-card">
-                    <h3 class="p-about__education-card-title">
-                        {{ edu.degree }}
-                    </h3>
-                    <div class="p-about__education-card-school">
-                        {{ edu.school }}
-                    </div>
-                    <div class="p-about__education-card-date">
-                        {{ edu.year }}
-                    </div>
-                    {% if edu.description %}
-                    <div class="p-about__education-card-description">
-                        {{ edu.description }}
-                    </div>
+    <!-- Education Section -->
+    <section class="p-about__section">
+        <div class="o-center o-center--text">
+            <h2 class="heading-underline heading-underline--center">
+                Education
+            </h2>
+            <p>Academic background and qualifications</p>
+        </div>
+        <div class="o-grid o-grid--3">
+            {% for education in educations %}
+            <div class="c-card c-card--education">
+                <div class="c-card__body">
+                    <div class="c-card__school">{{ education.school }}</div>
+                    <h3 class="c-card__title">{{ education.degree }}</h3>
+                    <div class="c-badge">{{ education.date }}</div>
+                    {% if education.description %}
+                    <p class="c-card__description">
+                        {{ education.description }}
+                    </p>
                     {% endif %}
                 </div>
-                {% endfor %}
             </div>
-        </section>
-        {% endif %}
+            {% endfor %}
+        </div>
+    </section>
 
-        <!-- Interests Section -->
-        {% if page.extra.interests %}
-        <section class="p-about__interests">
-            <header class="p-about__interests-header">
-                <h2 class="p-about__interests-header-title">
-                    {{ page.extra.interests.title }}
-                </h2>
-            </header>
-
-            <div class="p-about__interests-grid">
-                {% for interest in page.extra.interests.items %}
-                <div class="p-about__interests-card">
-                    {% if interest.icon %} {{ interest.icon | safe }} {% endif
-                    %}
-                    <h3 class="p-about__interests-card-title">
-                        {{ interest.title }}
-                    </h3>
-                    <p class="p-about__interests-card-description">
+    <!-- Interests Section -->
+    <section class="p-about__section">
+        <div class="o-center o-center--text">
+            <h2 class="heading-underline heading-underline--center">
+                Areas of Interest
+            </h2>
+            <p>Topics and activities that drive my passion</p>
+        </div>
+        <div class="o-grid o-grid--3">
+            {% for interest in interests %}
+            <div class="c-card c-card--interest">
+                <div class="c-card__body">
+                    {% if interest.icon %}
+                    <div class="c-card__icon">{{ interest.icon | safe }}</div>
+                    {% endif %}
+                    <h3 class="c-card__title">{{ interest.title }}</h3>
+                    <p class="c-card__description">
                         {{ interest.description }}
                     </p>
                 </div>
-                {% endfor %}
             </div>
-        </section>
-        {% endif %}
-
-        <!-- CTA Section -->
-        {% if page.extra.cta and page.extra.cta.enabled %} {% set cta =
-        page.extra.cta %} {% include "partials/cta.html" %} {% endif %}
-    </div>
-</article>
+            {% endfor %}
+        </div>
+    </section>
+</div>
 {% endblock %}
