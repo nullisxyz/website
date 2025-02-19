@@ -23,18 +23,20 @@
         max-width: 800px;
         margin: 0 auto;
         position: relative;
-        padding-left: var(--spacing-lg);
+        padding-left: var(
+            --spacing-lg
+        ); // Restore padding for the dot alignment
 
-        // Vertical timeline line
+        // Restore the vertical timeline line
         &::before {
             content: "";
             position: absolute;
-            left: 0;
+            left: 7px;
             top: 0;
             bottom: 0;
             width: 2px;
             background: var(--color-border);
-            opacity: 0.5;
+            opacity: 1;
         }
 
         [data-theme="dark"] & {
@@ -42,6 +44,17 @@
                 opacity: 0.2;
             }
         }
+    }
+
+    // Cards grid settings
+    &__cards-grid {
+        --min-column: 300px;
+        --max-columns: 3;
+        max-width: calc(
+            var(--min-column) * var(--max-columns) + (var(--max-columns) - 1) *
+                var(--grid-gap, var(--spacing-md))
+        );
+        margin: 0 auto;
     }
 
     // Responsive adjustments
@@ -53,7 +66,7 @@
         }
 
         &__timeline {
-            padding-left: var(--spacing-md);
+            padding-left: 0;
         }
     }
 }

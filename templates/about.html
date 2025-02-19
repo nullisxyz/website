@@ -19,35 +19,37 @@
             </h2>
             <p>Core technologies and tools I work with</p>
         </div>
-        <div class="o-grid o-grid--3">
-            {% for skill in page.extra.skills %}
-            <div class="c-card c-card--skill">
-                <div class="c-card__body">
-                    {% if skill.icon %}
-                    <div class="c-card__icon">{{ skill.icon | safe }}</div>
-                    {% endif %}
-                    <h3 class="c-card__title">{{ skill.name }}</h3>
-                    <ul class="c-card__list">
-                        {% for item in skill.items %}
-                        <li class="c-card__list-item">
-                            <div class="c-card__list-item-header">
-                                <span>{{ item.name }}</span>
-                                <span class="c-card__list-item-level"
-                                    >{{ item.level }}</span
-                                >
-                            </div>
-                            <div class="c-progress">
-                                <div
-                                    class="c-progress__bar"
-                                    style="width: {{ item.progress }}%"
-                                ></div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
+        <div class="p-about__cards-grid">
+            <div class="o-grid o-grid--auto-fit o-grid--auto-fit--center">
+                {% for skill in page.extra.skills %}
+                <div class="c-card c-card--skill">
+                    <div class="c-card__body">
+                        {% if skill.icon %}
+                        <div class="c-card__icon">{{ skill.icon | safe }}</div>
+                        {% endif %}
+                        <h3 class="c-card__title">{{ skill.name }}</h3>
+                        <ul class="c-card__list">
+                            {% for item in skill.items %}
+                            <li class="c-card__list-item">
+                                <div class="c-card__list-item-header">
+                                    <span>{{ item.name }}</span>
+                                    <span class="c-card__list-item-level"
+                                        >{{ item.level }}</span
+                                    >
+                                </div>
+                                <div class="c-progress">
+                                    <div
+                                        class="c-progress__bar"
+                                        style="width: {{ item.progress }}%"
+                                    ></div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </section>
 
@@ -64,7 +66,7 @@
             <div class="c-card c-card--experience">
                 <div class="c-card__body">
                     <div class="c-card__header">
-                        <span class="c-badge">{{ experience.date }}</span>
+                        <span class="c-badge">{{ experience.period }}</span>
                     </div>
                     <h3 class="c-card__title">{{ experience.title }}</h3>
                     <div class="c-card__company">{{ experience.company }}</div>
@@ -92,21 +94,23 @@
             </h2>
             <p>Academic background and qualifications</p>
         </div>
-        <div class="o-grid o-grid--3">
-            {% for education in educations %}
-            <div class="c-card c-card--education">
-                <div class="c-card__body">
-                    <div class="c-card__school">{{ education.school }}</div>
-                    <h3 class="c-card__title">{{ education.degree }}</h3>
-                    <div class="c-badge">{{ education.date }}</div>
-                    {% if education.description %}
-                    <p class="c-card__description">
-                        {{ education.description }}
-                    </p>
-                    {% endif %}
+        <div class="p-about__cards-grid">
+            <div class="o-grid o-grid--auto-fit o-grid--auto-fit--center">
+                {% for education in page.extra.background.education %}
+                <div class="c-card c-card--education">
+                    <div class="c-card__body">
+                        <div class="c-card__school">{{ education.school }}</div>
+                        <h3 class="c-card__title">{{ education.degree }}</h3>
+                        <div class="c-badge">{{ education.year }}</div>
+                        {% if education.description %}
+                        <p class="c-card__description">
+                            {{ education.description }}
+                        </p>
+                        {% endif %}
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </section>
 
@@ -114,25 +118,32 @@
     <section class="p-about__section">
         <div class="o-center o-center--text">
             <h2 class="heading-underline heading-underline--center">
-                Areas of Interest
+                {{ page.extra.interests.title }}
             </h2>
             <p>Topics and activities that drive my passion</p>
         </div>
-        <div class="o-grid o-grid--3">
-            {% for interest in interests %}
-            <div class="c-card c-card--interest">
-                <div class="c-card__body">
-                    {% if interest.icon %}
-                    <div class="c-card__icon">{{ interest.icon | safe }}</div>
-                    {% endif %}
-                    <h3 class="c-card__title">{{ interest.title }}</h3>
-                    <p class="c-card__description">
-                        {{ interest.description }}
-                    </p>
+        <div class="p-about__cards-grid">
+            <div class="o-grid o-grid--auto-fit o-grid--auto-fit--center">
+                {% for interest in page.extra.interests.items %}
+                <div class="c-card c-card--interest">
+                    <div class="c-card__body">
+                        {% if interest.icon %}
+                        <div class="c-card__icon">
+                            {{ interest.icon | safe }}
+                        </div>
+                        {% endif %}
+                        <h3 class="c-card__title">{{ interest.title }}</h3>
+                        <p class="c-card__description">
+                            {{ interest.description }}
+                        </p>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </section>
 </div>
-{% endblock %}
+
+<!-- CTA Section -->
+{% if page.extra.cta and page.extra.cta.enabled %} {% set cta = page.extra.cta
+%} {% include "partials/cta.html" %} {% endif %} {% endblock %}

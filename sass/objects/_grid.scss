@@ -35,6 +35,22 @@
             auto-fit,
             minmax(var(--min-column, 250px), 1fr)
         );
+
+        // Centered variant within auto-fit
+        &--center {
+            justify-content: center;
+            max-width: calc(
+                var(--min-column, 250px) * var(--max-columns, 3) +
+                    (var(--max-columns, 3) - 1) *
+                    var(--grid-gap, var(--spacing-md))
+            );
+            margin: 0 auto;
+        }
+
+        // Override for small screens (optional)
+        @include media-down("sm") {
+            grid-template-columns: 1fr;
+        }
     }
 
     // Auto-fill grid
