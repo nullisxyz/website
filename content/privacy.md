@@ -60,7 +60,6 @@ We collect information through:
 
 3. **User-Provided Information**
    - Contact form submissions
-   - Newsletter subscriptions
    - Comment submissions
 
 ## Use of Information
@@ -75,7 +74,6 @@ We use collected information for:
 
 2. **Communication**
    - Responding to inquiries
-   - Sending newsletters
    - Providing updates
 
 3. **Security**

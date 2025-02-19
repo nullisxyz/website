@@ -284,41 +284,6 @@
         }
     }
 
-    // Newsletter section
-    &__newsletter {
-        margin-top: var(--spacing-2xl);
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-
-        .c-card {
-            padding: var(--spacing-xl);
-            text-align: center;
-
-            &__title {
-                @include font-size("2xl");
-                margin-bottom: var(--spacing-md);
-            }
-
-            &__text {
-                margin-bottom: var(--spacing-lg);
-            }
-
-            .c-form {
-                max-width: 400px;
-                margin: 0 auto;
-
-                &__group {
-                    margin-bottom: var(--spacing-md);
-                }
-
-                .c-button {
-                    width: 100%;
-                }
-            }
-        }
-    }
-
     // Animation variants
     &--animate {
         .p-blog__header {
@@ -345,11 +310,6 @@
                     @include fade-in();
                 }
             }
-        }
-
-        .p-blog__newsletter {
-            opacity: 0;
-            @include fade-in(300ms, 600ms); // Longer delay after cards
         }
     }
 }

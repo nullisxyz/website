@@ -197,30 +197,4 @@
     </div>
 </article>
 
-{% if config.extra.features.newsletter %}
-<section class="s-newsletter">
-    <div class="o-container o-container--narrow">
-        <div class="c-card c-card--glass">
-            <div class="c-card__body">
-                <h3>Subscribe to the Newsletter</h3>
-                <p>Get notified about new posts and updates.</p>
-                <form
-                    class="c-form"
-                    action="{{ config.extra.newsletter_endpoint }}"
-                    method="POST"
-                >
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    />
-                    <button type="submit" class="c-button c-button--primary">
-                        Subscribe
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %} {% endblock %}
+{% endblock %}

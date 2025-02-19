@@ -29,7 +29,6 @@ pagination_path = "page"
 dark_mode = true
 search = false
 comments = false
-newsletter = false
 table_of_contents = true
 related_pages = true
 cta = true
@@ -180,12 +179,6 @@ links = [
     { label = "Privacy Policy", url = "/privacy" },
     { label = "Terms of Service", url = "/terms" }
 ]
-
-# Newsletter Configuration
-[extra.newsletter]
-title = "Stay Updated"
-description = "Get notified about new articles and project updates."
-endpoint = "https://api.example.com/newsletter"
 
 # Call-to-Action Configuration
 [extra.cta]

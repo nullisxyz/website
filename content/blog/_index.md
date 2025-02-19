@@ -30,12 +30,6 @@ show_tags = true
 show_recent_posts = false
 show_search = false
 
-[extra.newsletter]
-show = false
-title = "Stay Updated"
-description = "Get notified about new articles and tutorials."
-button_text = "Subscribe"
-
 [extra.filters]
 show = false
 categories = [

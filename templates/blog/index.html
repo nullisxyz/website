@@ -424,42 +424,6 @@
                 {% endif %}
             </div>
         </div>
-
-        <!-- Newsletter Section -->
-        {% if section.extra.newsletter and section.extra.newsletter.show %}
-        <section class="p-blog__newsletter">
-            <div class="c-card c-card--glass">
-                <div class="c-card__body text-center">
-                    <h2 class="c-card__title">
-                        {{ section.extra.newsletter.title }}
-                    </h2>
-                    <p class="c-card__text">
-                        {{ section.extra.newsletter.description }}
-                    </p>
-                    <form
-                        class="c-form"
-                        action="{{ section.extra.newsletter.endpoint }}"
-                        method="POST"
-                    >
-                        <div class="c-form__group">
-                            <input
-                                type="email"
-                                class="c-form__input"
-                                placeholder="Enter your email"
-                                required
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            class="c-button c-button--primary"
-                        >
-                            {{ section.extra.newsletter.button_text }}
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
