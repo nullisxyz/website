@@ -2,18 +2,7 @@
 <div class="p-blog{% if section.extra.animate %} p-blog--animate{% endif %}">
     <div class="o-container o-container--content">
         <!-- Header -->
-        <header class="p-blog__header">
-            <h1
-                class="p-blog__header-title{% if section.extra.gradient_title %} p-blog__header-title--gradient{% endif %}"
-            >
-                {{ section.title }}
-            </h1>
-            {% if section.description %}
-            <div class="p-blog__header-description">
-                {{ section.description | markdown | safe }}
-            </div>
-            {% endif %}
-        </header>
+        {% include "partials/page-header.html" %}
 
         <!-- Featured Posts Section -->
         {% if section.extra.featured_posts and section.extra.featured_posts.show

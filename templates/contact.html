@@ -1,18 +1,8 @@
 {% extends "base.html" %} {% block content %}
 <div class="p-contact{% if page.extra.animate %} p-contact--animate{% endif %}">
     <div class="o-container o-container--content">
-        <header class="p-contact__header">
-            <h1
-                class="p-contact__header-title{% if page.extra.gradient_title %} p-contact__header-title--gradient{% endif %}"
-            >
-                {{ page.title }}
-            </h1>
-            {% if page.description %}
-            <div class="p-contact__header-description">
-                {{ page.description | markdown | safe }}
-            </div>
-            {% endif %}
-        </header>
+        <!-- Header -->
+        {% include "partials/page-header.html" %}
 
         <div class="p-contact__grid">
             <div class="p-contact__form">

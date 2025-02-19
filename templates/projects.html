@@ -4,18 +4,7 @@
 >
     <div class="o-container o-container--content">
         <!-- Header -->
-        <header class="p-projects__header">
-            <h1
-                class="p-projects__header-title{% if page.extra.gradient_title %} p-projects__header-title--gradient{% endif %}"
-            >
-                {{ page.title }}
-            </h1>
-            {% if page.description %}
-            <div class="p-projects__header-description">
-                {{ page.description | markdown | safe }}
-            </div>
-            {% endif %}
-        </header>
+        {% include "partials/page-header.html" %}
 
         <!-- Category Filters -->
         {% if page.extra.filters.categories %}

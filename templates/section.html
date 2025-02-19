@@ -3,23 +3,8 @@
     class="p-section{% if section.extra.animate %} p-section--animate{% endif %}"
 >
     <div class="o-container">
-        <header
-            class="p-section__header{% if section.extra.header_class %} {{ section.extra.header_class }}{% endif %}"
-        >
-            <h1
-                class="p-section__header-title{% if section.extra.gradient_title %} p-section__header-title--gradient{% endif %}"
-            >
-                {{ section.title }}
-            </h1>
-
-            {% if section.description %}
-            <div class="p-section__header-intro">
-                {{ section.description | markdown | safe }}
-            </div>
-            {% endif %}
-        </header>
-
-        {% if section.content %}
+        <!-- Header -->
+        {% include "partials/page-header.html" %} {% if section.content %}
         <div class="p-section__content c-content">
             {{ section.content | safe }}
         </div>

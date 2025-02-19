@@ -6,26 +6,6 @@
     margin: 0 auto;
     padding: 0 var(--spacing-md);
 
-    // Header Section
-    &__header {
-        margin-bottom: var(--spacing-2xl);
-        text-align: center;
-
-        &-title {
-            @include font-size("4xl", true);
-            color: var(--color-text);
-            margin-bottom: var(--spacing-lg);
-            @include transition(color);
-
-            &--gradient {
-                background: var(--site-gradient-primary);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-            }
-        }
-    }
-
     // Categories
     &__categories {
         display: flex;

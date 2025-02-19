@@ -3,54 +3,6 @@
 @use "../../tools" as *;
 
 .p-page {
-    position: relative;
-    padding: var(--spacing-xl) 0;
-
-    &__header {
-        margin-bottom: var(--spacing-2xl);
-        text-align: center;
-        position: relative;
-
-        &-title {
-            @include font-size("4xl", true);
-            color: var(--color-text);
-            margin-bottom: var(--spacing-lg);
-            @include transition(color);
-
-            &--gradient {
-                background: var(--site-gradient-primary);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-
-            &--with-badge {
-                display: inline-flex;
-                align-items: center;
-                gap: var(--spacing-sm);
-            }
-        }
-
-        &-intro {
-            max-width: 720px;
-            margin: 0 auto;
-            color: var(--color-text-muted);
-            @include transition(color);
-        }
-
-        &--with-pattern {
-            &::before {
-                content: "";
-                position: absolute;
-                inset: -var(--spacing-xl);
-                background: var(--site-pattern-grid);
-                opacity: 0.05;
-                z-index: -1;
-                border-radius: var(--site-radius-lg);
-            }
-        }
-    }
-
     &__content {
         position: relative;
         display: grid;

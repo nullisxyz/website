@@ -3,35 +3,6 @@
 @use "../../tools" as *;
 
 .p-projects {
-    &__header {
-        text-align: center;
-        margin-bottom: var(--spacing-2xl);
-        position: relative;
-        padding: var(--spacing-2xl) 0;
-
-        &-title {
-            @include font-size("4xl", true);
-            color: var(--color-text);
-            margin-bottom: var(--spacing-lg);
-            @include transition(color);
-
-            &--gradient {
-                background: var(--site-gradient-primary);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-            }
-        }
-
-        &-description {
-            max-width: 720px;
-            margin: 0 auto;
-            color: var(--color-text-muted);
-            @include transition(color);
-            @include font-size("lg");
-        }
-    }
-
     &__filters {
         position: sticky;
         top: calc(var(--site-header-height) + var(--spacing-md));
