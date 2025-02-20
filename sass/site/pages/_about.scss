@@ -5,12 +5,10 @@
 .p-about {
     // Base section padding
     padding: var(--spacing-2xl) 0;
-    background: var(--color-background);
     min-height: 100vh;
 
     // Common section styles
     &__section {
-        @extend .o-container;
         margin-bottom: var(--spacing-3xl);
 
         &:last-child {
@@ -23,9 +21,7 @@
         max-width: 800px;
         margin: 0 auto;
         position: relative;
-        padding-left: var(
-            --spacing-lg
-        ); // Restore padding for the dot alignment
+        padding-left: var(--spacing-lg);
 
         // Restore the vertical timeline line
         &::before {
@@ -46,7 +42,7 @@
         }
     }
 
-    // Cards grid settings
+    /* // Cards grid settings
     &__cards-grid {
         --min-column: 300px;
         --max-columns: 3;
@@ -55,7 +51,7 @@
                 var(--grid-gap, var(--spacing-md))
         );
         margin: 0 auto;
-    }
+    } */
 
     // Responsive adjustments
     @include media-down("lg") {

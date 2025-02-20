@@ -25,21 +25,12 @@ ul {
 
     // Custom bullet styling
     &.custom-bullets {
-        list-style: none;
-        padding-left: 0;
+        @include list-prefix("•");
+    }
 
-        li {
-            position: relative;
-            padding-left: var(--spacing-lg);
-
-            &::before {
-                content: "•";
-                position: absolute;
-                left: 0;
-                color: var(--color-accent);
-                font-weight: bold;
-            }
-        }
+    // Custom arrow styling
+    &.custom-arrow {
+        @include list-prefix("→");
     }
 
     // Icon bullets
@@ -106,7 +97,7 @@ ol {
 
 // List items
 li {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
     color: var(--color-text);
 
     &:last-child {

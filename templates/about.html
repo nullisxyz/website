@@ -22,24 +22,24 @@
         <div class="p-about__cards-grid">
             <div class="o-grid o-grid--auto-fit o-grid--auto-fit--center">
                 {% for skill in page.extra.skills %}
-                <div class="c-card c-card--skill">
+                <div class="c-card c-card--max-width">
                     <div class="c-card__body">
                         {% if skill.icon %}
                         <div class="c-card__icon">{{ skill.icon | safe }}</div>
                         {% endif %}
                         <h3 class="c-card__title">{{ skill.name }}</h3>
-                        <ul class="c-card__list">
+                        <ul class="c-loader--progress">
                             {% for item in skill.items %}
-                            <li class="c-card__list-item">
-                                <div class="c-card__list-item-header">
+                            <li>
+                                <div class="c-loader--progress__header">
                                     <span>{{ item.name }}</span>
-                                    <span class="c-card__list-item-level"
+                                    <span class="c-loader--progress__level"
                                         >{{ item.level }}</span
                                     >
                                 </div>
-                                <div class="c-progress">
+                                <div>
                                     <div
-                                        class="c-progress__bar"
+                                        class="c-loader--progress__bar"
                                         style="width: {{ item.progress }}%"
                                     ></div>
                                 </div>
@@ -55,7 +55,7 @@
 
     <!-- Experience Section -->
     <section class="p-about__section">
-        <div class="o-center o-center--text">
+        <div class="o-center--text">
             <h2 class="heading-underline heading-underline--center">
                 Work Experience
             </h2>
@@ -63,18 +63,16 @@
         </div>
         <div class="p-about__timeline">
             {% for experience in page.extra.background.experience %}
-            <div class="c-card c-card--experience">
+            <div class="c-card c-card--timeline c-card--experience">
                 <div class="c-card__body">
-                    <div class="c-card__header">
+                    <div class="c-card__date">
                         <span class="c-badge">{{ experience.period }}</span>
                     </div>
                     <h3 class="c-card__title">{{ experience.title }}</h3>
-                    <div class="c-card__company">{{ experience.company }}</div>
-                    <p class="c-card__description">
-                        {{ experience.description }}
-                    </p>
+                    <div class="c-card__subtitle">{{ experience.company }}</div>
+                    <p>{{ experience.description }}</p>
                     {% if experience.achievements %}
-                    <ul class="c-card__achievements">
+                    <ul class="custom-arrow">
                         {% for achievement in experience.achievements %}
                         <li>{{ achievement }}</li>
                         {% endfor %}
@@ -88,7 +86,7 @@
 
     <!-- Education Section -->
     <section class="p-about__section">
-        <div class="o-center o-center--text">
+        <div class="o-center--text">
             <h2 class="heading-underline heading-underline--center">
                 Education
             </h2>
@@ -97,15 +95,13 @@
         <div class="p-about__cards-grid">
             <div class="o-grid o-grid--auto-fit o-grid--auto-fit--center">
                 {% for education in page.extra.background.education %}
-                <div class="c-card c-card--education">
+                <div class="c-card c-card--max-width">
                     <div class="c-card__body">
-                        <div class="c-card__school">{{ education.school }}</div>
+                        <div class="c-card__header">{{ education.school }}</div>
                         <h3 class="c-card__title">{{ education.degree }}</h3>
                         <div class="c-badge">{{ education.year }}</div>
                         {% if education.description %}
-                        <p class="c-card__description">
-                            {{ education.description }}
-                        </p>
+                        <p>{{ education.description }}</p>
                         {% endif %}
                     </div>
                 </div>
@@ -116,7 +112,7 @@
 
     <!-- Interests Section -->
     <section class="p-about__section">
-        <div class="o-center o-center--text">
+        <div class="o-center--text">
             <h2 class="heading-underline heading-underline--center">
                 {{ page.extra.interests.title }}
             </h2>
@@ -125,7 +121,7 @@
         <div class="p-about__cards-grid">
             <div class="o-grid o-grid--auto-fit o-grid--auto-fit--center">
                 {% for interest in page.extra.interests.items %}
-                <div class="c-card c-card--interest">
+                <div class="c-card c-card--max-width">
                     <div class="c-card__body">
                         {% if interest.icon %}
                         <div class="c-card__icon">
@@ -133,9 +129,7 @@
                         </div>
                         {% endif %}
                         <h3 class="c-card__title">{{ interest.title }}</h3>
-                        <p class="c-card__description">
-                            {{ interest.description }}
-                        </p>
+                        <p>{{ interest.description }}</p>
                     </div>
                 </div>
                 {% endfor %}

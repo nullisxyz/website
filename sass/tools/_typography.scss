@@ -60,3 +60,20 @@
     font-weight: var(--font-weight-bold);
     line-height: var(--line-height-tight);
 }
+
+@mixin list-prefix($prefix) {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        position: relative;
+        padding-left: var(--spacing-lg);
+
+        &:before {
+            content: $prefix;
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+    }
+}
