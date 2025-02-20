@@ -39,6 +39,26 @@
 </section>
 {% endmacro %}
 
+{% macro section_start(title="", description="", body_class="") %}
+<section>
+    <div class="o-center--text u-pb-lg">
+        <h2 class="heading-underline heading-underline--center">
+            {{ title }}
+        </h2>
+        <p>{{ description }}</p>
+    </div>
+    {% if body_class %}
+    <div class="{{ body_class }}">
+    {% else %}
+    <div class="o-grid o-grid--center o-grid--auto-fit o-grid--auto-fit--center o-grid--equal-height">
+    {% endif %}
+{% endmacro %}
+
+{% macro section_end() %}
+    </div>
+</section>
+{% endmacro %}
+
 {% macro meta_info(date, author="", reading_time="") %}
 <div class="c-meta">
     {% if date %}

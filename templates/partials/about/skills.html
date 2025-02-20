@@ -1,0 +1,31 @@
+{% import "macros/layouts.html" as layouts %}
+
+{{ layouts::section_start(
+    title="Skills & Expertise",
+    description="Core technologies and tools I work with"
+) }}
+    {% for skill in page.extra.skills %}
+    <div class="c-card c-card--max-width c-card--animate-in"
+        style="animation-delay: calc(0.2s * {{ loop.index }})">
+        <div class="c-card__body">
+            {% if skill.icon %}
+            <div class="c-card__icon">{{ skill.icon | safe }}</div>
+            {% endif %}
+            <h3 class="c-card__title">{{ skill.name }}</h3>
+            <ul class="c-loader--progress c-loader--animate-in">
+                {% for item in skill.items %}
+                <li>
+                    <div class="c-loader--progress__header">
+                        <span>{{ item.name }}</span>
+                        <span class="c-loader--progress__level">{{ item.level }}</span>
+                    </div>
+                    <div class="c-loader--progress__bar"
+                            style="width: {{ item.progress }}%">
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+{{ layouts::section_end() }}

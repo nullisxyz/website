@@ -1,0 +1,28 @@
+{% import "macros/layouts.html" as layouts %}
+
+{{ layouts::section_start(
+    title="Work Experience",
+    description="My professional journey and key achievements",
+    body_class="p-about__timeline"
+) }}
+
+{% for experience in page.extra.background.experience %}
+<div class="c-card c-card--timeline c-card--experience">
+    <div class="c-card__body">
+        <div class="c-card__date">
+            <span class="c-badge">{{ experience.period }}</span>
+        </div>
+        <h3 class="c-card__title">{{ experience.title }}</h3>
+        <div class="c-card__subtitle">{{ experience.company }}</div>
+        <p>{{ experience.description }}</p>
+        {% if experience.achievements %}
+        <ul class="custom-arrow">
+            {% for achievement in experience.achievements %}
+            <li>{{ achievement }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{{ layouts::section_end() }}

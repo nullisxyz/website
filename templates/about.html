@@ -1,137 +1,29 @@
-{% import "macros/layouts.html" as layouts %} {% extends "base.html" %} {% block
+{% import "macros/layouts.html" as layouts %} {% extends "base.html" %}{% block
 content %}
 <div class="p-about p-about__animate">
     <!-- Header -->
-    {{ layouts::page_header(title=page.title, description=page.description,
-    gradient=true, animate=true)}}
+    {{ layouts::page_header(
+        title=page.title,
+        description=page.description,
+        gradient=true,
+        animate=true
+    ) }}
 
     <!-- Skills Section -->
-    <section>
-        <div class="o-center--text u-pb-lg">
-            <h2 class="heading-underline heading-underline--center">
-                Skills & Expertise
-            </h2>
-            <p>Core technologies and tools I work with</p>
-        </div>
-        <div
-            class="o-grid o-grid--center o-grid--auto-fit o-grid--auto-fit--center o-grid--equal-height"
-        >
-            {% for skill in page.extra.skills %}
-            <div
-                class="c-card c-card--max-width c-card--animate-in"
-                style="animation-delay: calc(0.2s * {{ loop.index }})"
-            >
-                <div class="c-card__body">
-                    {% if skill.icon %}
-                    <div class="c-card__icon">{{ skill.icon | safe }}</div>
-                    {% endif %}
-                    <h3 class="c-card__title">{{ skill.name }}</h3>
-                    <ul class="c-loader--progress c-loader--animate-in">
-                        {% for item in skill.items %}
-                        <li>
-                            <div class="c-loader--progress__header">
-                                <span>{{ item.name }}</span>
-                                <span class="c-loader--progress__level"
-                                    >{{ item.level }}</span
-                                >
-                            </div>
-                            <div>
-                                <div
-                                    class="c-loader--progress__bar"
-                                    style="width: {{ item.progress }}%"
-                                ></div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+    {% include "partials/about/skills.html" %}
 
     <!-- Experience Section -->
-    <section>
-        <div class="o-center--text u-pb-lg">
-            <h2 class="heading-underline heading-underline--center">
-                Work Experience
-            </h2>
-            <p>My professional journey and key achievements</p>
-        </div>
-        <div class="p-about__timeline">
-            {% for experience in page.extra.background.experience %}
-            <div class="c-card c-card--timeline c-card--experience">
-                <div class="c-card__body">
-                    <div class="c-card__date">
-                        <span class="c-badge">{{ experience.period }}</span>
-                    </div>
-                    <h3 class="c-card__title">{{ experience.title }}</h3>
-                    <div class="c-card__subtitle">{{ experience.company }}</div>
-                    <p>{{ experience.description }}</p>
-                    {% if experience.achievements %}
-                    <ul class="custom-arrow">
-                        {% for achievement in experience.achievements %}
-                        <li>{{ achievement }}</li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+    {% include "partials/about/experience.html" %}
 
     <!-- Education Section -->
-    <section>
-        <div class="o-center--text u-pb-lg">
-            <h2 class="heading-underline heading-underline--center">
-                Education
-            </h2>
-            <p>Academic background and qualifications</p>
-        </div>
-        <div
-            class="o-grid o-grid--center o-grid--auto-fit o-grid--auto-fit--center o-grid--equal-height"
-        >
-            {% for education in page.extra.background.education %}
-            <div class="c-card c-card--max-width">
-                <div class="c-card__body">
-                    <div class="c-card__header">{{ education.school }}</div>
-                    <h3 class="c-card__title">{{ education.degree }}</h3>
-                    <div class="c-badge">{{ education.year }}</div>
-                    {% if education.description %}
-                    <p>{{ education.description }}</p>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+    {% include "partials/about/education.html" %}
 
     <!-- Interests Section -->
-    <section>
-        <div class="o-center--text u-pb-lg">
-            <h2 class="heading-underline heading-underline--center">
-                {{ page.extra.interests.title }}
-            </h2>
-            <p>Topics and activities that drive my passion</p>
-        </div>
-        <div
-            class="o-grid o-grid--center o-grid--auto-fit o-grid--auto-fit--center o-grid--equal-height"
-        >
-            {% for interest in page.extra.interests.items %}
-            <div class="c-card c-card--max-width">
-                <div class="c-card__body">
-                    {% if interest.icon %}
-                    <div class="c-card__icon">{{ interest.icon | safe }}</div>
-                    {% endif %}
-                    <h3 class="c-card__title">{{ interest.title }}</h3>
-                    <p>{{ interest.description }}</p>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+    {% include "partials/about/interests.html" %}
 </div>
 
-{% if page.extra.cta and page.extra.cta.enabled %} {% set cta = page.extra.cta
-%} {% include "partials/cta.html" %} {% endif %} {% endblock %}
+{% if page.extra.cta and page.extra.cta.enabled %}
+{% set cta = page.extra.cta %}
+{% include "partials/cta.html" %}
+{% endif %}
+{% endblock %}
