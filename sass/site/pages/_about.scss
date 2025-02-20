@@ -42,17 +42,6 @@
         }
     }
 
-    /* // Cards grid settings
-    &__cards-grid {
-        --min-column: 300px;
-        --max-columns: 3;
-        max-width: calc(
-            var(--min-column) * var(--max-columns) + (var(--max-columns) - 1) *
-                var(--grid-gap, var(--spacing-md))
-        );
-        margin: 0 auto;
-    } */
-
     // Responsive adjustments
     @include media-down("lg") {
         padding: var(--spacing-xl) 0;
