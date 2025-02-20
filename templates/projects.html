@@ -4,7 +4,8 @@
 >
     <div class="o-container o-container--content">
         <!-- Header -->
-        {% include "partials/page-header.html" %}
+        {{ layouts::page_header(title=page.title, description=page.description,
+        gradient=true, animate=true)}}
 
         <!-- Category Filters -->
         {% if page.extra.filters.categories %}

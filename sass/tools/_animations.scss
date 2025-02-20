@@ -77,3 +77,27 @@
         }
     }
 }
+
+@mixin loading($direction: "horizontal") {
+    animation: cardLoading var(--transition-normal) linear infinite;
+
+    @keyframes cardLoading {
+        from {
+            transform: translateX(-100%);
+        }
+        to {
+            transform: translateX(100%);
+        }
+    }
+
+    @if $direction == "vertical" {
+        @keyframes cardLoading {
+            from {
+                transform: translateY(-100%);
+            }
+            to {
+                transform: translateY(100%);
+            }
+        }
+    }
+}

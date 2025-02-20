@@ -14,8 +14,6 @@
     &__header {
         color: var(--color-accent);
         margin-bottom: var(--spacing-sm);
-        @include font-family("mono");
-        @include font-size("sm");
     }
 
     &__body {
@@ -182,7 +180,7 @@
                 var(--color-surface) 50%,
                 transparent 100%
             );
-            animation: card-loading 1.5s infinite;
+            @include loading();
         }
     }
 
@@ -284,11 +282,11 @@
 
     // Animation states
     &--animate-in {
-        animation: card-fade-in 0.3s ease-out forwards;
+        @include slide-up();
     }
 
     &--animate-out {
-        animation: card-fade-out 0.3s ease-out forwards;
+        @include slide-down();
     }
 
     // Responsive variations
@@ -308,37 +306,5 @@
         &__title {
             @include font-size("lg");
         }
-    }
-}
-
-// Animations
-@keyframes card-loading {
-    from {
-        transform: translateX(-100%);
-    }
-    to {
-        transform: translateX(100%);
-    }
-}
-
-@keyframes card-fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes card-fade-out {
-    from {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: translateY(20px);
     }
 }

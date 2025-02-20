@@ -1,19 +1,13 @@
-{% extends "base.html" %} {% block content %}
-<div class="p-about">
-    <!-- Intro Section -->
-    <section class="p-about__section">
-        <div class="o-center o-center--text">
-            <h1 class="text-gradient">About Me</h1>
-            <p class="o-center__text">
-                A passionate developer focused on creating elegant solutions to
-                complex problems.
-            </p>
-        </div>
-    </section>
+{% import "macros/layouts.html" as layouts %} {% extends "base.html" %} {% block
+content %}
+<div class="p-about p-about__animate">
+    <!-- Header -->
+    {{ layouts::page_header(title=page.title, description=page.description,
+    gradient=true, animate=true)}}
 
     <!-- Skills Section -->
-    <section class="p-about__section">
-        <div class="o-center o-center--text u-pb-lg">
+    <section>
+        <div class="o-center--text u-pb-lg">
             <h2 class="heading-underline heading-underline--center">
                 Skills & Expertise
             </h2>
@@ -23,13 +17,16 @@
             class="o-grid o-grid--center o-grid--auto-fit o-grid--auto-fit--center o-grid--equal-height"
         >
             {% for skill in page.extra.skills %}
-            <div class="c-card c-card--max-width">
+            <div
+                class="c-card c-card--max-width c-card--animate-in"
+                style="animation-delay: calc(0.2s * {{ loop.index }})"
+            >
                 <div class="c-card__body">
                     {% if skill.icon %}
                     <div class="c-card__icon">{{ skill.icon | safe }}</div>
                     {% endif %}
                     <h3 class="c-card__title">{{ skill.name }}</h3>
-                    <ul class="c-loader--progress">
+                    <ul class="c-loader--progress c-loader--animate-in">
                         {% for item in skill.items %}
                         <li>
                             <div class="c-loader--progress__header">
@@ -54,7 +51,7 @@
     </section>
 
     <!-- Experience Section -->
-    <section class="p-about__section">
+    <section>
         <div class="o-center--text u-pb-lg">
             <h2 class="heading-underline heading-underline--center">
                 Work Experience
@@ -85,7 +82,7 @@
     </section>
 
     <!-- Education Section -->
-    <section class="p-about__section">
+    <section>
         <div class="o-center--text u-pb-lg">
             <h2 class="heading-underline heading-underline--center">
                 Education
@@ -111,7 +108,7 @@
     </section>
 
     <!-- Interests Section -->
-    <section class="p-about__section">
+    <section>
         <div class="o-center--text u-pb-lg">
             <h2 class="heading-underline heading-underline--center">
                 {{ page.extra.interests.title }}
@@ -136,6 +133,5 @@
     </section>
 </div>
 
-<!-- CTA Section -->
 {% if page.extra.cta and page.extra.cta.enabled %} {% set cta = page.extra.cta
 %} {% include "partials/cta.html" %} {% endif %} {% endblock %}

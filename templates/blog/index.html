@@ -2,7 +2,8 @@
 <div class="p-blog{% if section.extra.animate %} p-blog--animate{% endif %}">
     <div class="o-container o-container--content">
         <!-- Header -->
-        {% include "partials/page-header.html" %}
+        {{ layouts::page_header(title=section.title,
+        description=section.description, gradient=true, animate=true)}}
 
         <!-- Featured Posts Section -->
         {% if section.extra.featured_posts and section.extra.featured_posts.show

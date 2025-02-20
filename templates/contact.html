@@ -1,8 +1,10 @@
-{% extends "base.html" %} {% block content %}
+{% import "macros/layouts.html" as layouts %} {% extends "base.html" %} {% block
+content %}
 <div class="p-contact{% if page.extra.animate %} p-contact--animate{% endif %}">
     <div class="o-container o-container--content">
         <!-- Header -->
-        {% include "partials/page-header.html" %}
+        {{ layouts::page_header(title=page.title, description=page.description,
+        gradient=true, animate=true)}}
 
         <div class="p-contact__grid">
             <!-- Contact Form Section -->
