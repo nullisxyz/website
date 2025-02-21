@@ -44,7 +44,9 @@ a {
     }
 
     // External link indicators
-    &[href^="http"]:not([href*="yourdomain.com"])::after {
+    &[href^="http"]:not([href*="127.0.0.1"]):not([href*="nullis.xyz"]):not(
+            .link-social
+        ):not(.link-icon)::after {
         content: "↗";
         display: inline-block;
         margin-left: 0.2em;

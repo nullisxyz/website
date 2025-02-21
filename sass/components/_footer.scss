@@ -8,9 +8,10 @@
     padding: var(--spacing-xl) 0;
     margin-top: auto;
     @include transition(background-color, border-color);
+    @include font-family("mono");
 
     &__wrapper {
-        max-width: var(--site-max-width, 1400px);
+        max-width: var(--content-measure-xl, 1400px);
         margin: 0 auto;
         padding: 0 var(--spacing-md);
 
@@ -22,22 +23,20 @@
     &__container {
         display: grid;
         gap: var(--spacing-xl);
+        max-width: 800px;
+        margin: 0 auto;
 
         @include media-up("md") {
-            grid-template-columns: minmax(300px, 400px) 150px 150px;
-            gap: var(--spacing-xl);
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
             align-items: start;
-            justify-content: flex-start;
-            // Remove any margin/padding that might affect alignment
-            margin: 0;
-            padding: 0;
+            justify-content: start;
         }
     }
 
     &__bottom {
         margin-top: var(--spacing-xl);
         padding-top: var(--spacing-md);
-        border-top: 1px solid var(--color-footer-border);
         text-align: center;
         color: var(--color-text-muted);
         @include font-size("sm");
@@ -50,24 +49,17 @@
             margin-right: 0;
         }
 
-        // Links section
-        &:nth-child(2),
-        &:nth-child(3) {
-            min-width: auto;
-        }
-
         &-title {
             @include font-size("lg");
             font-weight: var(--font-weight-bold);
             color: var(--color-text);
             margin-bottom: var(--spacing-md);
             @include transition(color);
-            line-height: 1; // Reduce line height for better alignment
+            line-height: 1;
         }
 
-        &-content {
-            color: var(--color-text-muted);
-            @include transition(color);
+        .c-footer__social + .c-footer__section-title {
+            margin-top: var(--spacing-xl);
         }
     }
 
@@ -75,8 +67,7 @@
         display: flex;
         align-items: center;
         gap: var(--spacing-sm);
-        margin-bottom: var(--spacing-md);
-        height: 48px; // Set explicit height to match logo
+        height: 48px;
 
         &-logo {
             width: 48px;
@@ -87,38 +78,41 @@
             @include font-size("lg");
             font-weight: var(--font-weight-bold);
             color: var(--color-text);
-            line-height: 1; // Reduce line height for better alignment
+            line-height: 1;
         }
     }
 
     &__description {
         color: var(--color-text-muted);
         margin-bottom: var(--spacing-lg);
-        max-width: 45ch; // Limit text width for better readability
+        @include font-size("sm");
     }
 
     &__links {
-        list-style: none;
-        padding: 0;
-        margin: 0;
         display: flex;
         flex-direction: column;
         gap: var(--spacing-sm);
+        list-style: none;
+        padding: 0;
+        margin: 0;
 
         li {
+            line-height: 0.7;
             padding: 0;
-            margin: 0;
         }
 
         a {
-            @include font-family("mono");
-            font-size: var(--font-size-sm);
+            @include font-size("sm");
             color: var(--color-text-muted);
             text-decoration: none;
             @include transition(color);
 
             &:hover {
                 color: var(--color-accent);
+            }
+
+            &[href^="http"]::after {
+                content: none; // Remove external link arrow
             }
         }
     }
@@ -127,22 +121,29 @@
         display: flex;
         gap: var(--spacing-md);
         flex-wrap: wrap;
+        margin-bottom: var(--spacing-lg);
 
         a {
             color: var(--color-text-muted);
-            @include transition(color, transform);
+            @include transition(color);
 
             &:hover {
                 color: var(--color-accent);
-                transform: translateY(-2px);
             }
 
             svg {
-                width: 24px;
-                height: 24px;
+                width: 20px;
+                height: 20px;
                 fill: currentColor;
             }
         }
+    }
+
+    &__address {
+        color: var(--color-text-muted);
+        @include font-size("sm");
+        line-height: 1.5;
+        margin-top: var(--spacing-sm);
     }
 
     // Responsive adjustments
@@ -155,7 +156,7 @@
 
         &__section {
             text-align: center;
-            padding-top: 0; // Remove padding on mobile
+            padding-top: 0;
 
             &-title {
                 @include font-size("md");
@@ -174,6 +175,10 @@
 
         &__social {
             justify-content: center;
+        }
+
+        &__address {
+            text-align: center;
         }
     }
 

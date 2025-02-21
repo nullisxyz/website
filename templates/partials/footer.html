@@ -15,29 +15,23 @@
                     {{ config.title | default(value='Site Title') }}
                 </h2>
             </div>
-            {% if config.description %}
-            <p class="c-footer__description">{{ config.description }}</p>
-            {% endif %}
+            {% if config.extra.address %} {% for line in config.extra.address %}
+            <div class="c-footer__address u-font-mono u-text-sm">
+                {{ line }}
+            </div>
+            {% endfor %} {% endif %}
         </div>
 
+        {% if config.extra.footer_links %} {% for section in
+        config.extra.footer_links %}
         <div class="c-footer__section">
-            <h3 class="c-footer__section-title">Links</h3>
-            <ul class="c-footer__links">
-                <li><a href="/blog" class="c-footer__link">Blog</a></li>
-                <li><a href="/projects" class="c-footer__link">Projects</a></li>
-                <li><a href="/about" class="c-footer__link">About</a></li>
-                <li><a href="/contact" class="c-footer__link">Contact</a></li>
-            </ul>
-        </div>
-
-        {% if config.extra.social_links %}
-        <div class="c-footer__section">
+            {% if loop.index == 2 and config.extra.social_links %}
             <h3 class="c-footer__section-title">Connect</h3>
             <div class="c-footer__social">
                 {% for link in config.extra.social_links %}
                 <a
                     href="{{ link.url }}"
-                    class="c-footer__social-link"
+                    class="link-muted link-icon"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="{{ link.name }}"
@@ -46,8 +40,20 @@
                 </a>
                 {% endfor %}
             </div>
+            {% endif %}
+
+            <h3 class="c-footer__section-title">{{ section.title }}</h3>
+            <ul class="c-footer__links">
+                {% for link in section.links %}
+                <li>
+                    <a href="{{ link.url }}" class="link-muted"
+                        >{{ link.label }}</a
+                    >
+                </li>
+                {% endfor %}
+            </ul>
         </div>
-        {% endif %}
+        {% endfor %} {% endif %}
     </div>
 
     <div class="c-footer__bottom">

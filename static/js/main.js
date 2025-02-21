@@ -1,5 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Mobile menu functionality
+  handleBrandText();
+  handleMenuButtonAndNav();
+});
+
+function handleBrandText() {
+  const brandText = document.querySelector(".c-header__brand-text");
+
+  if (brandText) {
+    const fullText = brandText.dataset.fullName;
+    let isAnimating = false;
+    const box = brandText.parentElement;
+
+    async function animateBrandText() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      // Start with just "N"
+      brandText.textContent = "N";
+
+      await new Promise((resolve) => setTimeout(resolve, 250));
+
+      // Type out full text (N stays centered, text grows to the right)
+      for (let i = 2; i <= fullText.length; i++) {
+        brandText.textContent = fullText.slice(0, i);
+        await new Promise((resolve) => setTimeout(resolve, 75));
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Delete back to first letter
+      for (let i = fullText.length; i > 1; i--) {
+        brandText.textContent = fullText.slice(0, i - 1);
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+
+      // Draw border
+      box.classList.add("draw-border");
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      isAnimating = false;
+    }
+
+    if (document.referrer) {
+      const referrer = new URL(document.referrer);
+      const window_origin = new URL(window.location.origin);
+
+      // If the user came from the same domain, don't animate the brand text
+      if (referrer.host === window_origin.host) {
+        box.classList.add("no-transition");
+        box.classList.add("draw-border");
+        return;
+      }
+    }
+
+    setTimeout(animateBrandText, 1000);
+  }
+}
+
+function handleMenuButtonAndNav() {
   const menuButton = document.querySelector(".c-header__menu-button");
   const nav = document.querySelector(".c-header__nav");
   const header = document.querySelector(".c-header");
@@ -72,4 +130,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-});
+}

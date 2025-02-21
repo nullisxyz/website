@@ -12,6 +12,8 @@
     border-bottom: 1px solid var(--color-header-border);
     z-index: var(--z-fixed);
     @include transition(transform, background-color, border-color);
+    @include font-family("mono");
+    @include font-size("sm");
 
     &.has-open-nav {
         background: var(--color-background);
@@ -55,10 +57,41 @@
             width: auto;
         }
 
+        &-text-box {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border: 1px solid var(--color-header-border);
+                clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+                transition: clip-path 0.3s ease;
+            }
+
+            &.no-transition::before {
+                transition: none;
+            }
+
+            &.draw-border::before {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            }
+        }
+
         &-text {
+            @include font-size("xl");
             @include font-family("mono");
-            @include font-size("lg");
             font-weight: var(--font-weight-bold);
+            color: var(--color-text);
+            white-space: nowrap;
+            position: absolute;
+            left: 0;
+            padding-left: 14px; // Exactly center 'N' in 40px box
         }
     }
 
@@ -67,6 +100,7 @@
         display: flex;
         align-items: center;
         gap: var(--spacing-md);
+        font-weight: var(--font-weight-bold);
 
         .c-nav__list {
             display: flex;
@@ -160,12 +194,6 @@
                     display: block;
                 }
             }
-        }
-
-        .c-header__link {
-            @include font-family("mono");
-            @include font-size("sm");
-            font-weight: var(--font-weight-bold);
         }
     }
 
