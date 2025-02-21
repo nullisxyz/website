@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+         
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Best practices for designing and implementing microservices architecture." />
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="https://nullis.xyz/favicon.png" />
+<link
+    rel="apple-touch-icon"
+    href="https://nullis.xyz/apple-touch-icon.png"
+/>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+/>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="https://nullis.xyz/style.css" />
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="https://nullis.xyz/solarized-dark.css"
+    media="(prefers-color-scheme: dark)"
+/>
+<link
+    rel="stylesheet"
+    type="text/css"
+    href="https://nullis.xyz/solarized-light.css"
+    media="(prefers-color-scheme: light)"
+/>
+
+<!-- RSS Feed -->
+<link
+    rel="alternate"
+    type="application/atom+xml"
+    title="RSS Feed for Nullis"
+    href="https://nullis.xyz/atom.xml"
+/>
+
+<!-- Open Graph -->
+<meta property="og:title" content="Building Scalable Microservices" />
+<meta property="og:description" content="Best practices for designing and implementing microservices architecture." />
+<meta
+    property="og:type"
+    content="article"
+/>
+<meta property="og:url" content="https:&#x2F;&#x2F;nullis.xyz&#x2F;blog&#x2F;microservices-architecture&#x2F;" />
+
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+
+<meta name="twitter:site" content="@johndoe" />
+<meta name="twitter:creator" content="@johndoe" />
+
+<meta name="twitter:title" content="Building Scalable Microservices" />
+<meta name="twitter:description" content="Best practices for designing and implementing microservices architecture." />
+
+
+<!-- Theme Color -->
+<meta
+    name="theme-color"
+    content="#2b95b8"
+/>
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https:&#x2F;&#x2F;nullis.xyz&#x2F;blog&#x2F;microservices-architecture&#x2F;" />
+ 
+
+        <title>
+              Nullis | Building Scalable Microservices  
+        </title>
+
+        <!-- Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://nullis.xyz/style.css" />
+
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://nullis.xyz/favicon.png"
+        />
+
+        
+    </head>
+    <body
+        class="l-default"
+    >
+        <!-- Skip to main content link for accessibility -->
+        <a href="#main-content" class="skip-link">Skip to main content</a>
+
+        <header class="l-default__header c-header">
+            <div class="c-header__container o-container">
+    <a href="https:&#x2F;&#x2F;nullis.xyz" class="c-header__brand">
+        
+
+        <div class="c-header__brand-text-container">
+            <div class="c-header__brand-text-box">
+                <span class="c-header__brand-text" data-full-name="Nullis"
+                    >N</span
+                >
+            </div>
+        </div>
+    </a>
+
+    <nav class="c-header__nav" aria-label="Main navigation">
+        <ul class="c-nav__list">
+            
+            <li class="c-nav__item">
+                
+                <a
+                    href="&#x2F;about"
+                    class="c-nav__link"
+                >
+                     About
+                </a>
+                
+            </li>
+            
+            <li class="c-nav__item">
+                
+                <a
+                    href="&#x2F;blog"
+                    class="c-nav__link"
+                >
+                     Blog
+                </a>
+                
+            </li>
+            
+            <li class="c-nav__item">
+                
+                <a
+                    href="&#x2F;projects"
+                    class="c-nav__link c-nav__link--primary"
+                >
+                     Projects
+                </a>
+                
+            </li>
+            
+            <li class="c-nav__item">
+                
+                <a
+                    href="&#x2F;contact"
+                    class="c-nav__link"
+                >
+                     Contact
+                </a>
+                
+            </li>
+            
+            <li class="c-nav__item">
+                
+                <a
+                    href="&#x2F;manifesto"
+                    class="c-nav__link"
+                >
+                     Manifesto
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+
+    <div class="c-header__actions">
+        <button class="c-theme-toggle" aria-label="Toggle theme">
+            <span class="c-theme-toggle__icon c-theme-toggle__icon--sun">
+                <svg
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    stroke="currentColor"
+                >
+                    <circle cx="12" cy="12" r="5" />
+                    <path
+                        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                    />
+                </svg>
+            </span>
+            <span class="c-theme-toggle__icon c-theme-toggle__icon--moon">
+                <svg
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    stroke="currentColor"
+                >
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                </svg>
+            </span>
+        </button>
+
+        <button
+            class="c-header__menu-button"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+        >
+            <span class="c-header__menu-button-bar"></span>
+            <span class="c-header__menu-button-bar"></span>
+            <span class="c-header__menu-button-bar"></span>
+        </button>
+    </div>
+</div>
+
+        </header>
+
+        <main id="main-content" class="l-default__main">
+            
+<article class="l-post">
+    <div class="o-container o-container--content">
+        <!-- Header Section -->
+        <header class="s-page-header">
+            <h1 class="s-page-header__title s-page-header__title--gradient">
+                Building Scalable Microservices
+            </h1>
+
+            <div class="l-post__meta">
+                
+                <time datetime="2024-01-10" class="l-post__date">
+                    January 10, 2024
+                </time>
+                 
+                <span class="l-post__read-time">
+                    15 min read
+                </span>
+                 
+                <span class="l-post__difficulty">
+                    Difficulty: Advanced
+                </span>
+                
+            </div>
+            
+            <div class="l-post__categories">
+                
+                <a
+                    href="https://nullis.xyz/categories/architecture/"
+                    class="c-badge c-badge--primary"
+                >
+                    Architecture
+                </a>
+                
+            </div>
+             
+            <div class="l-post__author">
+                
+                <img
+                    src="&#x2F;images&#x2F;avatar.jpg"
+                    alt="John Citizen"
+                    class="l-post__author-avatar"
+                />
+                
+                <div class="l-post__author-info">
+                    <span class="l-post__author-name"
+                        >John Citizen</span
+                    >
+                    
+                    <p class="l-post__author-bio">
+                        Software architect and tech writer
+                    </p>
+                     
+                    <div class="l-post__author-social">
+                        
+                        <a
+                            href="https:&#x2F;&#x2F;twitter.com&#x2F;johndoe"
+                            class="c-button c-button--ghost c-button--sm"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            twitter
+                        </a>
+                        
+                        <a
+                            href="https:&#x2F;&#x2F;github.com&#x2F;johndoe"
+                            class="c-button c-button--ghost c-button--sm"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            github
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+             
+            <div class="l-post__hero">
+                <img
+                    src="https:&#x2F;&#x2F;fakeimg.pl&#x2F;1920x1080"
+                    alt="Building Scalable Microservices"
+                    class="l-post__hero-image"
+                />
+            </div>
+            
+        </header>
+
+        <!-- Content Wrapper (for TOC sidebar) -->
+        <div class="l-post__wrapper">
+            <!-- Main Content Area -->
+            <div class="l-post__main">
+                 
+                <div class="l-post__content c-content">
+                    <h2 id="why-microservices">Why Microservices?</h2>
+<p>Microservices architecture offers several advantages:</p>
+<ul>
+<li>Independent deployability</li>
+<li>Technology flexibility</li>
+<li>Scalability</li>
+<li>Resilience</li>
+</ul>
+<h2 id="key-design-principles">Key Design Principles</h2>
+<ol>
+<li>Single Responsibility</li>
+<li>Domain-Driven Design</li>
+<li>Service Independence</li>
+<li>Data Decentralization</li>
+</ol>
+<p>[Continue with more content...]</p>
+
+                </div>
+                
+                <div class="l-post__meta-links">
+                    
+                    <a
+                        href="https:&#x2F;&#x2F;github.com&#x2F;username&#x2F;microservices-example"
+                        class="c-button c-button--primary"
+                        >GitHub</a
+                    >
+                     
+                    <a
+                        href="https:&#x2F;&#x2F;microservices-demo.example.com"
+                        class="c-button c-button--secondary"
+                        >Live Demo</a
+                    >
+                    
+                </div>
+                 
+                <div class="l-post__resources">
+                    <h2>Additional Resources</h2>
+                    <ul>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;microservices.example.com&#x2F;docs" target="_blank" rel="noopener"
+                                >Documentation</a
+                            >
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;github.com&#x2F;username&#x2F;microservices-example" target="_blank" rel="noopener"
+                                >Github</a
+                            >
+                        </li>
+                        
+                        <li>
+                            <a href="https:&#x2F;&#x2F;speakerdeck.com&#x2F;username&#x2F;microservices" target="_blank" rel="noopener"
+                                >Slides</a
+                            >
+                        </li>
+                        
+                    </ul>
+                </div>
+                
+                <div class="l-post__tags">
+                    
+                    <a
+                        href="https://nullis.xyz/tags/microservices/"
+                        class="c-badge c-badge--secondary"
+                    >
+                        microservices
+                    </a>
+                    
+                    <a
+                        href="https://nullis.xyz/tags/distributed-systems/"
+                        class="c-badge c-badge--secondary"
+                    >
+                        distributed-systems
+                    </a>
+                    
+                    <a
+                        href="https://nullis.xyz/tags/scalability/"
+                        class="c-badge c-badge--secondary"
+                    >
+                        scalability
+                    </a>
+                    
+                </div>
+                
+                <nav class="l-post__navigation">
+                     
+                    <a
+                        href="https:&#x2F;&#x2F;nullis.xyz&#x2F;blog&#x2F;getting-started-with-rust&#x2F;"
+                        class="c-card c-card--interactive"
+                    >
+                        <span>Next</span>
+                        <h4>Getting Started with Rust</h4>
+                    </a>
+                    
+                </nav>
+            </div>
+
+            <!-- Table of Contents Sidebar -->
+            
+            <nav class="l-post__toc">
+                <h2>Table of Contents</h2>
+                <ul>
+                    
+                    <li>
+                        <a href="https://nullis.xyz/blog/microservices-architecture/#why-microservices">Why Microservices?</a>
+                        
+                    </li>
+                    
+                    <li>
+                        <a href="https://nullis.xyz/blog/microservices-architecture/#key-design-principles">Key Design Principles</a>
+                        
+                    </li>
+                    
+                </ul>
+            </nav>
+            
+        </div>
+    </div>
+</article>
+
+
+        </main>
+
+        <footer class="l-default__footer c-footer">
+            <div class="c-footer__wrapper">
+    <div class="c-footer__container">
+        <div class="c-footer__section">
+            <div class="c-footer__brand">
+                
+                <h2 class="c-footer__brand-title">
+                    Nullis
+                </h2>
+            </div>
+             
+            <div class="c-footer__address u-font-mono u-text-sm">
+                123 Main St
+            </div>
+            
+            <div class="c-footer__address u-font-mono u-text-sm">
+                Anytown, USA
+            </div>
+             
+        </div>
+
+         
+        <div class="c-footer__section">
+            
+
+            <h3 class="c-footer__section-title">Quick Links</h3>
+            <ul class="c-footer__links">
+                
+                <li>
+                    <a href="&#x2F;about" class="link-muted"
+                        >About</a
+                    >
+                </li>
+                
+                <li>
+                    <a href="&#x2F;blog" class="link-muted"
+                        >Blog</a
+                    >
+                </li>
+                
+                <li>
+                    <a href="&#x2F;projects" class="link-muted"
+                        >Projects</a
+                    >
+                </li>
+                
+                <li>
+                    <a href="&#x2F;contact" class="link-muted"
+                        >Contact</a
+                    >
+                </li>
+                
+            </ul>
+        </div>
+        
+        <div class="c-footer__section">
+            
+            <h3 class="c-footer__section-title">Connect</h3>
+            <div class="c-footer__social">
+                
+                <a
+                    href="https:&#x2F;&#x2F;github.com&#x2F;nullis"
+                    class="link-muted link-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                
+                <a
+                    href="https:&#x2F;&#x2F;twitter.com&#x2F;nullis"
+                    class="link-muted link-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Twitter"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                </a>
+                
+                <a
+                    href="https:&#x2F;&#x2F;linkedin.com&#x2F;in&#x2F;nullis"
+                    class="link-muted link-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                
+                <a
+                    href="mailto:contact@nullis.xyz"
+                    class="link-muted link-icon"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Email"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+                
+            </div>
+            
+
+            <h3 class="c-footer__section-title">Legal</h3>
+            <ul class="c-footer__links">
+                
+                <li>
+                    <a href="&#x2F;privacy" class="link-muted"
+                        >Privacy Policy</a
+                    >
+                </li>
+                
+                <li>
+                    <a href="&#x2F;terms" class="link-muted"
+                        >Terms of Service</a
+                    >
+                </li>
+                
+            </ul>
+        </div>
+         
+    </div>
+
+    <div class="c-footer__bottom">
+        <div class="c-footer__copyright">
+            &copy; 2025 Nullis. All rights reserved.
+        </div>
+    </div>
+</div>
+
+        </footer>
+
+        
+        <script src="https://nullis.xyz/js/theme.js" defer></script>
+        <script src="https://nullis.xyz/js/main.js" defer></script>
+    </body>
+</html>
